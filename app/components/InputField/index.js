@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types, jsx-a11y/label-has-for */
 import * as React from 'react';
 
-const renderField = ({ input, label, type, meta: {touched, error } }) => (
+const renderField = ({ input, label, type, meta: { touched, error } }) => (
   <div>
     <label>{label}</label>
     <div>
@@ -10,7 +10,5 @@ const renderField = ({ input, label, type, meta: {touched, error } }) => (
     </div>
   </div>
 );
-
-
 
 export default renderField;

@@ -10,14 +10,10 @@ import InputField from 'components/InputField';
 /* eslint-disable react/prop-types, jsx-a11y/label-has-for */
 
 class CreateUserForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  handleForm(data) {
-    console.log(data.toJS());
-  }
-
   render() {
-    const { handleSubmit, pristine, submitting, reset } = this.props;
+    const { handleSubmit, pristine, submitting, reset, sendData } = this.props;
     return (
-      <form onSubmit={handleSubmit(this.handleForm)}>
+      <form onSubmit={handleSubmit(sendData)}>
         <Field name="user" type="text" component={InputField} label="User name" />
         <Field name="email" type="email" component={InputField} label="Email" />
         <Field name="password" type="password" component={InputField} label="Password" />

@@ -15,13 +15,16 @@ import { FormattedMessage } from 'react-intl';
 import CreateUserForm from 'components/CreateUserForm';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { CREATE_USER } from './constants';
+import LoginForm from 'components/LoginForm';
+import { CREATE_USER, LOGIN_USER } from './constants';
 import messages from './messages';
+import { makeSelectUser } from './selectors';
 
 class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.sendData = this.sendData.bind(this);
+    this.login = this.login.bind(this);
   }
 
   sendData(data) {
@@ -29,13 +32,22 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
     this.props.onSubmit(data);
   }
 
+  login(data) {
+    this.props.onLogin(data);
+  }
+
   render() {
+    const { user } = this.props;
+    console.log(user);
     return (
       <div>
         <h1>
           <FormattedMessage {...messages.header} />
         </h1>
         <CreateUserForm sendData={this.sendData} />
+        LOGIN:
+        <LoginForm sendData={this.login} />
+        {user && <span>{user.id}</span>}
       </div>
     );
   }
@@ -44,10 +56,12 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
 function mapDispatchToProps(dispatch) {
   return {
     onSubmit: (data) => dispatch({ type: CREATE_USER, user: data }),
+    onLogin: (data) => dispatch({ type: LOGIN_USER, user: data }),
   };
 }
 
 const mapStateToProps = createStructuredSelector({
+  user: makeSelectUser(),
 });
 
 // Wrap the component to inject dispatch and state into it

@@ -21,6 +21,7 @@ class CreateUserForm extends React.Component { // eslint-disable-line react/pref
       reset,
       sendData,
       createUserError } = this.props;
+
     return (
       <Form>
         <form onSubmit={handleSubmit(sendData)}>

@@ -41,7 +41,7 @@ InputField.propTypes = {
   type: PropTypes.string,
   meta: PropTypes.object.isRequired,
   input: PropTypes.object.isRequired,
-  serverError: PropTypes.object,
+  serverError: PropTypes.array,
 };
 
 

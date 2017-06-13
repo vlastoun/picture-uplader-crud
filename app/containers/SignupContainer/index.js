@@ -4,7 +4,7 @@ import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import CreateUserForm from 'components/CreateUserForm';
 import { CREATE_USER } from './constants';
-import { makeSelectUser } from './selectors';
+import { makeSelectUser, makeSelectError } from './selectors';
 /* eslint-disable no-console */
 class SignupContainer extends React.Component {
   constructor(props) {
@@ -19,11 +19,16 @@ class SignupContainer extends React.Component {
   render() {
     return (
       <div>
-        <CreateUserForm sendData={this.sendData} />
+        <CreateUserForm sendData={this.sendData} createUserError={this.props.error} />
       </div>
     );
   }
 }
+
+SignupContainer.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  error: PropTypes.object,
+};
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -31,12 +36,9 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-SignupContainer.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
-
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
+  error: makeSelectError(),
 });
 // Wrap the component to inject dispatch and state into it
 export default connect(mapStateToProps, mapDispatchToProps)(SignupContainer);

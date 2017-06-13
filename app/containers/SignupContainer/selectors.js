@@ -11,7 +11,13 @@ const makeSelectUser = () => createSelector(
   (homeState) => homeState.get('user')
 );
 
+const makeSelectError = () => createSelector(
+  selectHome,
+  (homeState) => homeState.get('error')
+);
+
 export {
   selectHome,
   makeSelectUser,
+  makeSelectError,
 };

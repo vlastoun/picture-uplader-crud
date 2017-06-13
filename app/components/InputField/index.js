@@ -13,7 +13,7 @@ const Container = styled.div`
 /* eslint-disable react/prefer-stateless-function*/
 class InputField extends React.Component {
   render() {
-    const { input, label, type, meta: { touched, error, warning, active } } = this.props;
+    const { input, label, type, serverError, meta: { touched, warning, active, error } } = this.props;
     return (
       <Container>
         {input.value
@@ -22,13 +22,13 @@ class InputField extends React.Component {
         }
         <Input
           {...input}
-          error={error}
+          error={serverError || error}
           warning={warning}
           placeholder={label}
           type={type}
         />
 
-        {touched && ((error && <ErrorMessage>{error}</ErrorMessage>)
+        {touched && (((error || serverError) && <ErrorMessage>{error || serverError}</ErrorMessage>)
           || (warning && <ErrorMessage>{warning}</ErrorMessage>))}
       </Container>
     );
@@ -41,6 +41,7 @@ InputField.propTypes = {
   type: PropTypes.string,
   meta: PropTypes.object.isRequired,
   input: PropTypes.object.isRequired,
+  serverError: PropTypes.object,
 };
 
 

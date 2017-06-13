@@ -5,6 +5,7 @@
 */
 import { Field, reduxForm } from 'redux-form/immutable'; // <--- immutable import
 import React from 'react';
+import PropTypes from 'prop-types';
 import InputField from 'components/InputField';
 import Form from 'components/Form';
 import Button from 'components/Button';
@@ -13,13 +14,19 @@ import Button from 'components/Button';
 
 class CreateUserForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { handleSubmit, pristine, submitting, reset, sendData } = this.props;
+    const {
+      handleSubmit,
+      pristine,
+      submitting,
+      reset,
+      sendData,
+      createUserError } = this.props;
     return (
       <Form>
         <form onSubmit={handleSubmit(sendData)}>
-          <Field name="user" type="text" component={InputField} label="User name" />
-          <Field name="email" type="email" component={InputField} label="Email" />
-          <Field name="password" type="password" component={InputField} label="Password" />
+          <Field name="username" type="text" component={InputField} label="User name" serverError={createUserError.username} />
+          <Field name="email" type="email" component={InputField} label="Email" serverError={createUserError.email} />
+          <Field name="password" type="password" component={InputField} label="Password" serverError={createUserError.password} />
           <div>
             <Button type="submit" disabled={submitting}>Submit</Button>
             <Button type="button" disabled={pristine || submitting} onClick={reset} secondary>
@@ -33,7 +40,7 @@ class CreateUserForm extends React.Component { // eslint-disable-line react/pref
 }
 
 CreateUserForm.propTypes = {
-
+  createUserError: PropTypes.object,
 };
 
 export default reduxForm({

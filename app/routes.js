@@ -30,14 +30,51 @@ export default function createRoutes(store) {
         const renderRoute = loadModule(cb);
 
         importModules.then(([reducer, sagas, component]) => {
-          injectReducer('home', reducer.default);
-          renderRoute(component);
+          injectReducer('homepage', reducer.default);
           injectSagas(sagas.default);
+          renderRoute(component);
         });
 
         importModules.catch(errorLoading);
       },
-    }, {
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/AdminPage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([component]) => {
+          renderRoute(component);
+        });
+        importModules.catch(errorLoading);
+      },
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/SignupContainer'),
+          import('containers/SignupContainer/reducer'),
+          import('containers/HomePage/sagas'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([component, reducer, sagas]) => {
+          injectReducer('signup', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+        importModules.catch(errorLoading);
+      },
+    },
+    {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

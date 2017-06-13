@@ -9,6 +9,7 @@ const FileButton = styled.span`
   height: 36px;
   margin: 0;
   min-width: 64px;
+  width: 150px;
   padding: 0 16px;
   display: inline-block;
   font-family: "Roboto","Helvetica","Arial",sans-serif;

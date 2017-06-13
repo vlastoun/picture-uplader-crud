@@ -3,9 +3,17 @@ import axios from 'axios';
 import FileButton from './FileButton';
 import Input from './Input';
 import Thumbnail from './Thumbnail';
+import Img from './Img';
 
 /* eslint-disable react/prefer-stateless-function */
+/* eslint-disable no-console */
 class UploadPicture extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      thumbnail: '',
+    };
+  }
 
   handleImageChange(e) {
     const formData = new FormData();
@@ -18,14 +26,19 @@ class UploadPicture extends React.Component {
       'Content-Type': 'multipart/form-data',
     } };
     axios.post(url, formData, config)
-    .then((response) => this.setState({ thumbnail: response.data.status[0].urlThumbnail }));
+    .then((response) => this.setState({ thumbnail: response.data.status[0].urlThumbnail }))
+    .then((console.log(this.state.thumbnail)));
   }
 
   render() {
     return (
       <div>
         <form>
-          <Thumbnail>test</Thumbnail>
+          <Thumbnail>{
+            this.state.thumbnail === ''
+              ? <div>upload Image</div>
+              : <Img src={this.state.thumbnail} />
+            }</Thumbnail>
           <FileButton>test<Input
             type="file"
             onChange={(e) => this.handleImageChange(e)}

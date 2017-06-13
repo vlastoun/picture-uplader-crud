@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
+import CreateUserForm from 'components/CreateUserForm';
 import { CREATE_USER } from './constants';
 import { makeSelectUser } from './selectors';
 /* eslint-disable no-console */
@@ -12,14 +13,13 @@ class SignupContainer extends React.Component {
   }
 
   sendData(data) {
-    console.log('pred poslanim', data.toJS());
     this.props.onSubmit(data);
   }
 
   render() {
     return (
       <div>
-        Sign up container
+        <CreateUserForm sendData={this.sendData} />
       </div>
     );
   }

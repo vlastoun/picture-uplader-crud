@@ -12,14 +12,11 @@
 /* eslint-disable import/first */
 /* eslint-disable no-console */
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import CreateUserForm from 'components/CreateUserForm';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import LoginForm from 'components/LoginForm';
-import { CREATE_USER, LOGIN_USER } from './constants';
-import messages from './messages';
 import { makeSelectUser } from './selectors';
+import { LOGIN_USER } from './constants';
 import UploadPicture from 'components/UploadPicture';
 
 class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -27,11 +24,6 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
     super(props);
     this.sendData = this.sendData.bind(this);
     this.login = this.login.bind(this);
-  }
-
-  sendData(data) {
-    console.log('pred poslanim', data.toJS());
-    this.props.onSubmit(data);
   }
 
   login(data) {
@@ -43,11 +35,6 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
     console.log(user);
     return (
       <div>
-        <h1>
-          <FormattedMessage {...messages.header} />
-        </h1>
-        <CreateUserForm sendData={this.sendData} />
-        LOGIN:
         <LoginForm sendData={this.login} />
         {user && <span>{user.id}</span>}
         <span>Upload picture</span>
@@ -59,7 +46,6 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSubmit: (data) => dispatch({ type: CREATE_USER, user: data }),
     onLogin: (data) => dispatch({ type: LOGIN_USER, user: data }),
   };
 }

@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 
 const Button = styled.button`
-  background: ${(props) => props.theme.primaryColor} ;
+  background: ${
+    (props) =>
+    props.secondary
+    ? props.theme.blue
+    : props.theme.primaryColor
+  } ;
   border: none;
   border-radius: 2px;
   color: white;

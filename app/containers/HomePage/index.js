@@ -9,7 +9,8 @@
  * the linting exception.
  */
 /* eslint-disable react/prop-types, jsx-a11y/label-has-for */
-
+/* eslint-disable import/first */
+/* eslint-disable no-console */
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import CreateUserForm from 'components/CreateUserForm';
@@ -19,6 +20,7 @@ import LoginForm from 'components/LoginForm';
 import { CREATE_USER, LOGIN_USER } from './constants';
 import messages from './messages';
 import { makeSelectUser } from './selectors';
+import UploadPicture from 'components/UploadPicture';
 
 class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -48,6 +50,8 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
         LOGIN:
         <LoginForm sendData={this.login} />
         {user && <span>{user.id}</span>}
+        <span>Upload picture</span>
+        <UploadPicture />
       </div>
     );
   }

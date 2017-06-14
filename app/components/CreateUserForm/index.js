@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import InputField from 'components/InputField';
 import Form from 'components/Form';
 import Button from 'components/Button';
+import asyncValidate from './asyncValidate';
 // import styled from 'styled-components';
 /* eslint-disable react/prop-types, jsx-a11y/label-has-for */
 
@@ -46,4 +47,6 @@ CreateUserForm.propTypes = {
 
 export default reduxForm({
   form: 'createUserForm', // a unique identifier for this form
+  asyncValidate,
+  asyncBlurFields: ['username'],
 })(CreateUserForm);

@@ -48,5 +48,5 @@ CreateUserForm.propTypes = {
 export default reduxForm({
   form: 'createUserForm', // a unique identifier for this form
   asyncValidate,
-  asyncBlurFields: ['username'],
+  asyncBlurFields: ['username', 'email'],
 })(CreateUserForm);

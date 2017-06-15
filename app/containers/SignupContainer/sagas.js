@@ -1,14 +1,14 @@
 import { take, call, cancel, takeLatest, put } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import axios from 'axios';
-import { CREATE_USER, CREATE_USER_FAILED } from './constants';
+import { CREATE_USER, CREATE_USER_FAILED, CREATE_USER_SUCCESSFUL } from './constants';
 
 export function* postUser(action) {
   const user = action.user.toJS();
   const URL = 'http://localhost:8080/api/users';
   try {
     const response = yield call(axios.post, URL, user);
-    console.log(response);
+    yield put({ type: CREATE_USER_SUCCESSFUL, data: response.data });
   } catch (err) {
     yield put({ type: CREATE_USER_FAILED, message: err.response.data.error.details.messages });
   }

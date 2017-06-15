@@ -5,6 +5,10 @@ const validate = (input) => {
     errors.username = 'Required';
   } else if (values.username.length > 15) {
     errors.username = 'Must be 15 characters or less';
+  } else if (values.username.length < 3) {
+    errors.username = 'Must be 3 characters or more';
+  } else if (!/^[a-zA-Zá-žÁ-Ž0-9_-]{3,15}$/i.test(values.username)) {
+    errors.username = 'The password contains forbidden characters';
   }
   if (!values.email) {
     errors.email = 'Required';
@@ -13,6 +17,8 @@ const validate = (input) => {
   }
   if (!values.password) {
     errors.password = 'Required';
+  } else if (values.password.length < 5) {
+    errors.password = 'Password too short';
   }
   if (values.password !== values.passwordConfirm) {
     errors.passwordConfirm = 'Passwords do not match';

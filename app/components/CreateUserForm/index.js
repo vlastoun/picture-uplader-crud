@@ -10,6 +10,7 @@ import InputField from 'components/InputField';
 import Form from 'components/Form';
 import Button from 'components/Button';
 import asyncValidate from './asyncValidate';
+import validate from './validate';
 // import styled from 'styled-components';
 /* eslint-disable react/prop-types, jsx-a11y/label-has-for */
 
@@ -29,6 +30,7 @@ class CreateUserForm extends React.Component { // eslint-disable-line react/pref
           <Field name="username" type="text" component={InputField} label="User name" serverError={createUserError.username} />
           <Field name="email" type="email" component={InputField} label="Email" serverError={createUserError.email} />
           <Field name="password" type="password" component={InputField} label="Password" serverError={createUserError.password} />
+          <Field name="passwordConfirm" type="password" component={InputField} label="Password confirmation" />
           <div>
             <Button type="submit" disabled={submitting}>Submit</Button>
             <Button type="button" disabled={pristine || submitting} onClick={reset} secondary>
@@ -47,6 +49,7 @@ CreateUserForm.propTypes = {
 
 export default reduxForm({
   form: 'createUserForm', // a unique identifier for this form
+  validate,
   asyncValidate,
   asyncBlurFields: ['username', 'email'],
 })(CreateUserForm);

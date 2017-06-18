@@ -58,8 +58,8 @@ export default function createRoutes(store) {
         });
         importModules.catch(errorLoading);
       },
-      childRoutes: [
-            {
+    },
+    {
           path: '/admin/signup',
           name: 'signup',
           getComponent(nextState, cb) {
@@ -78,8 +78,7 @@ export default function createRoutes(store) {
             });
             importModules.catch(errorLoading);
           },
-        }
-        , 
+      }, 
       {
       path: '/admin/login',
       name: 'login',
@@ -99,8 +98,6 @@ export default function createRoutes(store) {
         });
         importModules.catch(errorLoading);
       },
-      }
-      ],
     },
     {
       path: '*',

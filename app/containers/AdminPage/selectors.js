@@ -9,7 +9,7 @@ const makeSelectUser = () => createSelector(
 
 const getAuthState = () => createSelector(
   selectHome,
-  (homeState) => homeState.get('user')
+  (homeState) => homeState.get('isAuth')
 );
 
 export {

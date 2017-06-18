@@ -3,11 +3,13 @@ import { LOCATION_CHANGE, push } from 'react-router-redux';
 import { USER_LOGOUT } from './constants';
 
 export function* logout() {
-  yield call(localStorage.removeItem('token'));
-}
-
-export function* redirect() {
-  yield put(push('/login'));
+  try {
+    yield call(localStorage.removeItem('token'));
+    yield call(localStorage.removeItem('userId'));
+  } catch (e) {
+    console.log('error');
+  }
+  yield put(push('/admin/login'));
 }
 
 export function* adminWatcher() {

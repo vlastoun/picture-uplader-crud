@@ -1,30 +1,44 @@
 import React from 'react';
+import PropType from 'prop-types';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import { createStructuredSelector } from 'reselect';
 
+import AdminDashboard from 'components/AdminDashboard';
+import { USER_LOGOUT } from './constants';
 import { makeSelectUser, getAuthState } from './selectors';
 /* eslint-disable react/prefer-stateless-function */
 class AdminPage extends React.Component {
   componentWillMount() {
-
+    if (!this.props.authorized) {
+      this.props.redirect();
+    }
   }
-
   render() {
     return (
       <div>
-        <h1>TEST</h1>
+        {
+          !this.props.authorized
+          ? <h2>UNAUTORIZED</h2>
+          : <AdminDashboard
+            logout={this.props.logout}
+            /> // eslint-disable-line
+        }
       </div>
     );
   }
 }
 
 AdminPage.propTypes = {
-
+  logout: PropType.func.isRequired,
+  redirect: PropType.func.isRequired,
+  authorized: PropType.bool.isRequired,
 };
 
 function mapDispatchToProps(dispatch) { // eslint-disable-line
   return {
-
+    logout: () => dispatch({ type: USER_LOGOUT }),
+    redirect: () => dispatch(push('/admin/login')),
   };
 }
 

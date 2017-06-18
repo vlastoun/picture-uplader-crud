@@ -18,7 +18,7 @@ export function* postUser(action) {
 }
 
 export function* redirect() {
-  yield put(push('/login'));
+  yield put(push('/admin/login'));
 }
 
 export function* userWatcher() {

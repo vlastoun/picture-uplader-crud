@@ -39,22 +39,6 @@ export default function createRoutes(store) {
       },
     },
     {
-      path: '/admin',
-      name: 'admin',
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          import('containers/AdminPage'),
-        ]);
-
-        const renderRoute = loadModule(cb);
-
-        importModules.then(([component]) => {
-          renderRoute(component);
-        });
-        importModules.catch(errorLoading);
-      },
-    },
-    {
       path: '/signup',
       name: 'signup',
       getComponent(nextState, cb) {
@@ -75,19 +59,19 @@ export default function createRoutes(store) {
       },
     },
     {
-      path: '/signup',
-      name: 'signup',
+      path: '/login',
+      name: 'login',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          import('containers/SignupContainer'),
-          import('containers/SignupContainer/reducer'),
-          import('containers/SignupContainer/sagas'),
+          import('containers/LoginContainer'),
+          import('containers/LoginContainer/reducer'),
+          import('containers/LoginContainer/sagas'),
         ]);
 
         const renderRoute = loadModule(cb);
 
         importModules.then(([component, reducer, sagas]) => {
-          injectReducer('signup', reducer.default);
+          injectReducer('login', reducer.default);
           injectSagas(sagas.default);
           renderRoute(component);
         });

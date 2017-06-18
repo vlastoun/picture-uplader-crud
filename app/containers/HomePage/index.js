@@ -14,9 +14,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import LoginForm from 'components/LoginForm';
-import { makeSelectUser } from './selectors';
-import { LOGIN_USER } from './constants';
 import UploadPicture from 'components/UploadPicture';
 
 class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -35,23 +32,20 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
     console.log(user);
     return (
       <div>
-        <LoginForm sendData={this.login} />
-        {user && <span>{user.id}</span>}
-        <span>Upload picture</span>
         <UploadPicture />
       </div>
     );
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) { // eslint-disable-line
   return {
-    onLogin: (data) => dispatch({ type: LOGIN_USER, user: data }),
+
   };
 }
 
 const mapStateToProps = createStructuredSelector({
-  user: makeSelectUser(),
+
 });
 
 // Wrap the component to inject dispatch and state into it

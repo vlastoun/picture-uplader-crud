@@ -1,8 +1,6 @@
 import { fromJS } from 'immutable';
 
-import {
-  CREATE_USER_SUCCESSFUL,
-} from 'containers/SignupContainer/constants';
+import { USER_STORE } from 'containers/LoginContainer/constants';
 
 // The initial state of the App
 const initialState = fromJS({
@@ -11,9 +9,9 @@ const initialState = fromJS({
 
 function global(state = initialState, action) {
   switch (action.type) {
-    case CREATE_USER_SUCCESSFUL:
+    case USER_STORE:
       return state
-        .set('user', action.data);
+        .set('user', action.user);
     default:
       return state;
   }

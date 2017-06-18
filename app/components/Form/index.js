@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Form = styled.div`
-  margin: 0px auto;
+  margin: 20px auto;
   width: 61%;
   padding: 15px;
   vertical-align: middle;

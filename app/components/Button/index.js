@@ -12,7 +12,8 @@ const Button = styled.button`
   color: white;
   position: relative;
   height: 36px;
-  margin: 0;
+  margin-left: 3px;
+  margin-right: 3px;
   min-width: 64px;
   padding: 0 16px;
   display: inline-block;

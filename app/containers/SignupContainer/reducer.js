@@ -1,7 +1,6 @@
 import { fromJS } from 'immutable';
 
 import {
-  STORE_USER,
   CREATE_USER_FAILED,
 } from './constants';
 
@@ -12,9 +11,6 @@ const initialState = fromJS({
 
 function signupReducer(state = initialState, action) {
   switch (action.type) {
-    case STORE_USER:
-      return state
-        .set('user', action.user);
     case CREATE_USER_FAILED:
       return state
         .set('error', action.message);

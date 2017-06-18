@@ -2,6 +2,9 @@
 // They are all wrapped in the App component, which should contain the navbar etc
 // See http://blog.mxstbr.com/2016/01/react-apps-with-pages for more information
 // about the code splitting business
+
+/* eslint-disable */
+
 import { getAsyncInjectors } from 'utils/asyncInjectors';
 
 const errorLoading = (err) => {
@@ -39,27 +42,46 @@ export default function createRoutes(store) {
       },
     },
     {
-      path: '/signup',
-      name: 'signup',
+      path: '/admin',
+      name: 'admin',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          import('containers/SignupContainer'),
-          import('containers/SignupContainer/reducer'),
-          import('containers/SignupContainer/sagas'),
+          import('containers/AdminPage/reducer'),
+          import('containers/AdminPage/sagas'),
+          import('containers/AdminPage'),
         ]);
-
         const renderRoute = loadModule(cb);
-
-        importModules.then(([component, reducer, sagas]) => {
-          injectReducer('signup', reducer.default);
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('admin', reducer.default);
           injectSagas(sagas.default);
           renderRoute(component);
         });
         importModules.catch(errorLoading);
       },
-    },
-    {
-      path: '/login',
+      childRoutes: [
+            {
+          path: '/admin/signup',
+          name: 'signup',
+          getComponent(nextState, cb) {
+            const importModules = Promise.all([
+              import('containers/SignupContainer'),
+              import('containers/SignupContainer/reducer'),
+              import('containers/SignupContainer/sagas'),
+            ]);
+
+            const renderRoute = loadModule(cb);
+
+            importModules.then(([component, reducer, sagas]) => {
+              injectReducer('signup', reducer.default);
+              injectSagas(sagas.default);
+              renderRoute(component);
+            });
+            importModules.catch(errorLoading);
+          },
+        }
+        , 
+      {
+      path: '/admin/login',
       name: 'login',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
@@ -77,22 +99,8 @@ export default function createRoutes(store) {
         });
         importModules.catch(errorLoading);
       },
-    },
-    {
-      path: '/admin',
-      name: 'admin',
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          import('containers/AdminPage'),
-        ]);
-
-        const renderRoute = loadModule(cb);
-
-        importModules.then(([component]) => {
-          renderRoute(component);
-        });
-        importModules.catch(errorLoading);
-      },
+      }
+      ],
     },
     {
       path: '*',

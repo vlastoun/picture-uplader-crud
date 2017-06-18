@@ -1,1 +1,2 @@
-export const USER_LOGOUT = 'Admin/USER_LOGOUT';
+export const USER_LOGOUT_REQUEST = 'Admin/USER_LOGOUT_REQUEST';
+export const USER_LOGOUT = 'Admin/USER_LOGOUT_REQUEST';

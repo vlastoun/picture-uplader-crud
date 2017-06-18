@@ -2,10 +2,20 @@ import styled from 'styled-components';
 
 const Form = styled.div`
   margin: 20px auto;
-  width: 61%;
+  width: ${
+    (props) =>
+    props.mainPage
+    ? '90%'
+    : '61%'
+  } ;
   padding: 15px;
   vertical-align: middle;
-  max-width: 300px;
+  max-width: ${
+    (props) =>
+    props.mainPage
+    ? '1200px'
+    : '300px'
+  } ;
   color: rgba(0, 0, 0, 0.870588);
   background-color: rgb(255, 255, 255);
   transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;

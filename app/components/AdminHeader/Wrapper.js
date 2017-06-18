@@ -2,7 +2,9 @@ import styled from 'styled-components';
 
 const Wrapper = styled.ul`
   list-style-type: none;
-  margin: 0;
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
   padding: 0;
   overflow: hidden;
   background-color: ${

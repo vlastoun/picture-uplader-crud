@@ -79,6 +79,22 @@ export default function createRoutes(store) {
       },
     },
     {
+      path: '/admin',
+      name: 'admin',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/AdminPage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([component]) => {
+          renderRoute(component);
+        });
+        importModules.catch(errorLoading);
+      },
+    },
+    {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

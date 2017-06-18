@@ -9,6 +9,8 @@ export function* loginUser(action) {
   try {
     const response = yield call(axios.post, URL, user);
     yield put({ type: USER_STORE, user: response.data });
+    localStorage.setItem('token', `${response.data.id}`);
+    localStorage.setItem('userId', `${response.data.userId}`);
   } catch (err) {
     yield put({ type: USER_LOGIN_FAILED, error: 'Wrong password or username' });
   }

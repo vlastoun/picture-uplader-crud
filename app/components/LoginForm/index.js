@@ -17,6 +17,7 @@ class LoginForm extends React.Component { // eslint-disable-line react/prefer-st
     const { sendData, handleSubmit, pristine, submitting, reset } = this.props;
     return (
       <form onSubmit={handleSubmit(sendData)}>
+        <h1>{process.env.NODE_ENV}</h1>
         <Field name="email" type="email" component={InputField} label="Email" />
         <Field name="password" type="password" component={InputField} label="Password" />
         <div>

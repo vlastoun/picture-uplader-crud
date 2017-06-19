@@ -4,6 +4,7 @@
 
 const path = require('path');
 const webpack = require('webpack');
+require('dotenv').config(); //eslint-disable-line
 
 module.exports = (options) => ({
   entry: options.entry,
@@ -72,6 +73,9 @@ module.exports = (options) => ({
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        CLOUDI_NAME: JSON.stringify(process.env.CLOUDI_NAME),
+        CLOUDI_PRESET: JSON.stringify(process.env.CLOUDI_PRESET),
+        API_KEY: JSON.stringify(process.env.API_KEY),
       },
     }),
     new webpack.NamedModulesPlugin(),

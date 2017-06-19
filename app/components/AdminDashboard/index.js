@@ -9,9 +9,9 @@ const SCRIPT_URL = '//widget.cloudinary.com/global/all.js';
 class DashBoard extends React.Component {
   uploadWidget() {
     cloudinary.openUploadWidget({//eslint-disable-line
-      cloud_name: 'CLOUDI_NAME',
-      upload_preset: 'CLOUDI_PRESET',
-      api_key: 'API_KEY',
+      cloud_name: process.env.CLOUDI_NAME,
+      upload_preset: process.env.CLOUDI_PRESET,
+      api_key: process.env.API_KEY,
     },
       (error, result) => {
           console.log(result);//eslint-disable-line

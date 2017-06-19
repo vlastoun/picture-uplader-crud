@@ -2,7 +2,7 @@
 
 function resolveHost() {
   if (process.env.NODE_ENV !== 'development') {
-    return 'https://picture-uploader-server.herokuapp.com/';
+    return 'http://picture-uploader-server.herokuapp.com/';
   }
   return 'http://localhost:8080/';
 }

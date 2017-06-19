@@ -1,7 +1,7 @@
 import { take, call, cancel, takeLatest, put } from 'redux-saga/effects';
 import { LOCATION_CHANGE, push } from 'react-router-redux';
 import axios from 'axios';
-import { HOST } from 'constants';
+import { HOST } from 'constants/host';
 import { USER_LOGIN, USER_STORE, USER_LOGIN_FAILED } from './constants';
 
 export function* loginUser(action) {

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { HOST } from 'constants';
+import { HOST } from 'constants/host';
 
 const getEmailAndUsername = (userdata) => new Promise((resolve) => {
   const usernameURL = `${HOST}api/users/count?where={%22username%22:%22${userdata.username}%22}`;

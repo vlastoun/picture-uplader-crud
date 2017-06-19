@@ -10,6 +10,7 @@ import { makeSelectUser, getAuthState } from './selectors';
 /* eslint-disable react/prefer-stateless-function */
 class AdminPage extends React.Component {
   componentWillMount() {
+    console.log(process.env.NODE_ENV); //eslint-disable-line
     if (!this.props.authorized) {
       this.props.redirect();
     }

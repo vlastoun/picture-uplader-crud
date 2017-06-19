@@ -3,16 +3,15 @@ import PropTypes from 'prop-types';
 import AdminHeader from 'components/AdminHeader';
 import Form from 'components/Form';
 import Script from 'react-load-script';
-import { CLOUDI_PRESET, CLOUDI_NAME, API_KEY } from './../../../keys';
 
 const SCRIPT_URL = '//widget.cloudinary.com/global/all.js';
 /* eslint-disable react/prefer-stateless-function */
 class DashBoard extends React.Component {
   uploadWidget() {
     cloudinary.openUploadWidget({//eslint-disable-line
-      cloud_name: CLOUDI_NAME,
-      upload_preset: CLOUDI_PRESET,
-      api_key: API_KEY,
+      cloud_name: 'CLOUDI_NAME',
+      upload_preset: 'CLOUDI_PRESET',
+      api_key: 'API_KEY',
     },
       (error, result) => {
           console.log(result);//eslint-disable-line

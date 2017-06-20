@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import InputField from 'components/InputField';
 import Button from 'components/Button';
 import validate from './validate';
+import asyncValidate from './asyncValidate';
 /* eslint-disable jsx-a11y/label-has-for */
 
 class CategoriesForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -55,4 +56,6 @@ CategoriesForm.propTypes = {
 export default reduxForm({
   form: 'CategoriesForm', // a unique identifier for this form
   validate,
+  asyncValidate,
+  asyncBlurFields: ['name'],
 })(CategoriesForm);

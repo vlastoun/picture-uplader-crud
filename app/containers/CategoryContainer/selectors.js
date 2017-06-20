@@ -21,7 +21,12 @@ const makeSelectCategories = () => createSelector(
   (homeState) => homeState.get('categories')
 );
 
+const makeSelectShowDetails = () => createSelector(
+  selectCategory,
+  (homeState) => homeState.get('expandDetails')
+);
 export {
+  makeSelectShowDetails,
   makeSelectCategories,
   selectCategory,
   makeSelectError,

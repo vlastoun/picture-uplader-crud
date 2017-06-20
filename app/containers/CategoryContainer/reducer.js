@@ -9,12 +9,14 @@ import {
   FETCH_CATEGORIES,
   FETCH_CATEGORIES_FAILED,
   FETCH_CATEGORIES_SUCCESS,
+  SHOW_HIDE,
 } from './constants';
 
 // The initial state of the App
 const initialState = fromJS({
   error: { name: null, fetching: null },
   loading: false,
+  expandDetails: false,
   fetchLoading: false,
   categories: [],
   categoryEdit: false,
@@ -53,6 +55,9 @@ function categoryReducer(state = initialState, action) {
     case FETCH_CATEGORIES_FAILED:
       return state
         .setIn(['error', 'fetching'], action.message);
+    case SHOW_HIDE:
+      return state
+        .set('expandDetails', action.expandDetails);
     default:
       return state;
   }

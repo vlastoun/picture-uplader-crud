@@ -9,3 +9,5 @@ export const STORE_CATEGORY = 'Category/STORE_CATEGORY';
 export const FETCH_CATEGORIES = 'Category/FETCH_CATEGORIES';
 export const FETCH_CATEGORIES_FAILED = 'Category/FETCH_CATEGORIES_FAILED';
 export const FETCH_CATEGORIES_SUCCESS = 'Category/FETCH_CATEGORIES_SUCCESS';
+
+export const SHOW_HIDE = 'Category/SHOW_HIDE';

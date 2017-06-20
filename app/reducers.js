@@ -8,7 +8,7 @@ import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { reducer as formReducer } from 'redux-form/immutable'; // <--- immutable import
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
-import { CREATE_CATEGORY_SUCCESSFUL } from 'containers/CategoryContainer/constants';
+import { CREATE_CATEGORY_SUCCESSFUL, CLOSE_CATEGORY } from 'containers/CategoryContainer/constants';
 
 /*
  * routeReducer
@@ -49,6 +49,8 @@ export default function createReducer(asyncReducers) {
       CategoriesForm: (state, action) => {
         switch (action.type) {
           case CREATE_CATEGORY_SUCCESSFUL:
+            return undefined;
+          case CLOSE_CATEGORY:
             return undefined;
           default:
             return state;

@@ -4,40 +4,54 @@ import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import CategoriesForm from 'components/CategoriesForm';
 import Button from 'components/Button';
-import { makeSelectCategoryEdit, makeSelectError, makeSelectCategories } from './selectors';
+import CategoriesList from 'components/CategoriesList';
+
+import {
+  makeSelectCategoryEdit,
+  makeSelectError,
+  makeSelectCategories,
+  makeSelectShowDetails,
+} from './selectors';
+
 import { CLOSE_CATEGORY,
   CREATE_CATEGORY,
   CREATE_CATEGORY_REQUEST,
   FETCH_CATEGORIES,
+  SHOW_HIDE,
  } from './constants';
+
+
 /* eslint-disable no-console */
 /* eslint-disable react/prefer-stateless-function*/
 class SignupContainer extends React.Component {
   constructor(props) {
     super(props);
     this.sendData = this.sendData.bind(this);
-    this.fetchData = this.fetchData.bind(this);
-  }
-  componentWillMount() {
-    this.fetchData();
+    this.showHide = this.showHide.bind(this);
   }
   sendData(data) {
     this.props.onSubmit(data);
   }
 
-  fetchData() {
-    this.props.fetchCategories();
+  showHide() {
+    this.props.showHide(this.props.expandDetails);
   }
 
   render() {
     return (
       <div>
         <Button onClick={this.props.newCategory}>New category</Button>
+        <Button onClick={this.showHide}>Show/Hide categories</Button>
         <CategoriesForm
           visibilityState={this.props.categoryEdit}
           close={this.props.close}
           sendData={this.sendData}
           categoriesError={this.props.error}
+        />
+        <CategoriesList
+          items={this.props.categories} //eslint-disable-line
+          fetch={this.props.fetchCategories}
+          visibilityState={this.props.expandDetails}
         />
       </div>
     );
@@ -51,6 +65,8 @@ SignupContainer.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   error: PropTypes.object.isRequired,
   fetchCategories: PropTypes.func.isRequired,
+  expandDetails: PropTypes.bool.isRequired,
+  showHide: PropTypes.func.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -59,6 +75,7 @@ function mapDispatchToProps(dispatch) {
     newCategory: () => dispatch({ type: CREATE_CATEGORY }),
     onSubmit: (data) => dispatch({ type: CREATE_CATEGORY_REQUEST, category: data }),
     fetchCategories: () => dispatch({ type: FETCH_CATEGORIES }),
+    showHide: (state) => dispatch({ type: SHOW_HIDE, expandDetails: !state }),
   };
 }
 
@@ -66,6 +83,7 @@ const mapStateToProps = createStructuredSelector({
   categoryEdit: makeSelectCategoryEdit(),
   error: makeSelectError(),
   categories: makeSelectCategories(),
+  expandDetails: makeSelectShowDetails(),
 });
 // Wrap the component to inject dispatch and state into it
 export default connect(mapStateToProps, mapDispatchToProps)(SignupContainer);

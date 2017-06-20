@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import CategoriesForm from 'components/CategoriesForm';
 import Button from 'components/Button';
 import { makeSelectCategoryEdit } from './selectors';
-import { CLOSE_CATEGORY } from './constants';
+import { CLOSE_CATEGORY, CREATE_CATEGORY } from './constants';
 /* eslint-disable no-console */
 /* eslint-disable react/prefer-stateless-function*/
 class SignupContainer extends React.Component {
@@ -13,7 +13,7 @@ class SignupContainer extends React.Component {
   render() {
     return (
       <div>
-        <Button onClick={this.props.createNewCategory}>New category</Button>
+        <Button onClick={this.props.newCategory}>New category</Button>
         <CategoriesForm
           visibilityState={this.props.categoryEdit}
           close={this.props.close}
@@ -27,12 +27,13 @@ class SignupContainer extends React.Component {
 SignupContainer.propTypes = {
   categoryEdit: PropTypes.bool.isRequired,
   close: PropTypes.func.isRequired,
-  createNewCategory: PropTypes.func.isRequired,
+  newCategory: PropTypes.func.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     close: () => dispatch({ type: CLOSE_CATEGORY }),
+    newCategory: () => dispatch({ type: CREATE_CATEGORY }),
   };
 }
 

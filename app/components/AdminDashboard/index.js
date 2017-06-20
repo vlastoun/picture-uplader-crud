@@ -28,9 +28,7 @@ class DashBoard extends React.Component {
           <Button>New post</Button>
         </Form>
         <Form mainPage>
-          <CategoryContainer
-            createNewCategory={this.props.newCategory}
-          />
+          <CategoryContainer />
         </Form>
       </div>
     );
@@ -38,7 +36,6 @@ class DashBoard extends React.Component {
 }
 DashBoard.propTypes = {
   logout: PropTypes.func.isRequired,
-  newCategory: PropTypes.func.isRequired,
 };
 
 export default DashBoard;

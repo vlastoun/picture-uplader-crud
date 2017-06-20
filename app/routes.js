@@ -52,6 +52,9 @@ export default function createRoutes(store) {
         ]);
         const importAnotherModules = Promise.all([
           import('containers/CategoryContainer/reducer'),
+        ]);
+        const importAnotherSagas = Promise.all([
+          import('containers/CategoryContainer/sagas'),
         ])
         const renderRoute = loadModule(cb);
         importModules.then(([reducer, sagas, component]) => {
@@ -61,6 +64,11 @@ export default function createRoutes(store) {
         });
         importAnotherModules.then((result)=>{
           injectReducer('categories', result[0].default)
+        })
+        importAnotherSagas.then((result)=>{
+          result.forEach((saga)=>{
+            injectSagas(saga.default);
+          })
         })
         importModules.catch(errorLoading);
         importAnotherModules.catch(errorLoading);

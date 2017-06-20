@@ -3,11 +3,14 @@ import { fromJS } from 'immutable';
 import {
   CREATE_CATEGORY,
   CLOSE_CATEGORY,
+  CREATE_CATEGORY_SUCCESSFUL,
+  CREATE_CATEGORY_REQUEST,
+  CREATE_CATEGORY_FAILED,
 } from './constants';
 
 // The initial state of the App
 const initialState = fromJS({
-  error: null,
+  error: { name: null },
   loading: false,
   categories: [],
   categoryEdit: false,
@@ -24,6 +27,19 @@ function categoryReducer(state = initialState, action) {
       return state
         .set('categoryEdit', false)
         .set('loading', false);
+    case CREATE_CATEGORY_REQUEST:
+      return state
+        .set('loading', true)
+        .set('error', initialState.get('error'));
+    case CREATE_CATEGORY_SUCCESSFUL:
+      return state
+        .set('loading', false)
+        .set('error', initialState.get('error'))
+        .set('categoryEdit', false);
+    case CREATE_CATEGORY_FAILED:
+      return state
+        .set('loading', false)
+        .set('error', action.message);
     default:
       return state;
   }

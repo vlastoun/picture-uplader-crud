@@ -8,6 +8,7 @@ import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { reducer as formReducer } from 'redux-form/immutable'; // <--- immutable import
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
+import { CREATE_CATEGORY_SUCCESSFUL } from 'containers/CategoryContainer/constants';
 
 /*
  * routeReducer
@@ -44,7 +45,16 @@ export default function createReducer(asyncReducers) {
   return combineReducers({
     route: routeReducer,
     language: languageProviderReducer,
-    form: formReducer,
+    form: formReducer.plugin({
+      CategoriesForm: (state, action) => {
+        switch (action.type) {
+          case CREATE_CATEGORY_SUCCESSFUL:
+            return undefined;
+          default:
+            return state;
+        }
+      },
+    }),
     ...asyncReducers,
   });
 }

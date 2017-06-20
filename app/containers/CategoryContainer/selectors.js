@@ -16,7 +16,13 @@ const makeSelectError = () => createSelector(
   (homeState) => homeState.get('error')
 );
 
+const makeSelectCategories = () => createSelector(
+  selectCategory,
+  (homeState) => homeState.get('categories')
+);
+
 export {
+  makeSelectCategories,
   selectCategory,
   makeSelectError,
   makeSelectCategoryEdit,

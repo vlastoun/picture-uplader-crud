@@ -50,13 +50,20 @@ export default function createRoutes(store) {
           import('containers/AdminPage/sagas'),
           import('containers/AdminPage'),
         ]);
+        const importAnotherModules = Promise.all([
+          import('containers/CategoryContainer/reducer'),
+        ])
         const renderRoute = loadModule(cb);
         importModules.then(([reducer, sagas, component]) => {
           injectReducer('admin', reducer.default);
           injectSagas(sagas.default);
           renderRoute(component);
         });
+        importAnotherModules.then((result)=>{
+          injectReducer('categories', result[0].default)
+        })
         importModules.catch(errorLoading);
+        importAnotherModules.catch(errorLoading);
       },
     },
     {

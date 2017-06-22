@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import LoginForm from 'components/LoginForm';
 import Form from 'components/Form';
+import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import { makeSelectError } from './selectors';
 import { USER_LOGIN, RESET_FIELDS } from './constants';
 
@@ -19,13 +20,20 @@ class LoginContainer extends React.Component { // eslint-disable-line
 
   render() {
     return (
-      <Form>
-        <LoginForm
-          sendData={this.sendData}
-          loginError={this.props.error}
-          resetError={this.props.resetError}
+      <Card
+        style={{ width: 300, margin: 'auto', position: 'relative', marginTop: '5%' }}
+      >
+        <CardHeader
+          title="Without Avatar"
         />
-      </Form>
+        <CardText>
+          <LoginForm
+            sendData={this.sendData}
+            loginError={this.props.error}
+            resetError={this.props.resetError}
+          />
+        </CardText>
+      </Card>
     );
   }
 }

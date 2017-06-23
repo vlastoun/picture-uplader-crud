@@ -52,9 +52,11 @@ export default function createRoutes(store) {
         ]);
         const importAnotherModules = Promise.all([
           import('containers/CategoryContainer/reducer'),
+          import('containers/TabBar/reducer'),
         ]);
         const importAnotherSagas = Promise.all([
           import('containers/CategoryContainer/sagas'),
+          import('containers/TabBar/sagas'),
         ])
         const renderRoute = loadModule(cb);
         importModules.then(([reducer, sagas, component]) => {
@@ -63,7 +65,8 @@ export default function createRoutes(store) {
           renderRoute(component);
         });
         importAnotherModules.then((result)=>{
-          injectReducer('categories', result[0].default)
+          injectReducer('categories', result[0].default);
+          injectReducer('tab', result[1].default);
         })
         importAnotherSagas.then((result)=>{
           result.forEach((saga)=>{

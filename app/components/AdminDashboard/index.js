@@ -1,10 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AdminHeader from 'components/AdminHeader';
+import TabBar from 'containers/TabBar';
 import Form from 'components/Form';
 import Script from 'react-load-script';
-import CategoryContainer from 'containers/CategoryContainer';
 import Button from 'components/Button';
+
+const components = [
+  { title: 'cosi1', component: <div>cosi1</div> },
+  { title: 'cosi2', component: <div>cosi2</div> },
+  { title: 'cosi3', component: <div>cosi3</div> },
+];
 
 const SCRIPT_URL = '//widget.cloudinary.com/global/all.js';
 /* eslint-disable react/prefer-stateless-function */
@@ -22,13 +27,10 @@ class DashBoard extends React.Component {
   render() {
     return (
       <div>
-        <AdminHeader logout={this.props.logout} />
+        <TabBar tabs={components} />
         <Form mainPage>
           <Script url={SCRIPT_URL} />
           <Button>New post</Button>
-        </Form>
-        <Form mainPage>
-          <CategoryContainer />
         </Form>
       </div>
     );

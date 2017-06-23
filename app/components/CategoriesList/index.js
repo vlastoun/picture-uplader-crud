@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Button from 'components/Button';
 import Li from './Li';
 import Ul from './Ul';
+import DeleteButton from './DeleteButton';
 
 class CategoriesList extends React.Component {
   componentWillMount() {
@@ -14,7 +15,7 @@ class CategoriesList extends React.Component {
         <h3>{item.name}</h3>
         <p>{item.description}</p>
         <Button>Edit</Button>
-        <Button>Delete</Button>
+        <DeleteButton delete={this.props.delete} id={item.id} />
       </Li>
     );
 
@@ -29,6 +30,7 @@ class CategoriesList extends React.Component {
 CategoriesList.propTypes = {
   visibilityState: PropTypes.bool.isRequired,
   fetch: PropTypes.func.isRequired,
+  delete: PropTypes.func.isRequired,
 };
 
 

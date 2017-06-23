@@ -11,3 +11,6 @@ export const FETCH_CATEGORIES_FAILED = 'Category/FETCH_CATEGORIES_FAILED';
 export const FETCH_CATEGORIES_SUCCESS = 'Category/FETCH_CATEGORIES_SUCCESS';
 
 export const SHOW_HIDE = 'Category/SHOW_HIDE';
+
+export const REQUEST_DELETE = 'Category/REQUEST_DELETE';
+export const CATEGORY_DELETED = 'Category/CATEGORY_DELETED';

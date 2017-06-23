@@ -18,6 +18,7 @@ import { CLOSE_CATEGORY,
   CREATE_CATEGORY_REQUEST,
   FETCH_CATEGORIES,
   SHOW_HIDE,
+  REQUEST_DELETE,
  } from './constants';
 
 
@@ -51,6 +52,7 @@ class SignupContainer extends React.Component {
         <CategoriesList
           items={this.props.categories} //eslint-disable-line
           fetch={this.props.fetchCategories}
+          delete={this.props.delete}
           visibilityState={this.props.expandDetails}
         />
       </div>
@@ -67,6 +69,7 @@ SignupContainer.propTypes = {
   fetchCategories: PropTypes.func.isRequired,
   expandDetails: PropTypes.bool.isRequired,
   showHide: PropTypes.func.isRequired,
+  delete: PropTypes.func.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -76,6 +79,7 @@ function mapDispatchToProps(dispatch) {
     onSubmit: (data) => dispatch({ type: CREATE_CATEGORY_REQUEST, category: data }),
     fetchCategories: () => dispatch({ type: FETCH_CATEGORIES }),
     showHide: (state) => dispatch({ type: SHOW_HIDE, expandDetails: !state }),
+    delete: (id) => dispatch({ type: REQUEST_DELETE, id }),
   };
 }
 

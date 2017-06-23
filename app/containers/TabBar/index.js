@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import TabButton from 'components/TabButton';
 import { USER_LOGOUT } from 'containers/AdminPage/constants';
 import { createStructuredSelector } from 'reselect';
+import Form from 'components/Form';
 import Wrapper from './Wrapper';
 import { TAB_CLICKED } from './constants';
 import { makeSelectCurrentTab } from './selectors';
@@ -30,15 +31,22 @@ class TabBar extends React.Component {
       />);
     });
     return (
-      <Wrapper>
-        {listItems}
-        <TabButton
-          label="logout"
-          id={999}
-          onClick={this.props.logout}
-          right
-        />
-      </Wrapper>
+      <div>
+        <Wrapper>
+          {listItems}
+          <TabButton
+            label="logout"
+            id={999}
+            onClick={this.props.logout}
+            right
+          />
+        </Wrapper>
+        {
+          this.props.activeTab !== undefined
+            ? <Form mainPage>{this.props.tabs[this.props.activeTab].component}</Form>
+            : null
+        }
+      </div>
     );
   }
 }

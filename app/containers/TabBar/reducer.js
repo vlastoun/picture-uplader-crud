@@ -2,7 +2,7 @@ import { fromJS } from 'immutable';
 import { TAB_CLICKED } from './constants';
 
 const initialState = fromJS({
-  tabActive: '',
+  tabActive: undefined,
   tabName: '',
 });
 

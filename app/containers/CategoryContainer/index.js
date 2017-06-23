@@ -4,13 +4,17 @@ import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import CategoriesForm from 'components/CategoriesForm';
 import Button from 'components/Button';
+import Span from 'components/Span';
 import CategoriesList from 'components/CategoriesList';
+import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 
 import {
   makeSelectCategoryEdit,
   makeSelectError,
   makeSelectCategories,
   makeSelectShowDetails,
+  makeSelectEraseModal,
+  selectCategoryToDelete,
 } from './selectors';
 
 import { CLOSE_CATEGORY,
@@ -19,6 +23,8 @@ import { CLOSE_CATEGORY,
   FETCH_CATEGORIES,
   SHOW_HIDE,
   REQUEST_DELETE,
+  HIDE_MODAL,
+  DELETE_CATEGORY,
  } from './constants';
 
 
@@ -29,6 +35,7 @@ class SignupContainer extends React.Component {
     super(props);
     this.sendData = this.sendData.bind(this);
     this.showHide = this.showHide.bind(this);
+    this.handleDeleteCategory = this.handleDeleteCategory.bind(this);
   }
   sendData(data) {
     this.props.onSubmit(data);
@@ -38,9 +45,24 @@ class SignupContainer extends React.Component {
     this.props.showHide(this.props.expandDetails);
   }
 
+  handleDeleteCategory() {
+    console.log(this.props.postToDelete.id);
+    this.props.deleteConfirmed(this.props.postToDelete.id);
+  }
+
   render() {
     return (
       <div>
+        {
+          this.props.showConfirmDialog &&
+          <ModalContainer>
+            <ModalDialog onClose={this.props.closeModal}>
+              <h1>Are you sure to delete <Span>{this.props.postToDelete.name}</Span>???</h1>
+              <Button onClick={this.props.closeModal}>Close</Button>
+              <Button onClick={this.handleDeleteCategory}>Delete</Button>
+            </ModalDialog>
+          </ModalContainer>
+        }
         <Button onClick={this.props.newCategory}>New category</Button>
         <Button onClick={this.showHide}>Show/Hide categories</Button>
         <CategoriesForm
@@ -70,6 +92,10 @@ SignupContainer.propTypes = {
   expandDetails: PropTypes.bool.isRequired,
   showHide: PropTypes.func.isRequired,
   delete: PropTypes.func.isRequired,
+  showConfirmDialog: PropTypes.bool.isRequired,
+  closeModal: PropTypes.func.isRequired,
+  postToDelete: PropTypes.object,
+  deleteConfirmed: PropTypes.func.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -80,6 +106,8 @@ function mapDispatchToProps(dispatch) {
     fetchCategories: () => dispatch({ type: FETCH_CATEGORIES }),
     showHide: (state) => dispatch({ type: SHOW_HIDE, expandDetails: !state }),
     delete: (id) => dispatch({ type: REQUEST_DELETE, id }),
+    closeModal: () => dispatch({ type: HIDE_MODAL }),
+    deleteConfirmed: (id) => dispatch({ type: DELETE_CATEGORY, id }),
   };
 }
 
@@ -88,6 +116,8 @@ const mapStateToProps = createStructuredSelector({
   error: makeSelectError(),
   categories: makeSelectCategories(),
   expandDetails: makeSelectShowDetails(),
+  showConfirmDialog: makeSelectEraseModal(),
+  postToDelete: selectCategoryToDelete(),
 });
 // Wrap the component to inject dispatch and state into it
 export default connect(mapStateToProps, mapDispatchToProps)(SignupContainer);

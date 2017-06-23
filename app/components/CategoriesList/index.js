@@ -15,13 +15,12 @@ class CategoriesList extends React.Component {
         <h3>{item.name}</h3>
         <p>{item.description}</p>
         <Button>Edit</Button>
-        <DeleteButton delete={this.props.delete} id={item.id} />
+        <DeleteButton delete={this.props.delete} post={item} />
       </Li>
     );
-
     return (
       <div>
-        {this.props.visibilityState ? <Ul>{listItems}</Ul> : null}
+        {this.props.visibilityState && (listItems.length > 0 ? <Ul>{listItems}</Ul> : <h1>List is empty</h1>)}
       </div>
     );
   }

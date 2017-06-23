@@ -10,6 +10,9 @@ import {
   FETCH_CATEGORIES_FAILED,
   FETCH_CATEGORIES_SUCCESS,
   SHOW_HIDE,
+  REQUEST_DELETE,
+  HIDE_MODAL,
+  DELETE_CATEGORY_SUCCESS,
 } from './constants';
 
 // The initial state of the App
@@ -21,6 +24,8 @@ const initialState = fromJS({
   categories: [],
   categoryEdit: false,
   activeCategory: {},
+  eraseModal: false,
+  categoryToDelete: undefined,
 });
 
 function categoryReducer(state = initialState, action) {
@@ -58,6 +63,18 @@ function categoryReducer(state = initialState, action) {
     case SHOW_HIDE:
       return state
         .set('expandDetails', action.expandDetails);
+    case REQUEST_DELETE:
+      return state
+        .set('eraseModal', true)
+        .set('categoryToDelete', action.id);
+    case HIDE_MODAL:
+      return state
+        .set('eraseModal', false)
+        .set('categoryToDelete', undefined);
+    case DELETE_CATEGORY_SUCCESS:
+      return state
+        .set('eraseModal', false)
+        .set('categoryToDelete', undefined);
     default:
       return state;
   }

@@ -8,7 +8,7 @@ class DeleteButton extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
   handleClick() {
-    this.props.delete(this.props.id);
+    this.props.delete(this.props.post);
   }
   render() {
     return (
@@ -19,6 +19,6 @@ class DeleteButton extends React.Component {
 
 DeleteButton.propTypes = {
   delete: PropTypes.func.isRequired,
-  id: PropTypes.number.isRequired,
+  post: PropTypes.object.isRequired,
 };
 export default DeleteButton;

@@ -11,7 +11,9 @@ const Li = styled.li`
   text-decoration: none;
   text-align: left;
   border-radius: .3em;
-  transition: all .3s ease-out;   
+  transition: all .3s ease-out;  
+  box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+  border-radius: 2px;
 `;
 
 export default Li;

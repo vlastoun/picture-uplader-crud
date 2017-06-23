@@ -25,7 +25,19 @@ const makeSelectShowDetails = () => createSelector(
   selectCategory,
   (homeState) => homeState.get('expandDetails')
 );
+
+const makeSelectEraseModal = () => createSelector(
+  selectCategory,
+  (homeState) => homeState.get('eraseModal')
+);
+const selectCategoryToDelete = () => createSelector(
+  selectCategory,
+  (homeState) => homeState.get('categoryToDelete')
+);
+
 export {
+  selectCategoryToDelete,
+  makeSelectEraseModal,
   makeSelectShowDetails,
   makeSelectCategories,
   selectCategory,

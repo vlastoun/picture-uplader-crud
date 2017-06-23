@@ -43,7 +43,7 @@ class TabBar extends React.Component {
         </Wrapper>
         {
           this.props.activeTab !== undefined
-            ? <Form mainPage>{this.props.tabs[this.props.activeTab].component}</Form>
+            ? <Form mainPage noTopMargin>{this.props.tabs[this.props.activeTab].component}</Form>
             : null
         }
       </div>

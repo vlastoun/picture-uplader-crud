@@ -1,15 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TabBar from 'containers/TabBar';
-import Form from 'components/Form';
 import Script from 'react-load-script';
-import Button from 'components/Button';
 import CategoryContainer from 'containers/CategoryContainer';
 
 const components = [
   { title: 'Categories', component: <CategoryContainer /> },
-  { title: 'cosi2', component: <div>cosi2</div> },
-  { title: 'cosi3', component: <div>cosi3</div> },
+  { title: 'Post', component: <div>post</div> },
 ];
 
 const SCRIPT_URL = '//widget.cloudinary.com/global/all.js';
@@ -29,10 +26,7 @@ class DashBoard extends React.Component {
     return (
       <div>
         <TabBar tabs={components} />
-        <Form mainPage>
-          <Script url={SCRIPT_URL} />
-          <Button>New post</Button>
-        </Form>
+        <Script url={SCRIPT_URL} />
       </div>
     );
   }

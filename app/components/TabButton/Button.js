@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 
-const Button = styled.button`
+const Button = styled.div`
   float: ${(props) => props.right ? 'right' : 'left'};
   padding-left: 10px;
   padding-right: 10px;
-  border-bottom: ${(props) => props.active ? '2px solid white' : 'none'};
+  border-bottom: ${(props) => props.active ? `5px solid ${props.theme.darkColor}` : 'none'};
   height: 3em
   line-height: 3em;
   text-align: center;
   color: white;
   min-width: 100px;
-  font-weight: ${(props) => props.active ? 'bold' : 'normal'};
+  font-weight: ${(props) => props.active ? 'normal' : 'normal'};
   &:hover{
     background: ${(props) => props.theme.ligtColor};
   }

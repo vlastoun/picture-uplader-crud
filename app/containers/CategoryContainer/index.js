@@ -30,7 +30,7 @@ import { CLOSE_CATEGORY,
 
 /* eslint-disable no-console */
 /* eslint-disable react/prefer-stateless-function*/
-class SignupContainer extends React.Component {
+class CategoryContainer extends React.Component {
   constructor(props) {
     super(props);
     this.sendData = this.sendData.bind(this);
@@ -82,7 +82,7 @@ class SignupContainer extends React.Component {
   }
 }
 
-SignupContainer.propTypes = {
+CategoryContainer.propTypes = {
   categoryEdit: PropTypes.bool.isRequired,
   close: PropTypes.func.isRequired,
   newCategory: PropTypes.func.isRequired,
@@ -120,4 +120,4 @@ const mapStateToProps = createStructuredSelector({
   postToDelete: selectCategoryToDelete(),
 });
 // Wrap the component to inject dispatch and state into it
-export default connect(mapStateToProps, mapDispatchToProps)(SignupContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryContainer);

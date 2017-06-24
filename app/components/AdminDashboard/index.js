@@ -1,17 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TabBar from 'containers/TabBar';
+import AppBar from 'material-ui/AppBar';
+import FlatButton from 'material-ui/FlatButton';
 import Script from 'react-load-script';
-import CategoryContainer from 'containers/CategoryContainer';
+import LeftDrawer from './LeftDrawer';
 
-const components = [
-  { title: 'Categories', component: <CategoryContainer /> },
-  { title: 'Post', component: <div>post</div> },
+const links = [
+  { title: 'Categories', url: '/admin/categories' },
+  { title: 'Post', url: '/admin/posts' },
+  { title: 'Users', url: '/admin/users' },
 ];
 
 const SCRIPT_URL = '//widget.cloudinary.com/global/all.js';
 /* eslint-disable react/prefer-stateless-function */
 class DashBoard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { width: '0', height: '0' };
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    this.showDrawer = this.showDrawer.bind(this);
+  }
+
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
+  }
+
+
   uploadWidget() {
     cloudinary.openUploadWidget({//eslint-disable-line
       cloud_name: process.env.CLOUDI_NAME,
@@ -22,10 +45,24 @@ class DashBoard extends React.Component {
           console.log(result);//eslint-disable-line
       });
   }
+  showDrawer() {
+    this.props.toggleDrawer(true);
+  }
   render() {
     return (
       <div>
-        <TabBar tabs={components} />
+        <AppBar
+          title="Title"
+          onLeftIconButtonTouchTap={this.showDrawer}
+          iconElementRight={<FlatButton label="Logout" onClick={this.props.logout} />}
+        />
+        <LeftDrawer
+          toggleDrawer={this.props.toggleDrawer}
+          drawerState={this.props.drawerState}
+          items={links}
+          activeUrl={this.props.activeUrl}
+          clickedLink={this.props.clickedLink}
+        />
         <Script url={SCRIPT_URL} />
       </div>
     );
@@ -33,6 +70,10 @@ class DashBoard extends React.Component {
 }
 DashBoard.propTypes = {
   logout: PropTypes.func.isRequired,
+  toggleDrawer: PropTypes.func.isRequired,
+  drawerState: PropTypes.bool.isRequired,
+  activeUrl: PropTypes.string.isRequired,
+  clickedLink: PropTypes.func.isRequired,
 };
 
 export default DashBoard;

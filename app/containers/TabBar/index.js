@@ -23,7 +23,7 @@ class TabBar extends React.Component {
       }
 
       return (<TabButton
-        label={item.title}
+        value={item.title}
         key={item.id}
         id={item.id}
         onClick={this.props.onClick}

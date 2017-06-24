@@ -1,2 +1,5 @@
 export const USER_LOGOUT_REQUEST = 'Admin/USER_LOGOUT_REQUEST';
 export const USER_LOGOUT = 'Admin/USER_LOGOUT_REQUEST';
+
+export const TOGGLE_DRAWER = 'Admin/TOGGLE_DRAWER';
+export const DRAWER_LINK_CLICKED = 'Admin/DRAWER_LINK_CLICKED';

@@ -6,14 +6,11 @@
 import { Field, reduxForm } from 'redux-form/immutable'; // <--- immutable import
 import React from 'react';
 import InputField from 'components/InputField';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'components/Button';
 import Span from 'components/Span';
 import validate from './validate';
 // import styled from 'styled-components';
 /* eslint-disable react/prop-types, jsx-a11y/label-has-for */
-const style = {
-  margin: 12,
-};
 
 class LoginForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -30,10 +27,10 @@ class LoginForm extends React.Component { // eslint-disable-line react/prefer-st
           }
         </div>
         <div>
-          <RaisedButton type="submit" disabled={submitting} style={style} primary >Submit</RaisedButton>
-          <RaisedButton type="button" disabled={pristine || submitting} onClick={reset} style={style}>
-            Clear
-          </RaisedButton>
+          <Button type="submit" disabled={submitting}>Submit</Button>
+          <Button type="button" disabled={pristine || submitting} onClick={reset} secondary>
+            Clear Values
+          </Button>
         </div>
       </form>
     );

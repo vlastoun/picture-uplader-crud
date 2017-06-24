@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const Form = styled.div`
+<<<<<<< HEAD
 <<<<<<< develop
   margin: 20px auto;
   margin-top: ${
@@ -12,6 +13,9 @@ const Form = styled.div`
 =======
   margin: auto;
 >>>>>>> setup of material ui
+=======
+  margin: auto;
+>>>>>>> material-ui
   width: ${
     (props) =>
     props.mainPage

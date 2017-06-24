@@ -3,8 +3,6 @@
 // See http://blog.mxstbr.com/2016/01/react-apps-with-pages for more information
 // about the code splitting business
 
-/* eslint-disable */
-
 import { getAsyncInjectors } from 'utils/asyncInjectors';
 
 const errorLoading = (err) => {
@@ -19,15 +17,35 @@ export default function createRoutes(store) {
   // Create reusable async injectors using getAsyncInjectors factory
   const { injectReducer, injectSagas } = getAsyncInjectors(store); // eslint-disable-line no-unused-vars
 
+  const categories = {
+    path: '/admin/categories',
+    name: 'categories',
+    getComponent(nextState, cb) {
+      const importModules = Promise.all([
+        System.import('containers/CategoryContainer'),
+        System.import('containers/CategoryContainer/reducer'),
+        System.import('containers/CategoryContainer/sagas'),
+      ]);
+
+      const renderRoute = loadModule(cb);
+
+      importModules.then(([component, reducer, sagas]) => {
+        injectReducer('categories', reducer.default);
+        injectSagas(sagas.default);
+        renderRoute(component);
+      });
+      importModules.catch(errorLoading);
+    },
+  };
   return [
     {
       path: '/',
       name: 'home',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          import('containers/HomePage/reducer'),
-          import('containers/HomePage/sagas'),
-          import('containers/HomePage'),
+          System.import('containers/HomePage/reducer'),
+          System.import('containers/HomePage/sagas'),
+          System.import('containers/HomePage'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -46,65 +64,50 @@ export default function createRoutes(store) {
       name: 'admin',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          import('containers/AdminPage/reducer'),
-          import('containers/AdminPage/sagas'),
-          import('containers/AdminPage'),
+          System.import('containers/AdminPage/reducer'),
+          System.import('containers/AdminPage/sagas'),
+          System.import('containers/AdminPage'),
         ]);
-        const importAnotherModules = Promise.all([
-          import('containers/CategoryContainer/reducer'),
-          import('containers/TabBar/reducer'),
-        ]);
-        const importAnotherSagas = Promise.all([
-          import('containers/CategoryContainer/sagas'),
-          import('containers/TabBar/sagas'),
-        ])
         const renderRoute = loadModule(cb);
         importModules.then(([reducer, sagas, component]) => {
           injectReducer('admin', reducer.default);
           injectSagas(sagas.default);
           renderRoute(component);
         });
-        importAnotherModules.then((result)=>{
-          injectReducer('categories', result[0].default);
-          injectReducer('tab', result[1].default);
-        })
-        importAnotherSagas.then((result)=>{
-          result.forEach((saga)=>{
-            injectSagas(saga.default);
-          })
-        })
         importModules.catch(errorLoading);
-        importAnotherModules.catch(errorLoading);
+      },
+      childRoutes: [
+        categories,
+      ],
+    },
+    {
+      path: '/admin/signup',
+      name: 'signup',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/SignupContainer'),
+          System.import('containers/SignupContainer/reducer'),
+          System.import('containers/SignupContainer/sagas'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([component, reducer, sagas]) => {
+          injectReducer('signup', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+        importModules.catch(errorLoading);
       },
     },
     {
-          path: '/admin/signup',
-          name: 'signup',
-          getComponent(nextState, cb) {
-            const importModules = Promise.all([
-              import('containers/SignupContainer'),
-              import('containers/SignupContainer/reducer'),
-              import('containers/SignupContainer/sagas'),
-            ]);
-
-            const renderRoute = loadModule(cb);
-
-            importModules.then(([component, reducer, sagas]) => {
-              injectReducer('signup', reducer.default);
-              injectSagas(sagas.default);
-              renderRoute(component);
-            });
-            importModules.catch(errorLoading);
-          },
-      }, 
-      {
       path: '/admin/login',
       name: 'login',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          import('containers/LoginContainer'),
-          import('containers/LoginContainer/reducer'),
-          import('containers/LoginContainer/sagas'),
+          System.import('containers/LoginContainer'),
+          System.import('containers/LoginContainer/reducer'),
+          System.import('containers/LoginContainer/sagas'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -121,7 +124,7 @@ export default function createRoutes(store) {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
-        import('containers/NotFoundPage')
+        System.import('containers/NotFoundPage')
           .then(loadModule(cb))
           .catch(errorLoading);
       },

@@ -27,6 +27,11 @@ class AdminPage extends React.Component {
             clickedLink={this.props.clickedLink}
             /> // eslint-disable-line
         }
+        {
+          React.Children.toArray(this.props.children).length === 0
+          ? <p>TODO</p>
+          : React.Children.toArray(this.props.children)
+        }
       </div>
     );
   }
@@ -40,6 +45,7 @@ AdminPage.propTypes = {
   drawerState: PropType.bool.isRequired,
   activeUrl: PropType.string.isRequired,
   clickedLink: PropType.func.isRequired,
+  children: PropType.node,
 };
 
 function mapDispatchToProps(dispatch) { // eslint-disable-line

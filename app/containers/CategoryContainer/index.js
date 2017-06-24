@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
+import Paper from 'material-ui/Paper';
 import CategoriesForm from 'components/CategoriesForm';
 import Button from 'components/Button';
 import Span from 'components/Span';
+import Form from 'components/Form';
 import CategoriesList from 'components/CategoriesList';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 
@@ -52,7 +54,7 @@ class CategoryContainer extends React.Component {
 
   render() {
     return (
-      <div>
+      <Form mainPage>
         {
           this.props.showConfirmDialog &&
           <ModalContainer>
@@ -63,21 +65,23 @@ class CategoryContainer extends React.Component {
             </ModalDialog>
           </ModalContainer>
         }
-        <Button onClick={this.props.newCategory}>New category</Button>
-        <Button onClick={this.showHide}>Show/Hide categories</Button>
-        <CategoriesForm
-          visibilityState={this.props.categoryEdit}
-          close={this.props.close}
-          sendData={this.sendData}
-          categoriesError={this.props.error}
-        />
-        <CategoriesList
-          items={this.props.categories} //eslint-disable-line
-          fetch={this.props.fetchCategories}
-          delete={this.props.delete}
-          visibilityState={this.props.expandDetails}
-        />
-      </div>
+        <Paper>
+          <Button onClick={this.props.newCategory}>New category</Button>
+          <Button onClick={this.showHide}>Show/Hide categories</Button>
+          <CategoriesForm
+            visibilityState={this.props.categoryEdit}
+            close={this.props.close}
+            sendData={this.sendData}
+            categoriesError={this.props.error}
+          />
+          <CategoriesList
+            items={this.props.categories} //eslint-disable-line
+            fetch={this.props.fetchCategories}
+            delete={this.props.delete}
+            visibilityState={this.props.expandDetails}
+          />
+        </Paper>
+      </Form>
     );
   }
 }

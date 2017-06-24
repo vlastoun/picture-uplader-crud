@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from 'components/Button';
+import FlatButton from 'material-ui/FlatButton';
 
 class DeleteButton extends React.Component {
   constructor() {
@@ -12,7 +12,7 @@ class DeleteButton extends React.Component {
   }
   render() {
     return (
-      <Button onClick={this.handleClick}>Delete</Button>
+      <FlatButton style={this.props.style} onTouchTap={this.handleClick} secondary>Delete</FlatButton>
     );
   }
 }
@@ -20,5 +20,6 @@ class DeleteButton extends React.Component {
 DeleteButton.propTypes = {
   delete: PropTypes.func.isRequired,
   post: PropTypes.object.isRequired,
+  style: PropTypes.object,
 };
 export default DeleteButton;

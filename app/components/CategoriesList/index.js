@@ -1,27 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from 'components/Button';
-import Li from './Li';
+import Paper from 'material-ui/Paper';
+import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
 import Ul from './Ul';
 import DeleteButton from './DeleteButton';
+
+const buttonStyle = {
+  margin: '0.5em',
+};
+
+const cardStyle = {
+  margin: '1em',
+};
 
 class CategoriesList extends React.Component {
   componentWillMount() {
     this.props.fetch();
   }
+  /* eslint-disable react/jsx-boolean-value */
   render() {
     const listItems = this.props.items.map((item) => //eslint-disable-line
-      <Li key={item.id}>
-        <h3>{item.name}</h3>
-        <p>{item.description}</p>
-        <Button>Edit</Button>
-        <DeleteButton delete={this.props.delete} post={item} />
-      </Li>
+      <Card style={cardStyle} key={item.id}>
+        <CardHeader title={item.name} actAsExpander={true} showExpandableButton={true} />
+        <CardText expandable={true}>
+          {item.description}
+        </CardText>
+        <CardActions>
+          <FlatButton style={buttonStyle}>Edit</FlatButton>
+          <DeleteButton style={buttonStyle} delete={this.props.delete} post={item} />
+        </CardActions>
+      </Card>
     );
     return (
-      <div>
+      <Paper>
         {this.props.visibilityState && (listItems.length > 0 ? <Ul>{listItems}</Ul> : <h1>List is empty</h1>)}
-      </div>
+      </Paper>
     );
   }
 }

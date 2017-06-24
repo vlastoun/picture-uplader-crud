@@ -6,6 +6,7 @@ import Script from 'react-load-script';
 import LeftDrawer from './LeftDrawer';
 
 const links = [
+  { title: 'Home', url: '/admin' },
   { title: 'Categories', url: '/admin/categories' },
   { title: 'Post', url: '/admin/posts' },
   { title: 'Users', url: '/admin/users' },

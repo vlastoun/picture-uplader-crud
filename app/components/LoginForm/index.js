@@ -5,13 +5,16 @@
 */
 import { Field, reduxForm } from 'redux-form/immutable'; // <--- immutable import
 import React from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
 import InputField from 'components/InputField';
-import Button from 'components/Button';
 import Span from 'components/Span';
 import validate from './validate';
 // import styled from 'styled-components';
 /* eslint-disable react/prop-types, jsx-a11y/label-has-for */
-
+const buttonStyle = {
+  margin: '0.5em',
+  marginTop: '2em',
+};
 class LoginForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { sendData, handleSubmit, pristine, submitting, reset } = this.props;
@@ -27,10 +30,10 @@ class LoginForm extends React.Component { // eslint-disable-line react/prefer-st
           }
         </div>
         <div>
-          <Button type="submit" disabled={submitting}>Submit</Button>
-          <Button type="button" disabled={pristine || submitting} onClick={reset} secondary>
-            Clear Values
-          </Button>
+          <RaisedButton type="submit" disabled={submitting} primary style={buttonStyle}>Submit</RaisedButton>
+          <RaisedButton type="button" disabled={pristine || submitting} onClick={reset} style={buttonStyle}>
+            Clear
+          </RaisedButton>
         </div>
       </form>
     );

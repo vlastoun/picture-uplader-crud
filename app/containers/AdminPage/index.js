@@ -3,7 +3,7 @@ import PropType from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { createStructuredSelector } from 'reselect';
-import AdminDashboard from 'components/AdminDashboard';
+import AdminAppBar from 'components/AdminAppBar';
 import { USER_LOGOUT, TOGGLE_DRAWER, DRAWER_LINK_CLICKED } from './constants';
 import { makeSelectUser, getAuthState, getDrawerState, getActiveUrl } from './selectors';
 /* eslint-disable react/prefer-stateless-function */
@@ -19,7 +19,7 @@ class AdminPage extends React.Component {
         {
           !this.props.authorized
           ? <h2>UNAUTORIZED</h2>
-          : <AdminDashboard
+          : <AdminAppBar
             logout={this.props.logout}
             toggleDrawer={this.props.toggleDrawer}
             drawerState={this.props.drawerState}

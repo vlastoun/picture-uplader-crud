@@ -19,7 +19,7 @@ import {
 const initialState = fromJS({
   error: { name: null, fetching: null },
   loading: false,
-  expandDetails: false,
+  expandDetails: true,
   fetchLoading: false,
   categories: [],
   categoryEdit: false,

@@ -14,7 +14,7 @@ const links = [
 
 const SCRIPT_URL = '//widget.cloudinary.com/global/all.js';
 /* eslint-disable react/prefer-stateless-function */
-class DashBoard extends React.Component {
+class AdminAppBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = { width: '0', height: '0' };
@@ -69,7 +69,7 @@ class DashBoard extends React.Component {
     );
   }
 }
-DashBoard.propTypes = {
+AdminAppBar.propTypes = {
   logout: PropTypes.func.isRequired,
   toggleDrawer: PropTypes.func.isRequired,
   drawerState: PropTypes.bool.isRequired,
@@ -77,4 +77,4 @@ DashBoard.propTypes = {
   clickedLink: PropTypes.func.isRequired,
 };
 
-export default DashBoard;
+export default AdminAppBar;

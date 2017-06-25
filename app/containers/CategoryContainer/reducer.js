@@ -88,11 +88,13 @@ function categoryReducer(state = initialState, action) {
     case HIDE_EDIT_MODAL:
       return state
         .set('activeCategory', {})
+        .setIn(['error', 'edit'], null)
         .set('editModal', false);
     case UPDATE_CATEGORY_SUCCESS:
       return state
         .set('activeCategory', {})
-        .set('editModal', false);
+        .set('editModal', false)
+        .setIn(['error', 'edit'], null);
     case UPDATE_CATEGORY_FAILED:
       return state
         .setIn(['error', 'edit'], action.message.name);

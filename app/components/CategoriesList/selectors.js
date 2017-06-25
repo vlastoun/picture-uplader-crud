@@ -7,6 +7,12 @@ const selectActiveCategory = () => createSelector(
   selectCategory,
   (homeState) => homeState.get('activeCategory')
 );
+
+const selectErrors = () => createSelector(
+  selectCategory,
+  (homeState) => homeState.get('error')
+);
 export {
+  selectErrors,
   selectActiveCategory,
 };

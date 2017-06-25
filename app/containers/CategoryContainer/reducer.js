@@ -16,11 +16,12 @@ import {
   EDIT_CATEGORY,
   HIDE_EDIT_MODAL,
   UPDATE_CATEGORY_SUCCESS,
+  UPDATE_CATEGORY_FAILED,
 } from './constants';
 
 // The initial state of the App
 const initialState = fromJS({
-  error: { name: null, fetching: null },
+  error: { name: null, fetching: null, edit: null },
   loading: false,
   expandDetails: true,
   fetchLoading: false,
@@ -92,6 +93,9 @@ function categoryReducer(state = initialState, action) {
       return state
         .set('activeCategory', {})
         .set('editModal', false);
+    case UPDATE_CATEGORY_FAILED:
+      return state
+        .setIn(['error', 'edit'], action.message.name);
     default:
       return state;
   }

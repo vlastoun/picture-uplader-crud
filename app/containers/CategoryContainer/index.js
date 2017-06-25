@@ -84,7 +84,7 @@ class CategoryContainer extends React.Component {
             actions={actions}
           >
             Are you sure to delete
-            {<Span>{this.props.postToDelete.name}</Span>}
+            {<Span> {this.props.postToDelete.name}</Span>}
             ?
           </Dialog>
         }

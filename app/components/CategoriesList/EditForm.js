@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import InputField from 'components/InputField';
 import RaisedButton from 'material-ui/RaisedButton';
+import Span from 'components/Span';
 import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card';
 import validate from './validate';
-import asyncValidate from './asyncValidate';
-import { selectActiveCategory } from './selectors';
+import { selectActiveCategory, selectErrors } from './selectors';
 /* eslint-disable jsx-a11y/label-has-for */
 
 const cardStyle = {
@@ -49,6 +49,9 @@ class CategoriesForm extends React.Component {
             title={name}
           />
           <CardText>
+            <div>
+              {this.props.editError && <Span>{this.props.editError}</Span>}
+            </div>
             {description}
           </CardText>
           <CardActions >
@@ -72,18 +75,18 @@ class CategoriesForm extends React.Component {
 
 CategoriesForm.propTypes = {
   close: PropTypes.func.isRequired,
+  editError: PropTypes.object,
 };
 
 /* eslint-disable no-class-assign */
 CategoriesForm = reduxForm({
   form: 'editForm', // a unique identifier for this form
   validate,
-  asyncValidate,
-  asyncBlurFields: ['name'],
 })(CategoriesForm);
 
 const mapStateToProps = createStructuredSelector({
   initialValues: selectActiveCategory(),
+  editError: selectErrors(),
 });// You have to connect() to any reducers that you wish to connect to yourself
 CategoriesForm = connect(mapStateToProps, null)(CategoriesForm);
 

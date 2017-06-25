@@ -11,6 +11,7 @@ import CategoriesList from 'components/CategoriesList';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import EditForm from 'components/CategoriesList/EditForm';
 import {
   makeSelectCategoryEdit,
   makeSelectError,
@@ -19,6 +20,7 @@ import {
   makeSelectEraseModal,
   selectCategoryToDelete,
   selectActiveCategory,
+  getEditModalState,
 } from './selectors';
 
 import { CLOSE_CATEGORY,
@@ -30,6 +32,8 @@ import { CLOSE_CATEGORY,
   HIDE_MODAL,
   DELETE_CATEGORY,
   EDIT_CATEGORY_REQUEST,
+  EDIT_CATEGORY,
+  HIDE_EDIT_MODAL,
  } from './constants';
 /* eslint-disable no-console */
 /* eslint-disable react/prefer-stateless-function*/
@@ -54,6 +58,9 @@ class CategoryContainer extends React.Component {
   }
 /* eslint-disable react/jsx-boolean-value */
   render() {
+    const paperStyle = {
+      padding: '2em',
+    };
     const actions = [
       <FlatButton
         label="Cancel"
@@ -81,7 +88,16 @@ class CategoryContainer extends React.Component {
             ?
           </Dialog>
         }
-        <Paper>
+        {this.props.editModal &&
+          <Dialog
+            title="Edit category:"
+            open={this.props.editModal}
+            onRequestClose={this.props.editModalClose}
+          >
+            <EditForm close={this.props.editModalClose} sendData={this.props.editCategoryRequest} />
+          </Dialog>
+        }
+        <Paper style={paperStyle} >
           <Button onClick={this.props.newCategory}>New category</Button>
           <Button onClick={this.showHide}>Show/Hide categories</Button>
           <CategoriesForm
@@ -94,7 +110,7 @@ class CategoryContainer extends React.Component {
             items={this.props.categories} //eslint-disable-line
             fetch={this.props.fetchCategories}
             delete={this.props.delete}
-            edit={this.props.requestEditCategory}
+            edit={this.props.editCategory}
             visibilityState={this.props.expandDetails}
             activeCategory={this.props.activeCategory}
           />
@@ -118,8 +134,11 @@ CategoryContainer.propTypes = {
   closeModal: PropTypes.func.isRequired,
   postToDelete: PropTypes.object,
   deleteConfirmed: PropTypes.func.isRequired,
-  requestEditCategory: PropTypes.func.isRequired,
+  editCategory: PropTypes.func.isRequired,
   activeCategory: PropTypes.object,
+  editModal: PropTypes.bool.isRequired,
+  editModalClose: PropTypes.func.isRequired,
+  editCategoryRequest: PropTypes.func.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -132,7 +151,9 @@ function mapDispatchToProps(dispatch) {
     delete: (id) => dispatch({ type: REQUEST_DELETE, id }),
     closeModal: () => dispatch({ type: HIDE_MODAL }),
     deleteConfirmed: (id) => dispatch({ type: DELETE_CATEGORY, id }),
-    requestEditCategory: (props) => dispatch({ type: EDIT_CATEGORY_REQUEST, props }),
+    editCategory: (props) => dispatch({ type: EDIT_CATEGORY, props }),
+    editModalClose: () => dispatch({ type: HIDE_EDIT_MODAL }),
+    editCategoryRequest: (data) => dispatch({ type: EDIT_CATEGORY_REQUEST, category: data }),
   };
 }
 
@@ -144,6 +165,7 @@ const mapStateToProps = createStructuredSelector({
   showConfirmDialog: makeSelectEraseModal(),
   postToDelete: selectCategoryToDelete(),
   activeCategory: selectActiveCategory(),
+  editModal: getEditModalState(),
 });
 // Wrap the component to inject dispatch and state into it
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryContainer);

@@ -11,6 +11,9 @@ import {
   FETCH_CATEGORIES_FAILED,
   DELETE_CATEGORY,
   DELETE_CATEGORY_SUCCESS,
+  UPDATE_CATEGORY_SUCCESS,
+  UPDATE_CATEGORY_FAILED,
+  EDIT_CATEGORY_REQUEST,
  } from './constants';
 
 
@@ -25,6 +28,20 @@ export function* postCategory(action) {
     yield put({ type: FETCH_CATEGORIES });
   } catch (err) {
     yield put({ type: CREATE_CATEGORY_FAILED, message: err.response.data.error.details.messages });
+  }
+}
+
+export function* editCategory(action) {
+  const category = action.category.toJS();
+  const { name, description, id } = category;
+  const topost = { name, description };
+  const URL = `${HOST}api/ctagories/${id}`;
+  try {
+    yield call(axios.patch, URL, topost);
+    yield put({ type: UPDATE_CATEGORY_SUCCESS });
+    yield put({ type: FETCH_CATEGORIES });
+  } catch (err) {
+    yield put({ type: UPDATE_CATEGORY_FAILED, message: err.response.data.error.details.messages });
   }
 }
 
@@ -51,12 +68,14 @@ export function* deleteCategory(action) {
 
 export function* categoryWatcher() {
   const watcher = yield takeLatest(CREATE_CATEGORY_REQUEST, postCategory);
+  const watcherEdit = yield takeLatest(EDIT_CATEGORY_REQUEST, editCategory);
   const fetchWatcher = yield takeLatest(FETCH_CATEGORIES, fetchCategories);
   const deleteCategoryWatcher = yield takeLatest(DELETE_CATEGORY, deleteCategory);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
   yield cancel(fetchWatcher);
   yield cancel(deleteCategoryWatcher);
+  yield cancel(watcherEdit);
 }
 
 export default [

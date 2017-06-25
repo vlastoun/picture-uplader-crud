@@ -38,7 +38,12 @@ const selectActiveCategory = () => createSelector(
   selectCategory,
   (homeState) => homeState.get('activeCategory')
 );
+const getEditModalState = () => createSelector(
+  selectCategory,
+  (homeState) => homeState.get('editModal')
+);
 export {
+  getEditModalState,
   selectActiveCategory,
   selectCategoryToDelete,
   makeSelectEraseModal,

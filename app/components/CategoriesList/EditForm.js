@@ -4,67 +4,79 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import InputField from 'components/InputField';
-import Button from 'components/Button';
+import RaisedButton from 'material-ui/RaisedButton';
+import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card';
 import validate from './validate';
 import asyncValidate from './asyncValidate';
 import { selectActiveCategory } from './selectors';
 /* eslint-disable jsx-a11y/label-has-for */
 
+const cardStyle = {
+  margin: '1em',
+};
+const buttonStyle = {
+  margin: '0.5em',
+};
+
 class CategoriesForm extends React.Component {
   // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
-    this.state = { visibility: props.visibilityState };
     this.handleClose = this.handleClose.bind(this);
   }
   handleClose() {
-    this.setState({ visibility: false });
   }
   render() {
-    const { sendData, handleSubmit, submitting, categoriesError, item } = this.props;
-
+    const { sendData, handleSubmit, submitting, categoriesError, item } = this.props; //eslint-disable-line
+    const name = (
+      <Field
+        name="name"
+        type="text"
+        component={InputField}
+        label="Name"
+      />);
+    const description = (
+      <Field
+        name="description"
+        type="text"
+        component={InputField}
+        label="Description"
+      />);
     const Form = (
-      <form>
-        <Field
-          name="name"
-          type="text"
-          component={InputField}
-          label="Category name"
-        />
-        <Field
-          name="description"
-          type="text"
-          component={InputField}
-          label="Description"
-        />
-        <div>
-          <Button type="submit" disabled={submitting}>
-            Submit
-          </Button>
-          <Button
-            type="button"
-            disabled={submitting}
-            onClick={this.handleClose}
-            secondary
-          >
-            Clear and close
-          </Button>
-        </div>
+      <form onSubmit={handleSubmit(sendData)}>
+        <Card style={cardStyle}>
+          <CardTitle
+            title={name}
+          />
+          <CardText>
+            {description}
+          </CardText>
+          <CardActions >
+            <RaisedButton type="submit" disabled={submitting} style={buttonStyle}>
+              Submit
+            </RaisedButton>
+            <RaisedButton type="button" disabled={submitting} onClick={this.props.close} secondary style={buttonStyle}>
+              Close
+            </RaisedButton>
+          </CardActions>
+        </Card>
       </form>
     );
     return (
       <div>
-        {this.state.visibility ? Form : null}
+        {Form}
       </div>
     );
   }
 }
 
-CategoriesForm.propTypes = {};
+CategoriesForm.propTypes = {
+  close: PropTypes.func.isRequired,
+};
 
 /* eslint-disable no-class-assign */
 CategoriesForm = reduxForm({
-  form: `editForm`, // a unique identifier for this form
+  form: 'editForm', // a unique identifier for this form
   validate,
   asyncValidate,
   asyncBlurFields: ['name'],

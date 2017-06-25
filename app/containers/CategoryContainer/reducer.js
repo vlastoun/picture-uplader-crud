@@ -13,7 +13,9 @@ import {
   REQUEST_DELETE,
   HIDE_MODAL,
   DELETE_CATEGORY_SUCCESS,
-  EDIT_CATEGORY_REQUEST,
+  EDIT_CATEGORY,
+  HIDE_EDIT_MODAL,
+  UPDATE_CATEGORY_SUCCESS,
 } from './constants';
 
 // The initial state of the App
@@ -24,6 +26,7 @@ const initialState = fromJS({
   fetchLoading: false,
   categories: [],
   categoryEdit: false,
+  editModal: false,
   activeCategory: {},
   eraseModal: false,
   categoryToDelete: undefined,
@@ -77,9 +80,18 @@ function categoryReducer(state = initialState, action) {
       return state
         .set('eraseModal', false)
         .set('categoryToDelete', undefined);
-    case EDIT_CATEGORY_REQUEST:
+    case EDIT_CATEGORY:
       return state
-        .set('activeCategory', action.props);
+        .set('activeCategory', action.props)
+        .set('editModal', true);
+    case HIDE_EDIT_MODAL:
+      return state
+        .set('activeCategory', {})
+        .set('editModal', false);
+    case UPDATE_CATEGORY_SUCCESS:
+      return state
+        .set('activeCategory', {})
+        .set('editModal', false);
     default:
       return state;
   }

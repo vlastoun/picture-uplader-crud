@@ -18,6 +18,7 @@ import {
   makeSelectShowDetails,
   makeSelectEraseModal,
   selectCategoryToDelete,
+  selectActiveCategory,
 } from './selectors';
 
 import { CLOSE_CATEGORY,
@@ -28,12 +29,8 @@ import { CLOSE_CATEGORY,
   REQUEST_DELETE,
   HIDE_MODAL,
   DELETE_CATEGORY,
+  EDIT_CATEGORY_REQUEST,
  } from './constants';
-
-const paperStyle = {
-  paddingBottom: '2em',
-};
-
 /* eslint-disable no-console */
 /* eslint-disable react/prefer-stateless-function*/
 class CategoryContainer extends React.Component {
@@ -84,7 +81,7 @@ class CategoryContainer extends React.Component {
             ?
           </Dialog>
         }
-        <Paper syle={paperStyle}>
+        <Paper>
           <Button onClick={this.props.newCategory}>New category</Button>
           <Button onClick={this.showHide}>Show/Hide categories</Button>
           <CategoriesForm
@@ -97,7 +94,9 @@ class CategoryContainer extends React.Component {
             items={this.props.categories} //eslint-disable-line
             fetch={this.props.fetchCategories}
             delete={this.props.delete}
+            edit={this.props.requestEditCategory}
             visibilityState={this.props.expandDetails}
+            activeCategory={this.props.activeCategory}
           />
         </Paper>
       </Form>
@@ -119,6 +118,8 @@ CategoryContainer.propTypes = {
   closeModal: PropTypes.func.isRequired,
   postToDelete: PropTypes.object,
   deleteConfirmed: PropTypes.func.isRequired,
+  requestEditCategory: PropTypes.func.isRequired,
+  activeCategory: PropTypes.object,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -131,6 +132,7 @@ function mapDispatchToProps(dispatch) {
     delete: (id) => dispatch({ type: REQUEST_DELETE, id }),
     closeModal: () => dispatch({ type: HIDE_MODAL }),
     deleteConfirmed: (id) => dispatch({ type: DELETE_CATEGORY, id }),
+    requestEditCategory: (props) => dispatch({ type: EDIT_CATEGORY_REQUEST, props }),
   };
 }
 
@@ -141,6 +143,7 @@ const mapStateToProps = createStructuredSelector({
   expandDetails: makeSelectShowDetails(),
   showConfirmDialog: makeSelectEraseModal(),
   postToDelete: selectCategoryToDelete(),
+  activeCategory: selectActiveCategory(),
 });
 // Wrap the component to inject dispatch and state into it
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryContainer);

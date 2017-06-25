@@ -34,8 +34,12 @@ const selectCategoryToDelete = () => createSelector(
   selectCategory,
   (homeState) => homeState.get('categoryToDelete')
 );
-
+const selectActiveCategory = () => createSelector(
+  selectCategory,
+  (homeState) => homeState.get('activeCategory')
+);
 export {
+  selectActiveCategory,
   selectCategoryToDelete,
   makeSelectEraseModal,
   makeSelectShowDetails,

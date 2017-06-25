@@ -13,6 +13,7 @@ import {
   REQUEST_DELETE,
   HIDE_MODAL,
   DELETE_CATEGORY_SUCCESS,
+  EDIT_CATEGORY_REQUEST,
 } from './constants';
 
 // The initial state of the App
@@ -37,6 +38,7 @@ function categoryReducer(state = initialState, action) {
     case CLOSE_CATEGORY:
       return state
         .set('categoryEdit', false)
+        .set('activeCategory', {})
         .set('loading', false);
     case CREATE_CATEGORY_REQUEST:
       return state
@@ -75,6 +77,9 @@ function categoryReducer(state = initialState, action) {
       return state
         .set('eraseModal', false)
         .set('categoryToDelete', undefined);
+    case EDIT_CATEGORY_REQUEST:
+      return state
+        .set('activeCategory', action.props);
     default:
       return state;
   }

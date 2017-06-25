@@ -8,8 +8,9 @@ import Button from 'components/Button';
 import Span from 'components/Span';
 import Form from 'components/Form';
 import CategoriesList from 'components/CategoriesList';
-import { ModalContainer, ModalDialog } from 'react-modal-dialog';
-
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import {
   makeSelectCategoryEdit,
   makeSelectError,
@@ -29,6 +30,9 @@ import { CLOSE_CATEGORY,
   DELETE_CATEGORY,
  } from './constants';
 
+const paperStyle = {
+  paddingBottom: '2em',
+};
 
 /* eslint-disable no-console */
 /* eslint-disable react/prefer-stateless-function*/
@@ -51,21 +55,36 @@ class CategoryContainer extends React.Component {
     console.log(this.props.postToDelete.id);
     this.props.deleteConfirmed(this.props.postToDelete.id);
   }
-
+/* eslint-disable react/jsx-boolean-value */
   render() {
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.props.closeModal}
+        keyboardFocused={true}
+      />,
+      <RaisedButton
+        label="Delete"
+        secondary={true}
+        onTouchTap={this.handleDeleteCategory}
+      />,
+    ];
     return (
-      <Form mainPage>
-        {
-          this.props.showConfirmDialog &&
-          <ModalContainer>
-            <ModalDialog onClose={this.props.closeModal}>
-              <h1>Are you sure to delete <Span>{this.props.postToDelete.name}</Span>???</h1>
-              <Button onClick={this.props.closeModal}>Close</Button>
-              <Button onClick={this.handleDeleteCategory}>Delete</Button>
-            </ModalDialog>
-          </ModalContainer>
+      <Form mainPage bottomPadding>
+        {this.props.showConfirmDialog &&
+          <Dialog
+            title="Delete category?"
+            open={this.props.showConfirmDialog}
+            onRequestClose={this.props.closeModal}
+            actions={actions}
+          >
+            Are you sure to delete
+            {<Span>{this.props.postToDelete.name}</Span>}
+            ?
+          </Dialog>
         }
-        <Paper>
+        <Paper syle={paperStyle}>
           <Button onClick={this.props.newCategory}>New category</Button>
           <Button onClick={this.showHide}>Show/Hide categories</Button>
           <CategoriesForm

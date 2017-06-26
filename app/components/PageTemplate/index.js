@@ -7,7 +7,7 @@ const paperStyle = {
   padding: '2em',
 };
 /* eslint-disable react/prefer-stateless-function */
-class PageTemeplate extends React.Component {
+class PageTemplate extends React.Component {
   render() {
     return (
       <Form mainPage noTopMargin>
@@ -19,9 +19,12 @@ class PageTemeplate extends React.Component {
     );
   }
 }
+/**
+* @param {*} heading heading must be provided
+ */
 
-PageTemeplate.propTypes = {
+PageTemplate.propTypes = {
   heading: PropTypes.string.isRequired,
   children: PropTypes.array,
 };
-export default PageTemeplate;
+export default PageTemplate;

@@ -53,6 +53,22 @@ export default function createRoutes(store) {
       importModules.catch(errorLoading);
     },
   };
+  const singlePost = {
+    path: '/admin/post',
+    name: 'categories',
+    getComponent(nextState, cb) {
+      const importModules = Promise.all([
+        System.import('containers/PostPage'),
+      ]);
+
+      const renderRoute = loadModule(cb);
+
+      importModules.then(([component, reducer, sagas]) => {
+        renderRoute(component);
+      });
+      importModules.catch(errorLoading);
+    },
+  };
   return [
     {
       path: '/',
@@ -93,7 +109,7 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
       childRoutes: [
-        categories, posts,
+        categories, posts, singlePost,
       ],
     },
     {

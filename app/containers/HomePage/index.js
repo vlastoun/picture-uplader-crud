@@ -14,26 +14,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import UploadPicture from 'components/UploadPicture';
-
+import { Link } from 'react-router';
 class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  constructor(props) {
-    super(props);
-    this.sendData = this.sendData.bind(this);
-    this.login = this.login.bind(this);
-  }
 
-  login(data) {
-    this.props.onLogin(data);
-  }
 
   render() {
-    const { user } = this.props;
-    console.log(user);
     return (
-      <div>
-        <UploadPicture />
-      </div>
+      <Link to="/admin">....Admin page</Link>
     );
   }
 }

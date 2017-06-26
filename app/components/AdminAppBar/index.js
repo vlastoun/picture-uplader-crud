@@ -3,14 +3,9 @@ import PropTypes from 'prop-types';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import Script from 'react-load-script';
+import { LINKS } from 'constants/AdminLinks';
 import LeftDrawer from './LeftDrawer';
 
-const links = [
-  { title: 'Home', url: '/admin' },
-  { title: 'Categories', url: '/admin/categories' },
-  { title: 'Post', url: '/admin/posts' },
-  { title: 'Users', url: '/admin/users' },
-];
 
 const appBarStyle = {
   postition: 'fixed',
@@ -67,7 +62,7 @@ class AdminAppBar extends React.Component {
         <LeftDrawer
           toggleDrawer={this.props.toggleDrawer}
           drawerState={this.props.drawerState}
-          items={links}
+          items={LINKS}
           activeUrl={this.props.activeUrl}
           clickedLink={this.props.clickedLink}
         />

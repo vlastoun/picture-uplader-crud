@@ -16,6 +16,8 @@ const cardStyle = {
 const buttonStyle = {
   margin: '0.5em',
 };
+
+
 class CategoriesForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { sendData, handleSubmit, submitting, categoriesError, item } = this.props; //eslint-disable-line

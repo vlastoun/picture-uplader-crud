@@ -1,13 +1,10 @@
-/**
-*
-* CreateUserForm
-*
-*/
 import { Field, reduxForm } from 'redux-form/immutable'; // <--- immutable import
 import React from 'react';
 import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 import InputField from 'components/InputField';
+import FlatButton from 'material-ui/FlatButton';
+import { Link } from 'react-router';
 import Form from 'components/Form';
 import RaisedButton from 'material-ui/RaisedButton';
 import asyncValidate from './asyncValidate';
@@ -24,7 +21,7 @@ const buttonStyle = {
   margin: '0.5em',
   marginTop: '2em',
 };
-
+/* eslint-disable jsx-a11y/anchor-has-content */
 class CreateUserForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const {
@@ -50,6 +47,7 @@ class CreateUserForm extends React.Component { // eslint-disable-line react/pref
               </RaisedButton>
             </div>
           </form>
+          <FlatButton label={'Already have an account?'} fullWidth primary containerElement={<Link to="/admin/login" />} />
         </Paper>
       </Form>
     );

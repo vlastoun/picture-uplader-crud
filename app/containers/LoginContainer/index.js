@@ -5,6 +5,8 @@ import { createStructuredSelector } from 'reselect';
 import LoginForm from 'components/LoginForm';
 import Form from 'components/Form';
 import Paper from 'material-ui/Paper';
+import FlatButton from 'material-ui/FlatButton';
+import { Link } from 'react-router';
 import { makeSelectError } from './selectors';
 import { USER_LOGIN, RESET_FIELDS } from './constants';
 
@@ -13,9 +15,9 @@ const style = {
   textAlign: 'center',
   display: 'inline-block',
 };
-
+/* eslint-disable react/prefer-stateless-function */
+/* eslint-disable jsx-a11y/anchor-has-content */
 class LoginContainer extends React.Component {
-  // eslint-disable-line
   constructor(props) {
     super(props);
     this.sendData = this.sendData.bind(this);
@@ -35,6 +37,7 @@ class LoginContainer extends React.Component {
             loginError={this.props.error}
             resetError={this.props.resetError}
           />
+          <FlatButton label={'Do not have an account?'} fullWidth primary containerElement={<Link to="/admin/signup" />} />
         </Paper>
       </Form>
     );

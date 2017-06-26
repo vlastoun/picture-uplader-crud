@@ -36,7 +36,7 @@ import { CLOSE_CATEGORY,
  } from './constants';
 /* eslint-disable no-console */
 /* eslint-disable react/prefer-stateless-function*/
-class CategoryContainer extends React.Component {
+class CategoriesPage extends React.Component {
   constructor(props) {
     super(props);
     this.sendData = this.sendData.bind(this);
@@ -89,7 +89,7 @@ class CategoryContainer extends React.Component {
         }
         {this.props.editModal &&
           <Dialog
-            title="Edit category:"
+            title={`Edit category: ${this.props.activeCategory.name}?`}
             open={this.props.editModal}
             onRequestClose={this.props.editModalClose}
           >
@@ -121,7 +121,7 @@ class CategoryContainer extends React.Component {
   }
 }
 
-CategoryContainer.propTypes = {
+CategoriesPage.propTypes = {
   categoryEdit: PropTypes.bool.isRequired,
   close: PropTypes.func.isRequired,
   newCategory: PropTypes.func.isRequired,
@@ -169,4 +169,4 @@ const mapStateToProps = createStructuredSelector({
   editModal: getEditModalState(),
 });
 // Wrap the component to inject dispatch and state into it
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(CategoriesPage);

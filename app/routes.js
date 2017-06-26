@@ -22,9 +22,9 @@ export default function createRoutes(store) {
     name: 'categories',
     getComponent(nextState, cb) {
       const importModules = Promise.all([
-        System.import('containers/CategoryContainer'),
-        System.import('containers/CategoryContainer/reducer'),
-        System.import('containers/CategoryContainer/sagas'),
+        System.import('containers/CategoriesPage'),
+        System.import('containers/CategoriesPage/reducer'),
+        System.import('containers/CategoriesPage/sagas'),
       ]);
 
       const renderRoute = loadModule(cb);
@@ -85,9 +85,9 @@ export default function createRoutes(store) {
       name: 'signup',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/SignupContainer'),
-          System.import('containers/SignupContainer/reducer'),
-          System.import('containers/SignupContainer/sagas'),
+          System.import('containers/SignupPage'),
+          System.import('containers/SignupPage/reducer'),
+          System.import('containers/SignupPage/sagas'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -105,9 +105,9 @@ export default function createRoutes(store) {
       name: 'login',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/LoginContainer'),
-          System.import('containers/LoginContainer/reducer'),
-          System.import('containers/LoginContainer/sagas'),
+          System.import('containers/LoginPage'),
+          System.import('containers/LoginPage/reducer'),
+          System.import('containers/LoginPage/sagas'),
         ]);
 
         const renderRoute = loadModule(cb);

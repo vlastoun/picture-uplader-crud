@@ -6,14 +6,10 @@ import { createStructuredSelector } from 'reselect';
 import InputField from 'components/InputField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Span from 'components/Span';
-import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card';
 import validate from './validate';
 import { selectActiveCategory, selectErrors } from './selectors';
 /* eslint-disable jsx-a11y/label-has-for */
 
-const cardStyle = {
-  margin: '1em',
-};
 const buttonStyle = {
   margin: '0.5em',
 };
@@ -24,17 +20,16 @@ class CategoriesForm extends React.Component {
     super(props);
     this.handleClose = this.handleClose.bind(this);
   }
-  handleClose() {
-  }
+  handleClose() {}
   render() {
-    const { sendData, handleSubmit, submitting, categoriesError, item } = this.props; //eslint-disable-line
+    const {
+      sendData,
+      handleSubmit,
+      submitting,
+    } = this.props;
     const name = (
-      <Field
-        name="name"
-        type="text"
-        component={InputField}
-        label="Name"
-      />);
+      <Field name="name" type="text" component={InputField} label="Name" />
+    );
     const description = (
       <Field
         name="description"
@@ -42,29 +37,29 @@ class CategoriesForm extends React.Component {
         component={InputField}
         label="Description"
         multiLine
-        rows={2}
-      />);
+      />
+    );
     const Form = (
       <form onSubmit={handleSubmit(sendData)}>
-        <Card style={cardStyle}>
-          <CardTitle
-            title={name}
-          />
-          <CardText>
-            <div>
-              {this.props.editError && <Span>{this.props.editError}</Span>}
-            </div>
-            {description}
-          </CardText>
-          <CardActions >
-            <RaisedButton type="submit" disabled={submitting} style={buttonStyle}>
-              Submit
-            </RaisedButton>
-            <RaisedButton type="button" disabled={submitting} onClick={this.props.close} secondary style={buttonStyle}>
-              Close
-            </RaisedButton>
-          </CardActions>
-        </Card>
+        {name}
+        <div>
+          {this.props.editError && <Span>{this.props.editError}</Span>}
+        </div>
+        {description}
+        <div>
+          <RaisedButton type="submit" disabled={submitting} style={buttonStyle}>
+            Submit
+          </RaisedButton>
+          <RaisedButton
+            type="button"
+            disabled={submitting}
+            onClick={this.props.close}
+            secondary
+            style={buttonStyle}
+          >
+            Close
+          </RaisedButton>
+        </div>
       </form>
     );
     return (
@@ -78,6 +73,9 @@ class CategoriesForm extends React.Component {
 CategoriesForm.propTypes = {
   close: PropTypes.func.isRequired,
   editError: PropTypes.object,
+  sendData: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  submitting: PropTypes.bool.isRequired,
 };
 
 /* eslint-disable no-class-assign */
@@ -89,7 +87,7 @@ CategoriesForm = reduxForm({
 const mapStateToProps = createStructuredSelector({
   initialValues: selectActiveCategory(),
   editError: selectErrors(),
-});// You have to connect() to any reducers that you wish to connect to yourself
+}); // You have to connect() to any reducers that you wish to connect to yourself
 CategoriesForm = connect(mapStateToProps, null)(CategoriesForm);
 
 export default CategoriesForm;

@@ -74,7 +74,7 @@ class CategoriesPage extends React.Component {
       />,
     ];
     return (
-      <Form mainPage bottomPadding>
+      <Form mainPage noTopMargin>
         {this.props.showConfirmDialog &&
           <Dialog
             title="Delete category?"

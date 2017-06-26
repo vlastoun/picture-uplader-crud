@@ -11,3 +11,4 @@ npm-debug.log
 keys.js
 .env
 yarn-error.log
+*.log

@@ -37,6 +37,22 @@ export default function createRoutes(store) {
       importModules.catch(errorLoading);
     },
   };
+  const posts = {
+    path: '/admin/posts',
+    name: 'posts',
+    getComponent(nextState, cb) {
+      const importModules = Promise.all([
+        System.import('containers/PostsPage'),
+      ]);
+
+      const renderRoute = loadModule(cb);
+
+      importModules.then(([component]) => {
+        renderRoute(component);
+      });
+      importModules.catch(errorLoading);
+    },
+  };
   return [
     {
       path: '/',
@@ -77,7 +93,7 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
       childRoutes: [
-        categories,
+        categories, posts,
       ],
     },
     {

@@ -4,7 +4,7 @@ import {
   USER_STORE,
   USER_LOGIN_FAILED,
   USER_LOGOUT,
-} from 'containers/LoginContainer/constants';
+} from 'containers/LoginPage/constants';
 import {
   TOGGLE_DRAWER,
 } from './constants';

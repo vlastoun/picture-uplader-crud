@@ -1,6 +1,6 @@
 import { take, call, cancel, takeLatest, put } from 'redux-saga/effects';
 import { LOCATION_CHANGE, push } from 'react-router-redux';
-import { USER_LOGOUT } from 'containers/LoginContainer/constants';
+import { USER_LOGOUT } from 'containers/LoginPage/constants';
 import {
   USER_LOGOUT_REQUEST,
   DRAWER_LINK_CLICKED,

@@ -4,7 +4,6 @@ import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import Paper from 'material-ui/Paper';
 import CategoriesForm from 'components/CategoriesForm';
-import Button from 'components/Button';
 import Span from 'components/Span';
 import Form from 'components/Form';
 import CategoriesList from 'components/CategoriesList';
@@ -98,13 +97,15 @@ class CategoryContainer extends React.Component {
           </Dialog>
         }
         <Paper style={paperStyle} >
-          <Button onClick={this.props.newCategory}>New category</Button>
-          <Button onClick={this.showHide}>Show/Hide categories</Button>
+          <div>
+            <h1>Categories</h1>
+          </div>
           <CategoriesForm
             visibilityState={this.props.categoryEdit}
             close={this.props.close}
             sendData={this.sendData}
             categoriesError={this.props.error}
+            newCategory={this.props.newCategory}
           />
           <CategoriesList
             items={this.props.categories} //eslint-disable-line

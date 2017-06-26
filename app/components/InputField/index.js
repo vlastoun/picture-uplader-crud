@@ -5,7 +5,7 @@ import TextField from 'material-ui/TextField';
 /* eslint-disable react/prefer-stateless-function*/
 class InputField extends React.Component {
   render() {
-    const { input, label, type, serverError, meta: { touched, error } } = this.props;
+    const { rows, multiLine, input, label, type, serverError, meta: { touched, error } } = this.props;
     return (
       <TextField
         {...input}
@@ -13,6 +13,8 @@ class InputField extends React.Component {
         floatingLabelText={label}
         placeholder={label}
         type={type}
+        rows={rows}
+        multiLine={multiLine}
       />
     );
   }
@@ -25,6 +27,8 @@ InputField.propTypes = {
   meta: PropTypes.object.isRequired,
   input: PropTypes.object.isRequired,
   serverError: PropTypes.array,
+  rows: PropTypes.number,
+  multiLine: PropTypes.bool,
 };
 
 

@@ -12,6 +12,12 @@ const links = [
   { title: 'Users', url: '/admin/users' },
 ];
 
+const appBarStyle = {
+  postition: 'fixed',
+  top: 0,
+  width: '100%',
+};
+
 const SCRIPT_URL = '//widget.cloudinary.com/global/all.js';
 /* eslint-disable react/prefer-stateless-function */
 class AdminAppBar extends React.Component {
@@ -56,6 +62,7 @@ class AdminAppBar extends React.Component {
           title="Title"
           onLeftIconButtonTouchTap={this.showDrawer}
           iconElementRight={<FlatButton label="Logout" onClick={this.props.logout} />}
+          style={appBarStyle}
         />
         <LeftDrawer
           toggleDrawer={this.props.toggleDrawer}

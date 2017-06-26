@@ -41,6 +41,8 @@ class CategoriesForm extends React.Component {
         type="text"
         component={InputField}
         label="Description"
+        multiLine
+        rows={2}
       />);
     const Form = (
       <form onSubmit={handleSubmit(sendData)}>

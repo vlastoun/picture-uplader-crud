@@ -3,10 +3,6 @@ import PropTypes from 'prop-types';
 import Ul from './Ul';
 import CategoryCard from './CategoryCard';
 
-const cardStyle = {
-  margin: '1em',
-};
-
 class CategoriesList extends React.Component {
   componentWillMount() {
     this.props.fetch();
@@ -28,7 +24,7 @@ class CategoriesList extends React.Component {
       <div>
         {listItems.length > 0
           ? <Ul>{listItems}</Ul>
-          : <h1 style={cardStyle}>List is empty</h1>}
+          : <h1>List is empty</h1>}
       </div>
     );
   }

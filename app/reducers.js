@@ -8,7 +8,7 @@ import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { reducer as formReducer } from 'redux-form/immutable'; // <--- immutable import
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
-import { CREATE_CATEGORY_SUCCESSFUL, CLOSE_CATEGORY } from 'containers/CategoryContainer/constants';
+import { CREATE_CATEGORY_SUCCESSFUL, CLOSE_CATEGORY } from 'containers/CategoriesPage/constants';
 
 /*
  * routeReducer

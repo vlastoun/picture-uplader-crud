@@ -7,7 +7,6 @@ import { stateToHTML } from 'draft-js-export-html';
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
 
 import createBlockBreakoutPlugin from 'draft-js-block-breakout-plugin';
-import PostEditorReader from './PostEditorReader';
 const blockBreakoutPlugin = createBlockBreakoutPlugin();
 
 const richButtonsPlugin = createRichButtonsPlugin();
@@ -40,22 +39,17 @@ class PostEditor extends React.Component {
     this.setState({ html: stateToHTML(this.state.editorState.getCurrentContent()) });
   }
 
+  componentWillReceiveProps(props) {
+    const contentHTML = DraftPasteProcessor.processHTML(props);
+    const state = ContentState.createFromBlockArray(contentHTML);
+    console.log(state);
+  }
+
   render() {
     let { editorState } = this.state;
 
     return (
       <div>
-        <div style={{ marginBottom:0 }}>
-          <BoldButton/>
-          <ItalicButton/>
-          <UnderlineButton/>
-          <MonospaceButton/>
-          <b> | &nbsp; </b>
-          <ParagraphButton/>
-          <H2Button/>
-          <ULButton/>
-          <OLButton/>
-        </div>
         <div>
           <Editor
             editorState={editorState}
@@ -64,8 +58,6 @@ class PostEditor extends React.Component {
             plugins={[blockBreakoutPlugin, richButtonsPlugin]}
           />
         </div>
-        <h1>read only</h1>
-        <PostEditorReader html={this.state.html} />
       </div>
     );
   }

@@ -8,11 +8,11 @@ import { USER_LOGOUT, TOGGLE_DRAWER, DRAWER_LINK_CLICKED } from './constants';
 import { makeSelectUser, getAuthState, getDrawerState, getActiveUrl } from './selectors';
 /* eslint-disable react/prefer-stateless-function */
 class AdminPage extends React.Component {
-  componentWillMount() {
-    if (!this.props.authorized) {
-      this.props.redirect();
-    }
-  }
+  // componentWillMount() {
+  //   if (!this.props.authorized) {
+  //     this.props.redirect();
+  //   }
+  // }
   render() {
     return (
       <div>
@@ -39,7 +39,7 @@ class AdminPage extends React.Component {
 
 AdminPage.propTypes = {
   logout: PropType.func.isRequired,
-  redirect: PropType.func.isRequired,
+  redirect: PropType.func.isRequired, //eslint-disable-line
   authorized: PropType.bool.isRequired,
   toggleDrawer: PropType.func.isRequired,
   drawerState: PropType.bool.isRequired,

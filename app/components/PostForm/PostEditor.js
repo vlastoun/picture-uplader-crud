@@ -1,68 +1,68 @@
-/* eslint-disable */
 import React from 'react';
-import Draft from 'draft-js';
 import Editor from 'draft-js-plugins-editor';
 import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
 import { stateToHTML } from 'draft-js-export-html';
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
+import { EditorState, ContentState } from 'draft-js';
 
 import createBlockBreakoutPlugin from 'draft-js-block-breakout-plugin';
 
-import HtmlParser from './HtmlParser';
 import HtmlParser2 from './HtmlParser2';
 
 const blockBreakoutPlugin = createBlockBreakoutPlugin();
 
 const richButtonsPlugin = createRichButtonsPlugin();
 
-const { EditorState, ContentState } = Draft;
 const {
   // inline buttons
   ItalicButton, BoldButton, MonospaceButton, UnderlineButton,
   // block buttons
-  ParagraphButton, H1Button, H2Button, ULButton, OLButton
+  ParagraphButton, H1Button, H2Button, ULButton, OLButton,
 } = richButtonsPlugin;
 
 
 class PostEditor extends React.Component {
-
-  state = {
-    editorState: this._getPlaceholder(),
-    html: {},
+  constructor() {
+    super();
+    this.state = {
+      editorState: this.getPlaceholder(),
+      html: {},
+    };
+    this.onChange = this.onChange.bind(this);
   }
 
-  _getPlaceholder() {
-    const placeholder = '';
-    const contentHTML = DraftPasteProcessor.processHTML(placeholder);
-    const state = ContentState.createFromBlockArray(contentHTML);
-    return Draft.EditorState.createWithContent(state);
-  }
-
-  _onChange(editorState) {
+  onChange(editorState) {
     this.setState({ editorState });
     this.setState({ html: stateToHTML(this.state.editorState.getCurrentContent()) });
   }
 
+  getPlaceholder() {
+    const placeholder = '';
+    const contentHTML = DraftPasteProcessor.processHTML(placeholder);
+    const state = ContentState.createFromBlockArray(contentHTML);
+    return EditorState.createWithContent(state);
+  }
   render() {
-    let { editorState } = this.state;
+    const { editorState } = this.state;
 
     return (
       <div>
-        <div style={{ marginBottom:0 }}>
-          <BoldButton/>
-          <ItalicButton/>
-          <UnderlineButton/>
-          <MonospaceButton/>
+        <div style={{ marginBottom: 0 }}>
+          <BoldButton />
+          <ItalicButton />
+          <UnderlineButton />
+          <MonospaceButton />
           <b> | &nbsp; </b>
-          <ParagraphButton/>
-          <H2Button/>
-          <ULButton/>
-          <OLButton/>
+          <ParagraphButton />
+          <H1Button />
+          <H2Button />
+          <ULButton />
+          <OLButton />
         </div>
         <div>
           <Editor
             editorState={editorState}
-            onChange={this._onChange.bind(this)}
+            onChange={this.onChange}
             spellCheck={false}
             plugins={[blockBreakoutPlugin, richButtonsPlugin]}
           />

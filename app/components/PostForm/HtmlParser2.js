@@ -9,7 +9,6 @@ class HtmlPraser2 extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    console.log(props);
     const contentHTML = DraftPasteProcessor.processHTML(props.html);
     const state = ContentState.createFromBlockArray(contentHTML);
     this.setState({ editorState: EditorState.createWithContent(state) });

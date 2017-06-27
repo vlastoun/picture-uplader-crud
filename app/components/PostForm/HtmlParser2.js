@@ -1,6 +1,5 @@
 import React from 'react';
-import { Editor, EditorState, ContentState } from 'draft-js';
-import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
+import { Editor, EditorState, ContentState, convertFromHTML } from 'draft-js';
 
 class HtmlPraser2 extends React.Component {
   constructor(props) {
@@ -9,7 +8,7 @@ class HtmlPraser2 extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    const contentHTML = DraftPasteProcessor.processHTML(props.html);
+    const contentHTML = convertFromHTML(props.html);
     const state = ContentState.createFromBlockArray(contentHTML);
     this.setState({ editorState: EditorState.createWithContent(state) });
   }

@@ -3,11 +3,12 @@ import { injectGlobal } from 'styled-components';
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
   html,
-
-  p, 
-  label { 
-    line-height: 1em; 
-  } 
+  p{ 
+    line-height: 1.5em; 
+  }
+  code{
+    background-color: grey;
+  }
 
   #app {
     background-color: #fafafa;

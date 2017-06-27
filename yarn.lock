@@ -3742,7 +3742,7 @@ html-webpack-plugin@2.24.1:
     pretty-error "^2.0.2"
     toposort "^1.0.0"
 
-htmlparser2@^3.9.1:
+htmlparser2@^3.9.0, htmlparser2@^3.9.1:
   version "3.9.2"
   resolved "https://registry.yarnpkg.com/htmlparser2/-/htmlparser2-3.9.2.tgz#1bdf87acca0f3f9e53fa4fcceb0f4b4cbb00b338"
   dependencies:
@@ -6532,6 +6532,12 @@ react-helmet@3.2.2:
     react-side-effect "1.0.2"
     shallowequal "0.2.2"
     warning "3.0.0"
+
+react-html-parser@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-html-parser/-/react-html-parser-1.0.3.tgz#28358f0cc11eee3bf490f8ab6c9c31bd2c806790"
+  dependencies:
+    htmlparser2 "^3.9.0"
 
 react-intl@2.1.5:
   version "2.1.5"

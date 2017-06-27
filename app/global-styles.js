@@ -4,6 +4,11 @@ import { injectGlobal } from 'styled-components';
 injectGlobal`
   html,
 
+  p, 
+  label { 
+    line-height: 1em; 
+  } 
+
   #app {
     background-color: #fafafa;
     min-height: 100%;

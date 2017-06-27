@@ -7,7 +7,9 @@ import { stateToHTML } from 'draft-js-export-html';
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
 
 import createBlockBreakoutPlugin from 'draft-js-block-breakout-plugin';
-import PostEditorReader from './PostEditorReader';
+
+import HtmlParser from './HtmlParser';
+
 const blockBreakoutPlugin = createBlockBreakoutPlugin();
 
 const richButtonsPlugin = createRichButtonsPlugin();
@@ -65,7 +67,7 @@ class PostEditor extends React.Component {
           />
         </div>
         <h1>read only</h1>
-        <PostEditorReader html={this.state.html} />
+        <HtmlParser html={this.state.html}/>
       </div>
     );
   }

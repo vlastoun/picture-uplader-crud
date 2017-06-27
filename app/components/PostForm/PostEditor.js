@@ -1,34 +1,65 @@
 import React from 'react';
+
+import Draft from 'draft-js';
+import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
+const { EditorState, ContentState } = Draft;
 import Editor from 'draft-js-plugins-editor';
-import { ContentState, EditorState, RichUtils } from 'draft-js'; //eslint-disable-line
+
+import createBlockBreakoutPlugin from 'draft-js-block-breakout-plugin';
+const blockBreakoutPlugin = createBlockBreakoutPlugin();
+
+import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
+const richButtonsPlugin = createRichButtonsPlugin();
+
+const {
+  // inline buttons
+  ItalicButton, BoldButton, MonospaceButton, UnderlineButton,
+  // block buttons
+  ParagraphButton, H1Button, H2Button, ULButton, OLButton
+} = richButtonsPlugin;
 
 
 class PostEditor extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { editorState: EditorState.createEmpty() };
-    this.onChange = (editorState) => this.setState({ editorState });
-    this.handleKeyCommand = this.handleKeyCommand.bind(this);
+
+  state = {
+    editorState: this._getPlaceholder()
   }
 
+  _getPlaceholder() {
+    const placeholder = '<p>Add <b>rich</b> controls to your editor with minimal hassle.</p>';
+    const contentHTML = DraftPasteProcessor.processHTML(placeholder);
+    const state = ContentState.createFromBlockArray(contentHTML);
+    return Draft.EditorState.createWithContent(state);
+  }
 
-  handleKeyCommand(command) {
-    const newState = RichUtils.handleKeyCommand(this.state.editorState, command);
-    if (newState) {
-      this.onChange(newState);
-      return 'handled';
-    }
-    return 'not-handled';
+  _onChange(editorState) {
+    this.setState({editorState});
   }
 
   render() {
+    let { editorState } = this.state;
+
     return (
       <div>
-        <Editor
-          editorState={this.state.editorState}
-          handleKeyCommand={this.handleKeyCommand}
-          onChange={this.onChange}
-        />
+        <div style={{ marginBottom:0 }}>
+          <BoldButton/>
+          <ItalicButton/>
+          <UnderlineButton/>
+          <MonospaceButton/>
+          <b> | &nbsp; </b>
+          <ParagraphButton/>
+          <H2Button/>
+          <ULButton/>
+          <OLButton/>
+        </div>
+        <div>
+          <Editor
+            editorState={editorState}
+            onChange={this._onChange.bind(this)}
+            spellCheck={false}
+            plugins={[blockBreakoutPlugin, richButtonsPlugin]}
+          />
+        </div>
       </div>
     );
   }

@@ -1,4 +1,5 @@
 
+/* eslint-disable */
 import { Field, reduxForm } from 'redux-form/immutable'; // <--- immutable import
 import React from 'react';
 import PropTypes from 'prop-types';

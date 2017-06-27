@@ -1,5 +1,5 @@
+/* eslint-disable */
 import React from 'react';
-
 import Draft from 'draft-js';
 import Editor from 'draft-js-plugins-editor';
 import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
@@ -9,6 +9,7 @@ import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
 import createBlockBreakoutPlugin from 'draft-js-block-breakout-plugin';
 
 import HtmlParser from './HtmlParser';
+import HtmlParser2 from './HtmlParser2';
 
 const blockBreakoutPlugin = createBlockBreakoutPlugin();
 
@@ -67,7 +68,7 @@ class PostEditor extends React.Component {
           />
         </div>
         <h1>read only</h1>
-        <HtmlParser html={this.state.html}/>
+        <HtmlParser2 html={this.state.html} />
       </div>
     );
   }

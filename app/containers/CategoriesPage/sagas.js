@@ -16,12 +16,13 @@ import {
   EDIT_CATEGORY_REQUEST,
  } from './constants';
 
+const TOKEN = localStorage.getItem('token');
 
 export function* postCategory(action) {
   const category = action.category.toJS();
   const { name, description } = category;
   const topost = { name, description };
-  const URL = `${HOST}api/ctagories`;
+  const URL = `${HOST}api/ctagories?access_token=${TOKEN}`;
   try {
     yield call(axios.post, URL, topost);
     yield put({ type: CREATE_CATEGORY_SUCCESSFUL });
@@ -35,7 +36,7 @@ export function* editCategory(action) {
   const category = action.category.toJS();
   const { name, description, id } = category;
   const topost = { name, description };
-  const URL = `${HOST}api/ctagories/${id}`;
+  const URL = `${HOST}api/ctagories/${id}?access_token=${TOKEN}`;
   try {
     yield call(axios.patch, URL, topost);
     yield put({ type: UPDATE_CATEGORY_SUCCESS });
@@ -46,7 +47,7 @@ export function* editCategory(action) {
 }
 
 export function* fetchCategories() {
-  const URL = `${HOST}api/ctagories`;
+  const URL = `${HOST}api/ctagories?access_token=${TOKEN}`;
   try {
     const response = yield call(axios.get, URL);
     yield put({ type: FETCH_CATEGORIES_SUCCESS, data: response.data });
@@ -56,7 +57,7 @@ export function* fetchCategories() {
 }
 
 export function* deleteCategory(action) {
-  const URL = `${HOST}api/ctagories/${action.id}`;
+  const URL = `${HOST}api/ctagories/${action.id}?access_token=${TOKEN}`;
   try {
     yield call(axios.delete, URL);
     yield put({ type: DELETE_CATEGORY_SUCCESS });

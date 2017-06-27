@@ -39,7 +39,7 @@ class CategoriesForm extends React.Component { // eslint-disable-line react/pref
       />);
     const Form = (
       <form onSubmit={handleSubmit(sendData)}>
-        <Card style={cardStyle} zDepth="3" >
+        <Card style={cardStyle} zDepth={3} >
           <CardTitle
             title={name}
           />

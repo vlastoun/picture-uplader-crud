@@ -31,8 +31,16 @@ export function* authCheck() {
   const userId = localStorage.getItem('userId');
   try {
     const URL = `${HOST}api/users/${userId}?access_token=${token}`;
-    const user = yield call(axios.get, URL);
-    yield put({ type: STORE_USER, user: user.data });
+    const roleURL = `${HOST}api/users/${userId}/roles?access_token=${token}`;
+    const userData = yield call(axios.get, URL);
+    const userRole = yield call(axios.get, roleURL);
+    const user = {
+      username: userData.data.username,
+      email: userData.data.email,
+      roles: userRole.data,
+    };
+
+    yield put({ type: STORE_USER, user });
   } catch (e) {
     yield put({ type: AUTHENTIFICATION_FAILED });
     yield put(push('/admin/login'));

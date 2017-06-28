@@ -11,7 +11,7 @@ import {
 } from './constants';
 // The initial state of the App
 const initialState = fromJS({
-  user: null,
+  user: { email: null, username: null, roles: [] },
   isAuth: false, // eslint-disable-line no-unneeded-ternary
   drawerState: false,
   activeUrl: '/',

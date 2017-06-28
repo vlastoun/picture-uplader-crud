@@ -4,21 +4,19 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { createStructuredSelector } from 'reselect';
 import AdminAppBar from 'components/AdminAppBar';
-import { USER_LOGOUT, TOGGLE_DRAWER, DRAWER_LINK_CLICKED } from './constants';
+import { USER_LOGOUT, TOGGLE_DRAWER, DRAWER_LINK_CLICKED, AUTHENTIFICATION_CHECK } from './constants';
 import { makeSelectUser, getAuthState, getDrawerState, getActiveUrl } from './selectors';
 /* eslint-disable react/prefer-stateless-function */
 class AdminPage extends React.Component {
-  // componentWillMount() {
-  //   if (!this.props.authorized) {
-  //     this.props.redirect();
-  //   }
-  // }
+  componentWillMount() {
+    this.props.authCheck();
+  }
   render() {
     return (
       <div>
         {
           !this.props.authorized
-          ? <h2>UNAUTORIZED</h2>
+          ? <h2>Loading..</h2>
           : <AdminAppBar
             logout={this.props.logout}
             toggleDrawer={this.props.toggleDrawer}
@@ -46,6 +44,7 @@ AdminPage.propTypes = {
   activeUrl: PropType.string.isRequired,
   clickedLink: PropType.func.isRequired,
   children: PropType.node,
+  authCheck: PropType.func.isRequired,
 };
 
 function mapDispatchToProps(dispatch) { // eslint-disable-line
@@ -54,6 +53,7 @@ function mapDispatchToProps(dispatch) { // eslint-disable-line
     redirect: () => dispatch(push('/admin/login')),
     toggleDrawer: (state) => dispatch({ type: TOGGLE_DRAWER, state }),
     clickedLink: (url) => dispatch({ type: DRAWER_LINK_CLICKED, url }),
+    authCheck: () => dispatch({ type: AUTHENTIFICATION_CHECK }),
   };
 }
 

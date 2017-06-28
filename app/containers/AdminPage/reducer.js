@@ -1,17 +1,18 @@
 import { fromJS } from 'immutable';
 
 import {
-  USER_STORE,
   USER_LOGIN_FAILED,
   USER_LOGOUT,
 } from 'containers/LoginPage/constants';
 import {
   TOGGLE_DRAWER,
+  STORE_USER,
+  AUTHENTIFICATION_FAILED,
 } from './constants';
 // The initial state of the App
 const initialState = fromJS({
   user: null,
-  isAuth: localStorage.getItem('token') ? true : false, // eslint-disable-line no-unneeded-ternary
+  isAuth: false, // eslint-disable-line no-unneeded-ternary
   drawerState: false,
   activeUrl: '/',
 });
@@ -25,10 +26,13 @@ function adminReducer(state = initialState, action) {
     case USER_LOGIN_FAILED:
       return state
         .set('isAuth', false);
-    case USER_STORE:
+    case STORE_USER:
       return state
         .set('user', action.user)
         .set('isAuth', true);
+    case AUTHENTIFICATION_FAILED:
+      return state
+        .set('isAuth', false);
     case TOGGLE_DRAWER:
       return state
         .set('drawerState', action.state);

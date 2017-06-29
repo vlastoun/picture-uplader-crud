@@ -10,7 +10,7 @@ import {
   NEW_POST_REQUESTED,
   IMAGE_UPLOAD_FINISHED,
 } from './constants';
-import { editorState, selectCategories } from './selectors';
+import { editorState, selectCategories, selectImages } from './selectors';
 /* eslint-disable react/prefer-stateless-function */
 /* eslint-disable no-console */
 
@@ -34,6 +34,7 @@ class PostPage extends React.Component {
           sendData={this.sendData}
           categories={this.props.categories}
           imagesUploaded={this.props.imagesUploaded}
+          images={this.props.images}
         />
       </PageTemplate>
     );
@@ -47,6 +48,7 @@ PostPage.propTypes = {
   editorState: PropTypes.object.isRequired,
   categories: PropTypes.array.isRequired,
   imagesUploaded: PropTypes.func.isRequired,
+  images: PropTypes.array.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -64,6 +66,7 @@ function mapDispatchToProps(dispatch) {
 const mapStateToProps = createStructuredSelector({
   editorState: editorState(),
   categories: selectCategories(),
+  images: selectImages(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostPage);

@@ -18,9 +18,10 @@ function loginReducer(state = initialState, action) {
       return state.set('textEditorState', action.content);
     case FETCH_CATEGORIES_SUCCESS:
       return state.set('categories', action.data).set('loading', false);
-    case IMAGE_UPLOAD_FINISHED:
-      return state
-        .set('images', action.images);
+    case IMAGE_UPLOAD_FINISHED://eslint-disable-line
+      const oldList = state.get('images');
+      const newList = oldList.concat(action.images);
+      return state.set('images', newList);
     default:
       return state;
   }

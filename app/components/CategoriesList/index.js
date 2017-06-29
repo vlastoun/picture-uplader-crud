@@ -11,15 +11,14 @@ class CategoriesList extends React.Component {
   /* eslint-disable react/jsx-boolean-value */
 
   render() {
-    const listItems = this.props.items.map((item) => { //eslint-disable-line
-      return (
-        <CategoryCard
-          key={item.id}
-          item={item}
-          edit={this.props.edit}
-          delete={this.props.delete}
-        />);
-    });
+    const listItems = this.props.items.map((item) =>
+      <CategoryCard
+        key={item.id}
+        item={item}
+        edit={this.props.edit}
+        delete={this.props.delete}
+      />
+    );
     return (
       <div>
         {listItems.length > 0

@@ -6,6 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
 import { connect } from 'react-redux';
 import { SelectField } from 'redux-form-material-ui';
+import ThumbnailBar from 'components/ThumbnailBar';
 import PostEditor from './PostEditor';
 import ImageUploader from './ImageUploader';
 const buttonStyle = {
@@ -57,10 +58,11 @@ class PostForm extends React.Component {
           editorChanged={this.props.editorChanged}
           editorState={this.props.editorState}
         />
+        <ImageUploader imagesUploaded={this.props.imagesUploaded} />
+        <ThumbnailBar images={this.props.images} />
         <RaisedButton type="submit" disabled={submitting} fullWidth primary style={buttonStyle}>
           Submit
         </RaisedButton>
-        <ImageUploader imagesUploaded={this.props.imagesUploaded} />
       </form>
     );
   }
@@ -74,6 +76,7 @@ PostForm.propTypes = {
   editorState: PropTypes.object.isRequired,
   categories: PropTypes.array.isRequired,
   imagesUploaded: PropTypes.func.isRequired,
+  images: PropTypes.array.isRequired,
 };
 
 PostForm = reduxForm({

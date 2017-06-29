@@ -10,7 +10,12 @@ const selectCategories = () => createSelector(
   selectHome,
   (homeState) => homeState.get('categories')
 );
+const selectImages = () => createSelector(
+  selectHome,
+  (homeState) => homeState.get('images')
+);
 export {
+  selectImages,
   selectCategories,
   editorState,
   selectHome,

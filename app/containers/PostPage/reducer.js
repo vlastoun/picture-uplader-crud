@@ -1,8 +1,10 @@
 import { fromJS } from 'immutable';
-import { EDITOR_CHANGED } from './constants';
+import { EDITOR_CHANGED, FETCH_CATEGORIES_SUCCESS } from './constants';
 
 const initialState = fromJS({
+  loading: false,
   textEditorState: {},
+  categories: [],
 });
 
 function loginReducer(state = initialState, action) {
@@ -10,6 +12,10 @@ function loginReducer(state = initialState, action) {
     case EDITOR_CHANGED:
       return state
         .set('textEditorState', action.content);
+    case FETCH_CATEGORIES_SUCCESS:
+      return state
+        .set('categories', action.data)
+        .set('loading', false);
     default:
       return state;
   }

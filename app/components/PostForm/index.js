@@ -2,14 +2,26 @@ import { Field, reduxForm } from 'redux-form/immutable'; // <--- immutable impor
 import InputField from 'components/InputField';
 import React from 'react';
 import PropTypes from 'prop-types';
+import RaisedButton from 'material-ui/RaisedButton';
 import { connect } from 'react-redux';
 import PostEditor from './PostEditor';
+const buttonStyle = {
+  marginTop: '2em',
+};
 /* eslint-disable react/prefer-stateless-function */
 /* eslint-disable no-class-assign */
-class PostForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
+class PostForm extends React.Component {
+  // eslint-disable-line react/prefer-stateless-function
   render() {
+    const { sendData, handleSubmit, submitting } = this.props;
     const name = (
-      <Field name="name" type="text" component={InputField} label="Name" fullWidth />
+      <Field
+        name="name"
+        type="text"
+        component={InputField}
+        label="Name"
+        fullWidth
+      />
     );
     const description = (
       <Field
@@ -22,10 +34,16 @@ class PostForm extends React.Component { // eslint-disable-line react/prefer-sta
       />
     );
     return (
-      <form>
+      <form onSubmit={handleSubmit(sendData)}>
         {name}
         {description}
-        <PostEditor editorChanged={this.props.editorChanged} />
+        <PostEditor
+          editorChanged={this.props.editorChanged}
+          editorState={this.props.editorState}
+        />
+        <RaisedButton type="submit" disabled={submitting} fullWidth primary style={buttonStyle}>
+          Submit
+        </RaisedButton>
       </form>
     );
   }
@@ -33,6 +51,7 @@ class PostForm extends React.Component { // eslint-disable-line react/prefer-sta
 
 PostForm.propTypes = {
   editorChanged: PropTypes.func.isRequired,
+  editorState: PropTypes.object.isRequired,
 };
 
 PostForm = reduxForm({
@@ -42,4 +61,3 @@ PostForm = reduxForm({
 PostForm = connect(null, null)(PostForm);
 
 export default PostForm;
-

@@ -2,7 +2,7 @@ import { fromJS } from 'immutable';
 import { EDITOR_CHANGED } from './constants';
 
 const initialState = fromJS({
-  textEditorState: null,
+  textEditorState: {},
 });
 
 function loginReducer(state = initialState, action) {

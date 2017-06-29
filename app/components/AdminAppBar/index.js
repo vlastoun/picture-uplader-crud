@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
-import Script from 'react-load-script';
 import { LINKS } from 'constants/AdminLinks';
 import LeftDrawer from './LeftDrawer';
 
@@ -13,7 +12,7 @@ const appBarStyle = {
   width: '100%',
 };
 
-const SCRIPT_URL = '//widget.cloudinary.com/global/all.js';
+
 /* eslint-disable react/prefer-stateless-function */
 class AdminAppBar extends React.Component {
   constructor(props) {
@@ -36,17 +35,6 @@ class AdminAppBar extends React.Component {
     this.setState({ width: window.innerWidth, height: window.innerHeight });
   }
 
-
-  uploadWidget() {
-    cloudinary.openUploadWidget({//eslint-disable-line
-      cloud_name: process.env.CLOUDI_NAME,
-      upload_preset: process.env.CLOUDI_PRESET,
-      api_key: process.env.API_KEY,
-    },
-      (error, result) => {
-          console.log(result);//eslint-disable-line
-      });
-  }
   showDrawer() {
     this.props.toggleDrawer(true);
   }
@@ -66,7 +54,6 @@ class AdminAppBar extends React.Component {
           activeUrl={this.props.activeUrl}
           clickedLink={this.props.clickedLink}
         />
-        <Script url={SCRIPT_URL} />
       </div>
     );
   }

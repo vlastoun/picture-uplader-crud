@@ -7,12 +7,14 @@ import MenuItem from 'material-ui/MenuItem';
 import { connect } from 'react-redux';
 import { SelectField } from 'redux-form-material-ui';
 import PostEditor from './PostEditor';
+import ImageUploader from './ImageUploader';
 const buttonStyle = {
   marginTop: '2em',
 };
 /* eslint-disable react/prefer-stateless-function */
 /* eslint-disable no-class-assign */
 class PostForm extends React.Component {
+
   // eslint-disable-line react/prefer-stateless-function
   render() {
     const { sendData, handleSubmit, submitting } = this.props;
@@ -58,6 +60,7 @@ class PostForm extends React.Component {
         <RaisedButton type="submit" disabled={submitting} fullWidth primary style={buttonStyle}>
           Submit
         </RaisedButton>
+        <ImageUploader imagesUploaded={this.props.imagesUploaded} />
       </form>
     );
   }
@@ -70,6 +73,7 @@ PostForm.propTypes = {
   editorChanged: PropTypes.func.isRequired,
   editorState: PropTypes.object.isRequired,
   categories: PropTypes.array.isRequired,
+  imagesUploaded: PropTypes.func.isRequired,
 };
 
 PostForm = reduxForm({

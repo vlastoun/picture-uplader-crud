@@ -5,7 +5,7 @@ import TextField from 'material-ui/TextField';
 /* eslint-disable react/prefer-stateless-function*/
 class InputField extends React.Component {
   render() {
-    const { rows, multiLine, input, label, type, serverError, meta: { touched, error } } = this.props;
+    const {fullWidth, rows, multiLine, input, label, type, serverError, meta: { touched, error } } = this.props;
     return (
       <TextField
         {...input}
@@ -15,6 +15,7 @@ class InputField extends React.Component {
         type={type}
         rows={rows}
         multiLine={multiLine}
+        fullWidth={fullWidth}
       />
     );
   }
@@ -29,6 +30,7 @@ InputField.propTypes = {
   serverError: PropTypes.array,
   rows: PropTypes.number,
   multiLine: PropTypes.bool,
+  fullWidth: PropTypes.bool,
 };
 
 

@@ -59,11 +59,13 @@ export default function createRoutes(store) {
     getComponent(nextState, cb) {
       const importModules = Promise.all([
         System.import('containers/PostPage'),
+        System.import('containers/PostPage/reducer'),
       ]);
 
       const renderRoute = loadModule(cb);
 
       importModules.then(([component, reducer, sagas]) => {
+        injectReducer('post', reducer.default);
         renderRoute(component);
       });
       importModules.catch(errorLoading);

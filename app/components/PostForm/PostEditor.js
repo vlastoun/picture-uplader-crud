@@ -1,17 +1,25 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Editor from 'draft-js-plugins-editor';
+import Paper from 'material-ui/Paper';
 import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
 import { stateToHTML } from 'draft-js-export-html';
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
-import { EditorState, ContentState } from 'draft-js';
+import { EditorState, ContentState, convertToRaw } from 'draft-js';
 
 import createBlockBreakoutPlugin from 'draft-js-block-breakout-plugin';
-
-import HtmlParser2 from './HtmlParser2';
+import createImagePlugin from 'draft-js-image-plugin';
 
 const blockBreakoutPlugin = createBlockBreakoutPlugin();
-
 const richButtonsPlugin = createRichButtonsPlugin();
+const imagePlugin = createImagePlugin();
+
+const style = {
+  Paper: {
+    padding: '1em',
+    marginTop: '1em',
+  },
+};
 
 const {
   // inline buttons
@@ -25,7 +33,7 @@ class PostEditor extends React.Component {
   constructor() {
     super();
     this.state = {
-      editorState: this.getPlaceholder(),
+      editorState: EditorState.createEmpty(),
       html: {},
     };
     this.onChange = this.onChange.bind(this);
@@ -34,6 +42,7 @@ class PostEditor extends React.Component {
   onChange(editorState) {
     this.setState({ editorState });
     this.setState({ html: stateToHTML(this.state.editorState.getCurrentContent()) });
+    this.props.editorChanged(convertToRaw(editorState.getCurrentContent()));
   }
 
   getPlaceholder() {
@@ -47,6 +56,7 @@ class PostEditor extends React.Component {
 
     return (
       <div>
+        <h3>Content editor</h3>
         <div style={{ marginBottom: 0 }}>
           <BoldButton />
           <ItalicButton />
@@ -59,19 +69,21 @@ class PostEditor extends React.Component {
           <ULButton />
           <OLButton />
         </div>
-        <div>
+        <Paper style={style.Paper}>
           <Editor
             editorState={editorState}
             onChange={this.onChange}
-            spellCheck={false}
-            plugins={[blockBreakoutPlugin, richButtonsPlugin]}
+            spellCheck
+            plugins={[blockBreakoutPlugin, richButtonsPlugin, imagePlugin]}
           />
-        </div>
-        <h1>read only</h1>
-        <HtmlParser2 html={this.state.html} />
+        </Paper>
       </div>
     );
   }
 }
+
+PostEditor.propTypes = {
+  editorChanged: PropTypes.func.isRequired,
+};
 
 export default PostEditor;

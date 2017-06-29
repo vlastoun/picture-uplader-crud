@@ -3,7 +3,9 @@ import InputField from 'components/InputField';
 import React from 'react';
 import PropTypes from 'prop-types';
 import RaisedButton from 'material-ui/RaisedButton';
+import MenuItem from 'material-ui/MenuItem';
 import { connect } from 'react-redux';
+import { SelectField } from 'redux-form-material-ui';
 import PostEditor from './PostEditor';
 const buttonStyle = {
   marginTop: '2em',
@@ -33,10 +35,22 @@ class PostForm extends React.Component {
         fullWidth
       />
     );
+   const listItems = this.props.categories.map((item) => { //eslint-disable-line
+     return (
+       <MenuItem value={item.id} primaryText={item.name} key={item.id} />
+     );
+   });
+
+    const select = (
+      <Field name="categoryId" component={SelectField} fullWidth floatingLabelText="Category" hintText="Category" >
+        {listItems}
+      </Field>
+    );
     return (
       <form onSubmit={handleSubmit(sendData)}>
         {name}
         {description}
+        {select}
         <PostEditor
           editorChanged={this.props.editorChanged}
           editorState={this.props.editorState}
@@ -50,8 +64,12 @@ class PostForm extends React.Component {
 }
 
 PostForm.propTypes = {
+  submitting: PropTypes.bool.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  sendData: PropTypes.func.isRequired,
   editorChanged: PropTypes.func.isRequired,
   editorState: PropTypes.object.isRequired,
+  categories: PropTypes.array.isRequired,
 };
 
 PostForm = reduxForm({

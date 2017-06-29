@@ -5,7 +5,7 @@ import { createStructuredSelector } from 'reselect';
 import PageTemplate from 'components/PageTemplate';
 import PostForm from 'components/PostForm';
 import { EDITOR_CHANGED, SEND_POST_REQUESTED, NEW_POST_REQUESTED } from './constants';
-import { editorState } from './selectors';
+import { editorState, selectCategories } from './selectors';
 /* eslint-disable react/prefer-stateless-function */
 /* eslint-disable no-console */
 class PostPage extends React.Component {
@@ -22,7 +22,7 @@ class PostPage extends React.Component {
   render() {
     return (
       <PageTemplate heading="Post">
-        <PostForm editorChanged={this.props.editorChanged} editorState={this.props.editorState} sendData={this.sendData}/>
+        <PostForm editorChanged={this.props.editorChanged} editorState={this.props.editorState} sendData={this.sendData} categories={this.props.categories} />
       </PageTemplate>
     );
   }
@@ -33,6 +33,7 @@ PostPage.propTypes = {
   newPostRequest: PropTypes.func.isRequired,
   editorChanged: PropTypes.func.isRequired,
   editorState: PropTypes.object.isRequired,
+  categories: PropTypes.array.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -44,6 +45,7 @@ function mapDispatchToProps(dispatch) {
 }
 const mapStateToProps = createStructuredSelector({
   editorState: editorState(),
+  categories: selectCategories(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostPage);

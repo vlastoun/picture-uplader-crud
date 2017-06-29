@@ -21,7 +21,6 @@ class ImageUploader extends React.Component {
       api_key: process.env.API_KEY,
     },
       (error, result) => {
-        console.log(result);//eslint-disable-line
         this.props.imagesUploaded(result);
       });
   }

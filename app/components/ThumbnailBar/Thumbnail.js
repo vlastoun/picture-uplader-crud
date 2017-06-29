@@ -25,7 +25,7 @@ class Thumbnail extends React.Component {
     this.pictureDelete = this.pictureDelete.bind(this);
   }
   pictureDelete() {
-    console.log('delete picture');
+    this.props.imageDelete(this.props.public_id);
   }
   render() {
     return (
@@ -42,5 +42,7 @@ class Thumbnail extends React.Component {
 Thumbnail.propTypes = {
   thumbnail_url: PropTypes.string.isRequired,
   original_filename: PropTypes.string.isRequired,
+  public_id: PropTypes.string.isRequired,
+  imageDelete: PropTypes.func.isRequired,
 };
 export default Thumbnail;

@@ -9,6 +9,9 @@ class ThumbnailBar extends React.Component {
       <Thumbnail
         key={i}
         thumbnail_url={image.thumbnail_url}
+        public_id={image.public_id}
+        original_filename={image.original_filename}
+        imageDelete={this.props.imageDelete}
       />
     );
 
@@ -22,5 +25,6 @@ class ThumbnailBar extends React.Component {
 
 ThumbnailBar.propTypes = {
   images: PropTypes.array.isRequired,
+  imageDelete: PropTypes.func.isRequired,
 };
 export default ThumbnailBar;

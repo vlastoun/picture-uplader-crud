@@ -59,7 +59,7 @@ class PostForm extends React.Component {
           editorState={this.props.editorState}
         />
         <ImageUploader imagesUploaded={this.props.imagesUploaded} />
-        <ThumbnailBar images={this.props.images} />
+        <ThumbnailBar images={this.props.images} imageDelete={this.props.imageDelete} />
         <RaisedButton type="submit" disabled={submitting} fullWidth primary style={buttonStyle}>
           Submit
         </RaisedButton>
@@ -77,6 +77,7 @@ PostForm.propTypes = {
   categories: PropTypes.array.isRequired,
   imagesUploaded: PropTypes.func.isRequired,
   images: PropTypes.array.isRequired,
+  imageDelete: PropTypes.func.isRequired,
 };
 
 PostForm = reduxForm({

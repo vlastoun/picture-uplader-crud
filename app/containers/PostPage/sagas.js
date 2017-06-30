@@ -1,5 +1,6 @@
 import { take, call, cancel, takeLatest, put } from 'redux-saga/effects';
-import { LOCATION_CHANGE } from 'react-router-redux';
+import { LOCATION_CHANGE, push } from 'react-router-redux';
+import winston from 'winston';
 import axios from 'axios';
 import { HOST } from 'constants/host';
 import {
@@ -22,6 +23,8 @@ export function* fetchCategories() {
   }
 }
 
+/* eslint-disable no-param-reassign*/
+
 export function* newPostRequest(action) {
   const { currentEditorState, data, user, images } = action.content;
   const jsData = data.toJS();
@@ -37,26 +40,31 @@ export function* newPostRequest(action) {
   };
   try {
     const response = yield call(axios.post, postURL, toPost);
-    if (jsImage.length > 0) {
-      jsImage.forEach((image)=> {
+    if (jsImage.size > 0) {
+      jsImage.forEach((image) => {
         image.postId = response.data.id;
         image.userId = user.id;
         image.categoryId = jsData.categoryId;
       });
       yield jsImage.map((image) => call(axios.post, postImageURL, image));
     }
-    yield put({ type: POST_CREATED })
+    yield put({ type: POST_CREATED });
   } catch (err) {
-    console.log(err.message);
+    winston.log('warning', err);
   }
+}
+export function* redirect() {
+  yield put(push('/admin/posts'));
 }
 
 export function* postWatcher() {
   const watcher = yield takeLatest(SEND_POST_REQUESTED, newPostRequest);
   const watcherFetchCategories = yield takeLatest(NEW_POST_REQUESTED, fetchCategories);
+  const redirectWatcher = yield takeLatest(POST_CREATED, redirect);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
   yield cancel(watcherFetchCategories);
+  yield cancel(redirectWatcher);
 }
 
 export default [

@@ -52,7 +52,6 @@ class CategoriesPage extends React.Component {
   }
 
   handleDeleteCategory() {
-    console.log(this.props.postToDelete.id);
     this.props.deleteConfirmed(this.props.postToDelete.id);
   }
 /* eslint-disable react/jsx-boolean-value */

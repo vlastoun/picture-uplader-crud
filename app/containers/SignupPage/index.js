@@ -12,10 +12,6 @@ class SignupContainer extends React.Component {
     this.sendData = this.sendData.bind(this);
   }
 
-  componentWillReciveProps(nextprops) {
-    console.log(nextprops);
-  }
-
   sendData(data) {
     this.props.onSubmit(data);
   }

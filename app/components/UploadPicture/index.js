@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import winston from 'winston';
 import FileButton from './FileButton';
 import Input from './Input';
 import Thumbnail from './Thumbnail';
@@ -27,7 +28,7 @@ class UploadPicture extends React.Component {
     } };
     axios.post(url, formData, config)
     .then((response) => this.setState({ thumbnail: response.data.status[0].urlThumbnail }))
-    .then((console.log(this.state.thumbnail)));
+    .catch((err) => winston.log('debug', err));
   }
 
   render() {

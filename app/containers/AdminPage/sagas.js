@@ -1,4 +1,5 @@
 import axios from 'axios';
+import winston from 'winston';
 import { take, call, cancel, takeLatest, put } from 'redux-saga/effects';
 import { LOCATION_CHANGE, push } from 'react-router-redux';
 import { USER_LOGOUT } from 'containers/LoginPage/constants';
@@ -16,7 +17,7 @@ export function* logout() {
   try {
     yield call(localStorage.clear());
   } catch (e) {
-    console.log('error');
+    winston.log('debug', e);
   }
   yield put(push('/admin/login'));
   yield put({ type: USER_LOGOUT, error: 'User logged out' });

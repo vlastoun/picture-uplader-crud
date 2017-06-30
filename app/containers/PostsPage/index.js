@@ -73,7 +73,7 @@ function mapDispatchToProps(dispatch) {
 const mapStateToProps = createStructuredSelector({
   posts: selectPosts(),
   eraseModal: eraseModalState(),
-  postToDelete: selectPostToDelete()
+  postToDelete: selectPostToDelete(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostsPage);

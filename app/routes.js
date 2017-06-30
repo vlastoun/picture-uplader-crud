@@ -43,11 +43,15 @@ export default function createRoutes(store) {
     getComponent(nextState, cb) {
       const importModules = Promise.all([
         System.import('containers/PostsPage'),
+        System.import('containers/PostsPage/reducer'),
+        System.import('containers/PostsPage/sagas'),
       ]);
 
       const renderRoute = loadModule(cb);
 
-      importModules.then(([component]) => {
+      importModules.then(([component, reducer, sagas]) => {
+        injectReducer('posts', reducer.default);
+        injectSagas(sagas.default);
         renderRoute(component);
       });
       importModules.catch(errorLoading);
@@ -68,6 +72,22 @@ export default function createRoutes(store) {
       importModules.then(([component, reducer, sagas]) => {
         injectReducer('post', reducer.default);
         injectSagas(sagas.default);
+        renderRoute(component);
+      });
+      importModules.catch(errorLoading);
+    },
+  };
+  const editPost = {
+    path: '/admin/post/:slug',
+    name: 'categories',
+    getComponent(nextState, cb) {
+      const importModules = Promise.all([
+        System.import('containers/EditPostPage'),
+      ]);
+
+      const renderRoute = loadModule(cb);
+
+      importModules.then(([component, reducer, sagas]) => {
         renderRoute(component);
       });
       importModules.catch(errorLoading);
@@ -113,7 +133,7 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
       childRoutes: [
-        categories, posts, singlePost,
+        categories, posts, singlePost, editPost,
       ],
     },
     {

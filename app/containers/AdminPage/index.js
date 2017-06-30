@@ -1,6 +1,7 @@
 import React from 'react';
 import PropType from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import { push } from 'react-router-redux';
 import { createStructuredSelector } from 'reselect';
 import AdminAppBar from 'components/AdminAppBar';
@@ -27,7 +28,7 @@ class AdminPage extends React.Component {
         }
         {
           React.Children.toArray(this.props.children).length === 0
-          ? <p>TODO</p>
+          ? <Link to="admin/post/1">test</Link>
           : React.Children.toArray(this.props.children)
         }
       </div>

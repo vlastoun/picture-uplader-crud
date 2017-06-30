@@ -46,7 +46,8 @@ function loginReducer(state = initialState, action) {
         .set('loading', false)
         .set('error', null)
         .set('textEditorState', {})
-        .set('images', []);
+        .set('images', [])
+        .set('textEditorState', EditorState.createEmpty().getCurrentContent());
     default:
       return state;
   }

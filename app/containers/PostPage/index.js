@@ -11,7 +11,7 @@ import {
   IMAGE_UPLOAD_FINISHED,
   IMAGE_DELETE,
 } from './constants';
-import { editorState, selectCategories, selectImages } from './selectors';
+import { editorState, selectCategories, selectImages, makeSelectUser } from './selectors';
 /* eslint-disable react/prefer-stateless-function */
 /* eslint-disable no-console */
 
@@ -24,7 +24,7 @@ class PostPage extends React.Component {
     this.props.newPostRequest();
   }
   sendData(data) {
-    this.props.onSubmit(data, this.props.editorState);
+    this.props.onSubmit(data, this.props.editorState, this.props.user, this.props.images);
   }
   render() {
     return (
@@ -52,16 +52,17 @@ PostPage.propTypes = {
   imagesUploaded: PropTypes.func.isRequired,
   images: PropTypes.array.isRequired,
   imageDelete: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     editorChanged: (data) => dispatch({ type: EDITOR_CHANGED, content: data }),
     newPostRequest: () => dispatch({ type: NEW_POST_REQUESTED }),
-    onSubmit: (data, currentEditorState) =>
+    onSubmit: (data, currentEditorState, user, images) =>
       dispatch({
         type: SEND_POST_REQUESTED,
-        content: { data, currentEditorState },
+        content: { data, currentEditorState, user, images },
       }),
     imagesUploaded: (images) => dispatch({ type: IMAGE_UPLOAD_FINISHED, images }),
     imageDelete: (id) => dispatch({ type: IMAGE_DELETE, id }),
@@ -71,6 +72,7 @@ const mapStateToProps = createStructuredSelector({
   editorState: editorState(),
   categories: selectCategories(),
   images: selectImages(),
+  user: makeSelectUser(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostPage);

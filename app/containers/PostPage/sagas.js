@@ -7,6 +7,7 @@ import {
   NEW_POST_REQUESTED,
   FETCH_CATEGORIES_SUCCESS,
   FETCH_CATEGORIES_FAILED,
+  POST_CREATED,
  } from './constants';
 
 const TOKEN = localStorage.getItem('token');
@@ -22,8 +23,32 @@ export function* fetchCategories() {
 }
 
 export function* newPostRequest(action) {
-  console.log(action.content.currentEditorState);
-  console.log(action.content.data.toJS());
+  const { currentEditorState, data, user, images } = action.content;
+  const jsData = data.toJS();
+  const jsImage = images.toJS();
+  const postURL = `${HOST}api/posts?access_token=${TOKEN}`;
+  const postImageURL = `${HOST}api/cloudinaries?access_token=${TOKEN}`;
+  const toPost = {
+    title: jsData.title,
+    description: jsData.description,
+    body: JSON.stringify(currentEditorState),
+    userId: user.id,
+    categoryId: jsData.categoryId,
+  };
+  try {
+    const response = yield call(axios.post, postURL, toPost);
+    if (jsImage.length > 0) {
+      jsImage.forEach((image)=> {
+        image.postId = response.data.id;
+        image.userId = user.id;
+        image.categoryId = jsData.categoryId;
+      });
+      yield jsImage.map((image) => call(axios.post, postImageURL, image));
+    }
+    yield put({ type: POST_CREATED })
+  } catch (err) {
+    console.log(err.message);
+  }
 }
 
 export function* postWatcher() {

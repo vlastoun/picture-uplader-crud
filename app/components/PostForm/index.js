@@ -21,10 +21,10 @@ class PostForm extends React.Component {
     const { sendData, handleSubmit, submitting } = this.props;
     const name = (
       <Field
-        name="name"
+        name="title"
         type="text"
         component={InputField}
-        label="Name"
+        label="Title"
         fullWidth
       />
     );

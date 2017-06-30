@@ -9,6 +9,7 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import { reducer as formReducer } from 'redux-form/immutable'; // <--- immutable import
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import { CREATE_CATEGORY_SUCCESSFUL, CLOSE_CATEGORY } from 'containers/CategoriesPage/constants';
+import { POST_CREATED } from 'containers/PostPage/constants';
 
 /*
  * routeReducer
@@ -51,6 +52,14 @@ export default function createReducer(asyncReducers) {
           case CREATE_CATEGORY_SUCCESSFUL:
             return undefined;
           case CLOSE_CATEGORY:
+            return undefined;
+          default:
+            return state;
+        }
+      },
+      PostForm: (state, action) => {
+        switch (action.type) {
+          case POST_CREATED:
             return undefined;
           default:
             return state;

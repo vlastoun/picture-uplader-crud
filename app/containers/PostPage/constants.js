@@ -7,3 +7,5 @@ export const FETCH_CATEGORIES_FAILED = 'PostPage/FETCH_CATEGORIES_FAILED';
 
 export const IMAGE_UPLOAD_FINISHED = 'PostPage/IMAGE_UPLOAD_FINISHED';
 export const IMAGE_DELETE = 'PostPage/IMAGE_DELETE';
+
+export const POST_CREATED = 'PostPage/POST_CREATED';

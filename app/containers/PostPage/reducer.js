@@ -4,10 +4,13 @@ import {
   FETCH_CATEGORIES_SUCCESS,
   IMAGE_UPLOAD_FINISHED,
   IMAGE_DELETE,
+  SEND_POST_REQUESTED,
+  POST_CREATED,
 } from './constants';
 
 const initialState = fromJS({
   loading: false,
+  error: null,
   textEditorState: {},
   categories: [],
   images: [],
@@ -33,6 +36,16 @@ function loginReducer(state = initialState, action) {
       oldList = List(state.get('images'));
       result = List(oldList.concat(list));
       return state.set('images', result);
+    case SEND_POST_REQUESTED:
+      return state
+        .set('loading', true)
+        .set('error', null);
+    case POST_CREATED:
+      return state
+        .set('loading', false)
+        .set('error', null)
+        .set('textEditorState', {})
+        .set('images', []);
     default:
       return state;
   }

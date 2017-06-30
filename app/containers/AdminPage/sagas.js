@@ -38,6 +38,7 @@ export function* authCheck() {
     const user = {
       username: userData.data.username,
       email: userData.data.email,
+      id: userData.data.id,
       roles: userRole.data,
     };
 

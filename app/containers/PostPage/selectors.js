@@ -1,7 +1,12 @@
 import { createSelector } from 'reselect';
 
 const selectHome = (state) => state.get('post');
+const selectUser = (state) => state.get('admin');
 
+const makeSelectUser = () => createSelector(
+  selectUser,
+  (homeState) => homeState.get('user')
+);
 const editorState = () => createSelector(
   selectHome,
   (homeState) => homeState.get('textEditorState')
@@ -15,6 +20,8 @@ const selectImages = () => createSelector(
   (homeState) => homeState.get('images')
 );
 export {
+  selectUser,
+  makeSelectUser,
   selectImages,
   selectCategories,
   editorState,

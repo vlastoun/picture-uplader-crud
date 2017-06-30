@@ -1,4 +1,5 @@
 import { fromJS, List } from 'immutable';
+import { EditorState } from 'draft-js';
 import {
   EDITOR_CHANGED,
   FETCH_CATEGORIES_SUCCESS,
@@ -11,7 +12,7 @@ import {
 const initialState = fromJS({
   loading: false,
   error: null,
-  textEditorState: {},
+  textEditorState: EditorState.createEmpty().getCurrentContent(),
   categories: [],
   images: [],
 });

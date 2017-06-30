@@ -30,10 +30,10 @@ const {
 
 
 class PostEditor extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      editorState: EditorState.createEmpty(),
+      editorState: EditorState.createWithContent(props.editorState),
       html: {},
     };
     this.onChange = this.onChange.bind(this);
@@ -84,6 +84,7 @@ class PostEditor extends React.Component {
 
 PostEditor.propTypes = {
   editorChanged: PropTypes.func.isRequired,
+  editorState: PropTypes.object.isRequired,
 };
 
 export default PostEditor;

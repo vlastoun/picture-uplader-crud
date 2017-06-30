@@ -6,6 +6,9 @@ import {
   FETCH_POSTS_REQUESTED,
   FETCH_POSTS_SUCCESS,
   FETCH_POSTS_FAILED,
+  DELETE_CONFIRMED,
+  DELETE_POST_FAILED,
+  DELETE_POST_SUCCESS,
  } from './constants';
 
 const TOKEN = localStorage.getItem('token');
@@ -19,11 +22,24 @@ export function* fetchPosts() {
   }
 }
 
+export function* deletePost(action) {
+  const URL = `${HOST}api/posts/${action.id}?access_token=${TOKEN}`;
+  try {
+    yield call(axios.delete, URL);
+    yield put({ type: DELETE_POST_SUCCESS });
+    yield put({ type: FETCH_POSTS_REQUESTED });
+  } catch (err) {
+    yield put({ type: DELETE_POST_FAILED, message: 'Failed to delete' });
+  }
+}
+
 
 export function* postsWatcher() {
   const watcher = yield takeLatest(FETCH_POSTS_REQUESTED, fetchPosts);
+  const deleteWatcher = yield takeLatest(DELETE_CONFIRMED, deletePost)
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
+  yield cancel(deleteWatcher);
 }
 
 export default [

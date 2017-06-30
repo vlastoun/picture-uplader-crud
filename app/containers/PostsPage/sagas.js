@@ -36,7 +36,7 @@ export function* deletePost(action) {
 
 export function* postsWatcher() {
   const watcher = yield takeLatest(FETCH_POSTS_REQUESTED, fetchPosts);
-  const deleteWatcher = yield takeLatest(DELETE_CONFIRMED, deletePost)
+  const deleteWatcher = yield takeLatest(DELETE_CONFIRMED, deletePost);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
   yield cancel(deleteWatcher);

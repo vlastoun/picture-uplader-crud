@@ -6,7 +6,7 @@ import {
   DELETE_REQIESTED,
   DELETE_DECLINED,
   DELETE_POST_SUCCESS,
-  DELETE_POST_FAILED
+  DELETE_POST_FAILED,
 } from './constants';
 
 // The initial state of the App
@@ -36,7 +36,7 @@ function PostsPageReducer(state = initialState, action) {
     case DELETE_POST_SUCCESS:
       return state.set('postToDelete', null).set('eraseModal', false);
     case DELETE_POST_FAILED:
-      return state.set('postToDelete', null).set('eraseModal', false).set('error', action.message)
+      return state.set('postToDelete', null).set('eraseModal', false).set('error', action.message);
     default:
       return state;
   }

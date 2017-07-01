@@ -40,7 +40,7 @@ export function* newPostRequest(action) {
   };
   try {
     const response = yield call(axios.post, postURL, toPost);
-    if (jsImage.size > 0) {
+    if (jsImage.count() > 0) {
       jsImage.forEach((image) => {
         image.postId = response.data.id;
         image.userId = user.id;
@@ -48,10 +48,10 @@ export function* newPostRequest(action) {
       });
       yield jsImage.map((image) => call(axios.post, postImageURL, image));
     }
-    yield put({ type: POST_CREATED });
   } catch (err) {
     winston.log('warning', err);
   }
+  yield put({ type: POST_CREATED });
 }
 export function* redirect() {
   yield put(push('/admin/posts'));
@@ -60,11 +60,10 @@ export function* redirect() {
 export function* postWatcher() {
   const watcher = yield takeLatest(SEND_POST_REQUESTED, newPostRequest);
   const watcherFetchCategories = yield takeLatest(NEW_POST_REQUESTED, fetchCategories);
-  const redirectWatcher = yield takeLatest(POST_CREATED, redirect);
+  yield takeLatest(POST_CREATED, redirect);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
   yield cancel(watcherFetchCategories);
-  yield cancel(redirectWatcher);
 }
 
 export default [

@@ -11,7 +11,7 @@ import {
   IMAGE_UPLOAD_FINISHED,
   IMAGE_DELETE,
 } from './constants';
-import { editorState, selectCategories, selectImages, makeSelectUser } from './selectors';
+import { editorState, selectCategories, selectImages, makeSelectUser, loadingState } from './selectors';
 /* eslint-disable react/prefer-stateless-function */
 /* eslint-disable no-console */
 
@@ -29,15 +29,18 @@ class PostPage extends React.Component {
   render() {
     return (
       <PageTemplate heading="Post">
-        <PostForm
-          editorChanged={this.props.editorChanged}
-          editorState={this.props.editorState}
-          sendData={this.sendData}
-          categories={this.props.categories}
-          imagesUploaded={this.props.imagesUploaded}
-          images={this.props.images}
-          imageDelete={this.props.imageDelete}
-        />
+        {this.props.loading
+          ? <h2>loading...</h2>
+          : <PostForm
+            editorChanged={this.props.editorChanged}
+            editorState={this.props.editorState}
+            sendData={this.sendData}
+            categories={this.props.categories}
+            imagesUploaded={this.props.imagesUploaded}
+            images={this.props.images}
+            imageDelete={this.props.imageDelete}
+          />
+        }
       </PageTemplate>
     );
   }
@@ -53,6 +56,7 @@ PostPage.propTypes = {
   images: PropTypes.array.isRequired,
   imageDelete: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -73,6 +77,7 @@ const mapStateToProps = createStructuredSelector({
   categories: selectCategories(),
   images: selectImages(),
   user: makeSelectUser(),
+  loading: loadingState(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostPage);

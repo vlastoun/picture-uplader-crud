@@ -19,7 +19,12 @@ const selectImages = () => createSelector(
   selectHome,
   (homeState) => homeState.get('images')
 );
+const loadingState = () => createSelector(
+  selectHome,
+  (homeState) => homeState.get('loading')
+);
 export {
+  loadingState,
   selectUser,
   makeSelectUser,
   selectImages,

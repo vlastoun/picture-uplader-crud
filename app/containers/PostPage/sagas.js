@@ -40,7 +40,7 @@ export function* newPostRequest(action) {
   };
   try {
     const response = yield call(axios.post, postURL, toPost);
-    if (jsImage.count() > 0) {
+    if (jsImage.length > 0) {
       jsImage.forEach((image) => {
         image.postId = response.data.id;
         image.userId = user.id;

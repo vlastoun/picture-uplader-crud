@@ -11,6 +11,7 @@ import {
   IMAGE_UPLOAD_FINISHED,
   IMAGE_DELETE,
   OLD_IMAGE_DELETE,
+  EDITOR_CHANGED,
 } from './constants';
 
 const initialState = fromJS({
@@ -30,6 +31,8 @@ function loginReducer(state = initialState, action) {
   let result;
   let index;
   switch (action.type) {
+    case EDITOR_CHANGED:
+      return state.set('textEditorState', action.content);
     case FETCH_CATEGORIES_SUCCESS:
       return state.set('categories', action.data).set('error', null).setIn(['loading', 'categories'], false);
     case FETCH_CATEGORIES_FAILED:

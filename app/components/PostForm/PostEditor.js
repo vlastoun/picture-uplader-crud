@@ -38,17 +38,16 @@ class PostEditor extends React.Component {
     };
     this.onChange = this.onChange.bind(this);
   }
-
+  componentWillReceiveProps(props) {
+    if (props.editorState !== null) {
+      this.setState({ editorState: EditorState.createWithContent(convertFromRaw(props.editorState)) });
+      props.editorChanged(convertToRaw(this.state.editorState.getCurrentContent()));
+    }
+  }
   onChange(editorState) {
     this.setState({ editorState });
     this.setState({ html: stateToHTML(this.state.editorState.getCurrentContent()) });
     this.props.editorChanged(convertToRaw(editorState.getCurrentContent()));
-  }
-  getPlaceholder() {
-    const placeholder = '';
-    const contentHTML = DraftPasteProcessor.processHTML(placeholder);
-    const state = ContentState.createFromBlockArray(contentHTML);
-    return EditorState.createWithContent(state);
   }
   initializeEditor(state) {
     if (state === null) {

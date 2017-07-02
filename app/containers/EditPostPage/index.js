@@ -18,7 +18,8 @@ class EditPostPage extends React.Component {
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.postData) {
-      this.setState({ editorState: JSON.parse(nextProps.postData.body) });
+      const data = JSON.parse(nextProps.postData.body);
+      this.setState({ editorState: data });
     }
   }
   sendData(data) {

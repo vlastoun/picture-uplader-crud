@@ -19,6 +19,7 @@ class PostPage extends React.Component {
   constructor(props) {
     super(props);
     this.sendData = this.sendData.bind(this);
+    this.state = { editorState: null };
   }
   componentWillMount() {
     this.props.newPostRequest();
@@ -33,7 +34,7 @@ class PostPage extends React.Component {
           ? <h2>loading...</h2>
           : <PostForm
             editorChanged={this.props.editorChanged}
-            editorState={this.props.editorState}
+            editorState={this.state.editorState}
             sendData={this.sendData}
             categories={this.props.categories}
             imagesUploaded={this.props.imagesUploaded}

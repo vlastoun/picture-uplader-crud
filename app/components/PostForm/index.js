@@ -87,8 +87,8 @@ PostForm = reduxForm({
 })(PostForm);
 
 const mapStateToProps = createStructuredSelector({
-  initialValues: selectActiveCategory(),
+
 }); // You have to connect() to any reducers that you wish to connect to yourself
-PostForm = connect(mapStateToProps, null)(PostForm);
+PostForm = connect(null, null)(PostForm);
 
 export default PostForm;

@@ -1,5 +1,5 @@
 import { take, call, cancel, takeLatest, put } from 'redux-saga/effects';
-import { LOCATION_CHANGE } from 'react-router-redux';
+import { LOCATION_CHANGE, push } from 'react-router-redux';
 import axios from 'axios';
 import { HOST } from 'constants/host';
 import {
@@ -9,6 +9,7 @@ import {
   DELETE_CONFIRMED,
   DELETE_POST_FAILED,
   DELETE_POST_SUCCESS,
+  EDIT_REQUESTED,
  } from './constants';
 
 const TOKEN = localStorage.getItem('token');
@@ -33,13 +34,18 @@ export function* deletePost(action) {
   }
 }
 
+export function* editPost(action) {
+  yield put(push(`/admin/post/${action.id.id}`));
+}
 
 export function* postsWatcher() {
   const watcher = yield takeLatest(FETCH_POSTS_REQUESTED, fetchPosts);
   const deleteWatcher = yield takeLatest(DELETE_CONFIRMED, deletePost);
+  const editWatcher = yield takeLatest(EDIT_REQUESTED, editPost);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
   yield cancel(deleteWatcher);
+  yield cancel(editWatcher);
 }
 
 export default [

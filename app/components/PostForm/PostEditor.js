@@ -54,7 +54,7 @@ class PostEditor extends React.Component {
     if (state === null) {
       return EditorState.createEmpty();
     }
-    return EditorState.createWithContent(convertFromRaw(convertFromRaw));
+    return EditorState.createWithContent(convertFromRaw(state));
   }
   render() {
     const { editorState } = this.state;

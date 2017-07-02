@@ -58,7 +58,7 @@ PostsPage.propTypes = {
   deleteDeclined: PropTypes.func.isRequired,
   eraseModal: PropTypes.bool.isRequired,
   postToDelete: PropTypes.object.isRequired,
-  deleteConfirmed: PropTypes.object.isRequired,
+  deleteConfirmed: PropTypes.func.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {

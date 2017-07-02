@@ -107,7 +107,7 @@ class CategoriesPage extends React.Component {
             newCategory={this.props.newCategory}
           />
           <CategoriesList
-            items={this.props.categories} //eslint-disable-line
+            items={this.props.categories}
             fetch={this.props.fetchCategories}
             delete={this.props.delete}
             edit={this.props.editCategory}
@@ -139,6 +139,7 @@ CategoriesPage.propTypes = {
   editModal: PropTypes.bool.isRequired,
   editModalClose: PropTypes.func.isRequired,
   editCategoryRequest: PropTypes.func.isRequired,
+  categories: PropTypes.array.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {

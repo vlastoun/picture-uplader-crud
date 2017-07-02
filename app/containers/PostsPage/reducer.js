@@ -13,9 +13,9 @@ import {
 const initialState = fromJS({
   error: null,
   loading: false,
-  posts: [],
+  posts: List(),
   eraseModal: false,
-  postToDelete: null,
+  postToDelete: {},
 });
 
 function PostsPageReducer(state = initialState, action) {

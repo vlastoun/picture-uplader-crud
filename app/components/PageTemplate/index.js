@@ -25,6 +25,6 @@ class PageTemplate extends React.Component {
 
 PageTemplate.propTypes = {
   heading: PropTypes.string.isRequired,
-  children: PropTypes.array,
+  children: PropTypes.node,
 };
 export default PageTemplate;

@@ -62,7 +62,8 @@ function categoryReducer(state = initialState, action) {
         .set('fetchLoading', true);
     case FETCH_CATEGORIES_SUCCESS:
       return state
-        .set('categories', action.data);
+        .set('categories', action.data)
+        .set('fetchLoading', false);
     case FETCH_CATEGORIES_FAILED:
       return state
         .setIn(['error', 'fetching'], action.message);

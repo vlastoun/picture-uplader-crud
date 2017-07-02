@@ -1,4 +1,5 @@
 import { take, call, cancel, takeLatest, put } from 'redux-saga/effects';
+import { List } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import axios from 'axios';
 import { HOST } from 'constants/host';

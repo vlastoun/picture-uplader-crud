@@ -38,7 +38,11 @@ function loginReducer(state = initialState, action) {
     case FETCH_CATEGORIES_FAILED:
       return state.set('error', action.data).setIn(['error', 'categories'], action.message).setIn(['loading', 'categories'], false);
     case FETCH_POST_REQUESTED:
-      return state.set('postId', action.postId).setIn(['loading', 'post'], true);
+      return state
+      .set('postId', action.postId)
+      .setIn(['loading', 'categories'], true)
+      .setIn(['loading', 'images'], true)
+      .setIn(['loading', 'post'], true);
     case FETCH_POST_SUCCESS:
       return state.set('postData', action.data).setIn(['loading', 'post'], false);
     case FETCH_POST_FAILED:

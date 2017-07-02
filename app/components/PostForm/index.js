@@ -10,7 +10,6 @@ import ThumbnailBar from 'components/ThumbnailBar';
 import { createStructuredSelector } from 'reselect';
 import PostEditor from './PostEditor';
 import ImageUploader from './ImageUploader';
-import { selectPostData } from './selectors';
 const buttonStyle = {
   marginTop: '2em',
 };

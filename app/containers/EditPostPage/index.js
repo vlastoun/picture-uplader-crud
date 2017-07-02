@@ -26,19 +26,26 @@ class EditPostPage extends React.Component {
     this.props.editPostRequest(data);
   }
   render() {
+    const { loading } = this.props;
+    const loadingState = loading.toJS();
     return (
       <PageTemplate heading="Edit post">
-        <PostForm
-          editorChanged={this.props.editorChanged}
-          editorState={this.state.editorState}
-          sendData={this.sendData}
-          categories={this.props.categories}
-          imagesUploaded={this.props.imagesUploaded}
-          images={this.props.images}
-          imageDelete={this.props.imageDelete}
-          oldImages={this.props.oldImages}
-          oldImagesDelete={this.props.oldImagesDelete}
-        />
+        {
+          !loadingState.categories && !loadingState.images && !loadingState.postData
+          ? <PostForm
+            initialValues={this.props.postData}
+            editorChanged={this.props.editorChanged}
+            editorState={this.state.editorState}
+            sendData={this.sendData}
+            categories={this.props.categories}
+            imagesUploaded={this.props.imagesUploaded}
+            images={this.props.images}
+            imageDelete={this.props.imageDelete}
+            oldImages={this.props.oldImages}
+            oldImagesDelete={this.props.oldImagesDelete}
+          />
+          : <h1>Loading...</h1>
+        }
       </PageTemplate>
     );
   }
@@ -55,6 +62,8 @@ EditPostPage.propTypes = {
   imageDelete: PropTypes.func.isRequired,
   oldImages: PropTypes.array,
   oldImagesDelete: PropTypes.func.isRequired,
+  postData: PropTypes.object.isRequired,
+  loading: PropTypes.object.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -72,6 +81,7 @@ const mapStateToProps = createStructuredSelector({
   categories: selectCategories(),
   images: selectImages(),
   oldImages: selectOldImages(),
+  loading: loadingState(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditPostPage);

@@ -1,5 +1,4 @@
 import { fromJS, List } from 'immutable';
-import { EditorState } from 'draft-js';
 import {
   EDITOR_CHANGED,
   FETCH_CATEGORIES_SUCCESS,
@@ -47,7 +46,7 @@ function loginReducer(state = initialState, action) {
         .set('error', null)
         .set('textEditorState', null)
         .set('images', List([]))
-        .set('textEditorState', EditorState.createEmpty().getCurrentContent());
+        .set('textEditorState', null);
     default:
       return state;
   }

@@ -83,11 +83,15 @@ export default function createRoutes(store) {
     getComponent(nextState, cb) {
       const importModules = Promise.all([
         System.import('containers/EditPostPage'),
+        System.import('containers/EditPostPage/reducer'),
+        System.import('containers/EditPostPage/sagas'),
       ]);
 
       const renderRoute = loadModule(cb);
 
       importModules.then(([component, reducer, sagas]) => {
+        injectReducer('editPost', reducer.default);
+        injectSagas(sagas.default);
         renderRoute(component);
       });
       importModules.catch(errorLoading);

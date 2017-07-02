@@ -8,6 +8,9 @@ import {
   FETCH_POST_FAILED,
   FETCH_IMAGES_FAILED,
   FETCH_IMAGES_SUCCESS,
+  IMAGE_UPLOAD_FINISHED,
+  IMAGE_DELETE,
+  OLD_IMAGE_DELETE,
 } from './constants';
 
 const initialState = fromJS({
@@ -17,10 +20,15 @@ const initialState = fromJS({
   postData: null,
   textEditorState: null,
   categories: [],
+  images: List([]),
   oldImages: List([]),
 });
 
 function loginReducer(state = initialState, action) {
+  let list;
+  let oldList;
+  let result;
+  let index;
   switch (action.type) {
     case FETCH_CATEGORIES_SUCCESS:
       return state.set('categories', action.data).set('error', null).setIn(['loading', 'categories'], false);
@@ -36,6 +44,21 @@ function loginReducer(state = initialState, action) {
       return state.set('oldImages', List(action.data)).set('error', action.message).setIn(['loading', 'images'], false);
     case FETCH_IMAGES_FAILED:
       return state.setIn(['error', 'images'], action.message).setIn(['loading', 'images'], false);
+    case IMAGE_UPLOAD_FINISHED:
+      list = List(action.images);
+      oldList = List(state.get('images'));
+      result = List(oldList.concat(list));
+      return state.set('images', result);
+    case IMAGE_DELETE:
+      index = state.get('images').findIndex((item) => item.public_id === action.id);
+      oldList = List(state.get('images'));
+      list = List(oldList.splice(index, 1));
+      return state.set('images', list);
+    case OLD_IMAGE_DELETE:
+      index = state.get('oldImages').findIndex((item) => item.public_id === action.id);
+      oldList = List(state.get('oldImages'));
+      list = List(oldList.splice(index, 1));
+      return state.set('oldImages', list);
     default:
       return state;
   }

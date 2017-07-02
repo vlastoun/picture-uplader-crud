@@ -7,8 +7,10 @@ import MenuItem from 'material-ui/MenuItem';
 import { connect } from 'react-redux';
 import { SelectField } from 'redux-form-material-ui';
 import ThumbnailBar from 'components/ThumbnailBar';
+import { createStructuredSelector } from 'reselect';
 import PostEditor from './PostEditor';
 import ImageUploader from './ImageUploader';
+import { selectPostData } from './selectors';
 const buttonStyle = {
   marginTop: '2em',
 };
@@ -84,6 +86,9 @@ PostForm = reduxForm({
   form: 'PostForm', // a unique identifier for this form
 })(PostForm);
 
-PostForm = connect(null, null)(PostForm);
+const mapStateToProps = createStructuredSelector({
+  initialValues: selectActiveCategory(),
+}); // You have to connect() to any reducers that you wish to connect to yourself
+PostForm = connect(mapStateToProps, null)(PostForm);
 
 export default PostForm;

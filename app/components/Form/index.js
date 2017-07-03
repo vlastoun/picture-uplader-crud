@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const Form = styled.div`
   margin: 20px auto;
+  display: block;
   margin-top: ${
     (props) =>
     props.noTopMargin

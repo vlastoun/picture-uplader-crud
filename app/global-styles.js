@@ -3,6 +3,9 @@ import { injectGlobal } from 'styled-components';
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
   html,
+  a{
+    text-decoration: none;
+  }
   p{ 
     line-height: 1.5em; 
   }

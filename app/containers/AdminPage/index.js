@@ -1,10 +1,10 @@
 import React from 'react';
 import PropType from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import { push } from 'react-router-redux';
 import { createStructuredSelector } from 'reselect';
 import AdminAppBar from 'components/AdminAppBar';
+import AdminDashboard from 'components/AdminDashboard';
 import { USER_LOGOUT, TOGGLE_DRAWER, DRAWER_LINK_CLICKED, AUTHENTIFICATION_CHECK } from './constants';
 import { makeSelectUser, getAuthState, getDrawerState, getActiveUrl } from './selectors';
 /* eslint-disable react/prefer-stateless-function */
@@ -28,7 +28,7 @@ class AdminPage extends React.Component {
         }
         {
           React.Children.toArray(this.props.children).length === 0
-          ? <Link to="admin/post/1">test</Link>
+          ? <AdminDashboard />
           : React.Children.toArray(this.props.children)
         }
       </div>

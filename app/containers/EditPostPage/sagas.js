@@ -1,4 +1,4 @@
-import { take, call, cancel, takeLatest, put } from 'redux-saga/effects';
+import { take, call, cancel, takeLatest, put, takeEvery } from 'redux-saga/effects';
 import { LOCATION_CHANGE, push } from 'react-router-redux';
 import axios from 'axios';
 import { HOST } from 'constants/host';
@@ -19,6 +19,7 @@ import {
   POST_EDIT_SUCCESS,
   POST_EDIT_FAILED,
   DELETE_UNUSED_IMAGES,
+  IMAGE_DELETE,
  } from './constants';
 
 const TOKEN = localStorage.getItem('token');
@@ -102,6 +103,10 @@ export function* deleteUnusedImages(action) {
   console.log(response);
 }
 
+export function* imageDeleteFromServer(action) {
+  yield call(axios.post, `${HOST}api/cloudinaries/direct-remove?publicId=${action.id}&access_token=${TOKEN}`);
+}
+
 export function* postWatcher() {
   const watcher = yield takeLatest(FETCH_POST_REQUESTED, fetchPostRequest);
   const catWatcher = yield takeLatest(FETCH_CATEGORIES_REQUESTED, fetchCategories);
@@ -109,6 +114,7 @@ export function* postWatcher() {
   const oldWatcher = yield takeLatest(OLD_IMAGE_DEL_REQ, deleteImage);
   const editPostWatcher = yield takeLatest(EDIT_POST_REQUESTED, editPost);
   const mergeWatcher = yield takeLatest(DELETE_UNUSED_IMAGES, deleteUnusedImages);
+  const imgDeleteWatcher = yield takeEvery(IMAGE_DELETE, imageDeleteFromServer);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
   yield cancel(catWatcher);
@@ -116,6 +122,7 @@ export function* postWatcher() {
   yield cancel(oldWatcher);
   yield cancel(editPostWatcher);
   yield cancel(mergeWatcher);
+  yield cancel(imgDeleteWatcher);
 }
 
 export default [

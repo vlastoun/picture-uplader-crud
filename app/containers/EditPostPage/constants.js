@@ -24,3 +24,8 @@ export const CLEAR_VALUES_REQUESTED = 'EditPost/CLEAR_VALUES_REQUESTED';
 
 export const ADD_IMAGE_TO_STASH = 'EditPost/ADD_IMAGE_TO_STASH';
 
+export const POST_EDIT_SUCCESS = 'EditPost/POST_EDIT_SUCCESS';
+export const POST_EDIT_FAILED = 'EditPost/POST_EDIT_FAILED';
+
+export const DELETE_UNUSED_IMAGES = 'EditPost/DELETE_UNUSED_IMAGES';
+export const ADD_IMAGES_TODB = 'EditPost/ADD_IMAGES_TODB';

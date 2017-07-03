@@ -27,7 +27,17 @@ const selectOldImages = () => createSelector(
   selectHome,
   (homeState) => homeState.get('oldImages')
 );
+const selectEditorState = () => createSelector(
+  selectHome,
+  (homeState) => homeState.get('textEditorState')
+);
+const imagesToDelete = () => createSelector(
+  selectHome,
+  (homeState) => homeState.get('imagesToDelete')
+);
 export {
+  imagesToDelete,
+  selectEditorState,
   selectOldImages,
   selectPostData,
   loadingState,

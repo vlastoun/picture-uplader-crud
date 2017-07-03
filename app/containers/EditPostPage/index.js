@@ -19,6 +19,8 @@ import {
   selectImages,
   loadingState,
   selectOldImages,
+  selectEditorState,
+  imagesToDelete,
 } from './selectors';
 
 class EditPostPage extends React.Component {
@@ -42,7 +44,7 @@ class EditPostPage extends React.Component {
     }
   }
   sendData(data) {
-    this.props.editPostRequest(data);
+    this.props.editPostRequest(data.toJS(), this.props.editorState, this.props.imagesToDelete, this.props.images);
   }
   render() {
     const { loading } = this.props;
@@ -89,8 +91,8 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchData: (postId) => dispatch({ type: FETCH_POST_REQUESTED, postId }),
     editorChanged: (data) => dispatch({ type: EDITOR_CHANGED, content: data }),
-    editPostRequest: (data) =>
-      dispatch({ type: EDIT_POST_REQUESTED, content: { data } }),
+    editPostRequest: (data, editorState, imagesToDelete, images) =>
+      dispatch({ type: EDIT_POST_REQUESTED, content: { data, editorState, imagesToDelete, images } }),
     imagesUploaded: (images) => dispatch({ type: IMAGE_UPLOAD_FINISHED, images }),
     imageDelete: (id) => dispatch({ type: IMAGE_DELETE, id }),
     oldImagesDelete: (id) => dispatch({ type: OLD_IMAGE_DEL_REQ, id }),
@@ -103,6 +105,8 @@ const mapStateToProps = createStructuredSelector({
   images: selectImages(),
   oldImages: selectOldImages(),
   loading: loadingState(),
+  editorState: selectEditorState(),
+  imagesToDelete: imagesToDelete(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditPostPage);

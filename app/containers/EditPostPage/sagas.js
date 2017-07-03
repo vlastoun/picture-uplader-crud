@@ -15,6 +15,10 @@ import {
   OLD_IMAGE_DEL_REQ,
   OLD_IMAGE_DELETE,
   ADD_IMAGE_TO_STASH,
+  EDIT_POST_REQUESTED,
+  POST_EDIT_SUCCESS,
+  POST_EDIT_FAILED,
+  DELETE_UNUSED_IMAGES,
  } from './constants';
 
 const TOKEN = localStorage.getItem('token');
@@ -58,23 +62,60 @@ export function* redirect() {
 }
 
 export function* deleteImage(action) {
-  // const URL = `${HOST}api/cloudinaries/delete-image?imageId=${action.id}&access_token=${TOKEN}`;
+  // const URL = ;
   // yield call(axios.post, URL);
   yield put({ type: ADD_IMAGE_TO_STASH, id: action.id });
   yield put({ type: OLD_IMAGE_DELETE, id: action.id });
 }
 
+export function* editPost(action) {
+  const { content } = action;
+  const toPost = {
+    title: content.data.title,
+    description: content.data.description,
+    categoryId: content.data.categoryId,
+    body: JSON.stringify(content.editorState),
+  };
+  try {
+    const postImageURL = `${HOST}api/cloudinaries?access_token=${TOKEN}`;
+    const URL = `${HOST}api/posts/${content.data.id}?access_token=${TOKEN}`;
+    const response = yield call(axios.patch, URL, toPost);
+    yield put({ type: DELETE_UNUSED_IMAGES, imagesToDelete: content.imagesToDelete });
+    yield put({ type: POST_EDIT_SUCCESS, data: response.data });
+    const images = content.images.toJS();
+    if (images.length > 0) {
+      images.forEach((image) => {
+        image.postId = content.data.userId;
+        image.userId = content.data.userId;
+        image.categoryId = images.categoryId;
+      });
+      yield images.map((image) => call(axios.post, postImageURL, image));
+    }
+  } catch (error) {
+    yield put({ type: POST_EDIT_FAILED, message: error });
+  }
+}
+
+export function* deleteUnusedImages(action) {
+  const toDelete = action.imagesToDelete.toJS();
+  const response = yield toDelete.map((image) => call(axios.post, `${HOST}api/cloudinaries/delete-image?imageId=${image}&access_token=${TOKEN}`));
+  console.log(response);
+}
 
 export function* postWatcher() {
   const watcher = yield takeLatest(FETCH_POST_REQUESTED, fetchPostRequest);
   const catWatcher = yield takeLatest(FETCH_CATEGORIES_REQUESTED, fetchCategories);
   const imaWatcher = yield takeLatest(FETCH_IMAGES_REQUESTED, fetchImages);
   const oldWatcher = yield takeLatest(OLD_IMAGE_DEL_REQ, deleteImage);
+  const editPostWatcher = yield takeLatest(EDIT_POST_REQUESTED, editPost);
+  const mergeWatcher = yield takeLatest(DELETE_UNUSED_IMAGES, deleteUnusedImages);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
   yield cancel(catWatcher);
   yield cancel(imaWatcher);
   yield cancel(oldWatcher);
+  yield cancel(editPostWatcher);
+  yield cancel(mergeWatcher);
 }
 
 export default [

@@ -10,7 +10,7 @@ import { reducer as formReducer } from 'redux-form/immutable'; // <--- immutable
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import { CREATE_CATEGORY_SUCCESSFUL, CLOSE_CATEGORY } from 'containers/CategoriesPage/constants';
 import { POST_CREATED } from 'containers/PostPage/constants';
-
+import { CLEAR_VALUES_REQUESTED } from 'containers/EditPostPage/constants';
 /*
  * routeReducer
  *
@@ -60,6 +60,8 @@ export default function createReducer(asyncReducers) {
       PostForm: (state, action) => {
         switch (action.type) {
           case POST_CREATED:
+            return undefined;
+          case CLEAR_VALUES_REQUESTED:
             return undefined;
           default:
             return state;

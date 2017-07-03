@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Editor from 'draft-js-plugins-editor';
 import Paper from 'material-ui/Paper';
-import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
 import { stateToHTML } from 'draft-js-export-html';
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
-import { EditorState, ContentState, convertToRaw, convertFromRaw } from 'draft-js';
+import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 
 import createBlockBreakoutPlugin from 'draft-js-block-breakout-plugin';
 import createImagePlugin from 'draft-js-image-plugin';
@@ -38,10 +37,10 @@ class PostEditor extends React.Component {
     };
     this.onChange = this.onChange.bind(this);
   }
-  componentWillReceiveProps(props) {
-    if (props.editorState !== null) {
-      this.setState({ editorState: EditorState.createWithContent(convertFromRaw(props.editorState)) });
-      props.editorChanged(convertToRaw(this.state.editorState.getCurrentContent()));
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.editorState !== null) {
+      this.setState({ editorState: EditorState.createWithContent(convertFromRaw(nextProps.editorState)) });
+      nextProps.editorChanged(convertToRaw(this.state.editorState.getCurrentContent()));
     }
   }
   onChange(editorState) {

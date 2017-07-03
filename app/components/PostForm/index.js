@@ -7,7 +7,6 @@ import MenuItem from 'material-ui/MenuItem';
 import { connect } from 'react-redux';
 import { SelectField } from 'redux-form-material-ui';
 import ThumbnailBar from 'components/ThumbnailBar';
-import { createStructuredSelector } from 'reselect';
 import PostEditor from './PostEditor';
 import ImageUploader from './ImageUploader';
 const buttonStyle = {
@@ -61,6 +60,7 @@ class PostForm extends React.Component {
         />
         <ImageUploader imagesUploaded={this.props.imagesUploaded} />
         <ThumbnailBar images={this.props.images} imageDelete={this.props.imageDelete} />
+        {this.props.oldImages && <ThumbnailBar images={this.props.oldImages} imageDelete={this.props.oldImagesDelete} />}
         <RaisedButton type="submit" disabled={submitting} fullWidth primary style={buttonStyle}>
           Submit
         </RaisedButton>
@@ -79,15 +79,14 @@ PostForm.propTypes = {
   imagesUploaded: PropTypes.func.isRequired,
   images: PropTypes.array.isRequired,
   imageDelete: PropTypes.func.isRequired,
+  oldImages: PropTypes.array,
+  oldImagesDelete: PropTypes.func,
 };
 
 PostForm = reduxForm({
   form: 'PostForm', // a unique identifier for this form
 })(PostForm);
 
-const mapStateToProps = createStructuredSelector({
-
-}); // You have to connect() to any reducers that you wish to connect to yourself
 PostForm = connect(null, null)(PostForm);
 
 export default PostForm;

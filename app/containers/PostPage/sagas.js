@@ -1,4 +1,4 @@
-import { take, call, cancel, takeLatest, put } from 'redux-saga/effects';
+import { take, call, cancel, takeLatest, put, takeEvery } from 'redux-saga/effects';
 import { LOCATION_CHANGE, push } from 'react-router-redux';
 import winston from 'winston';
 import axios from 'axios';
@@ -9,6 +9,7 @@ import {
   FETCH_CATEGORIES_SUCCESS,
   FETCH_CATEGORIES_FAILED,
   POST_CREATED,
+  IMAGE_DELETE,
  } from './constants';
 
 const TOKEN = localStorage.getItem('token');
@@ -55,13 +56,18 @@ export function* newPostRequest(action) {
   yield put(push('/admin/posts'));
 }
 
+export function* imageDeleteFromServer(action) {
+  yield call(axios.post, `${HOST}api/cloudinaries/direct-remove?publicId=${action.id}&access_token=${TOKEN}`);
+}
 
 export function* postWatcher() {
   const watcher = yield takeLatest(SEND_POST_REQUESTED, newPostRequest);
   const watcherFetchCategories = yield takeLatest(NEW_POST_REQUESTED, fetchCategories);
+  const imgDeleteWatcher = yield takeEvery(IMAGE_DELETE, imageDeleteFromServer);
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
   yield cancel(watcherFetchCategories);
+  yield cancel(imgDeleteWatcher);
 }
 
 export default [

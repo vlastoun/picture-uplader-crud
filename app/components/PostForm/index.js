@@ -9,6 +9,7 @@ import { SelectField } from 'redux-form-material-ui';
 import ThumbnailBar from 'components/ThumbnailBar';
 import PostEditor from './PostEditor';
 import ImageUploader from './ImageUploader';
+import validate from './validate';
 const buttonStyle = {
   marginTop: '2em',
 };
@@ -85,6 +86,7 @@ PostForm.propTypes = {
 
 PostForm = reduxForm({
   form: 'PostForm', // a unique identifier for this form
+  validate,
 })(PostForm);
 
 PostForm = connect(null, null)(PostForm);

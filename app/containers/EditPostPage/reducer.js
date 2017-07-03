@@ -12,6 +12,7 @@ import {
   IMAGE_DELETE,
   OLD_IMAGE_DELETE,
   EDITOR_CHANGED,
+  ADD_IMAGE_TO_STASH,
 } from './constants';
 
 const initialState = fromJS({
@@ -23,6 +24,7 @@ const initialState = fromJS({
   categories: [],
   images: List([]),
   oldImages: List([]),
+  imagesToDelete: List([]),
 });
 
 function loginReducer(state = initialState, action) {
@@ -40,6 +42,7 @@ function loginReducer(state = initialState, action) {
     case FETCH_POST_REQUESTED:
       return state
       .set('postId', action.postId)
+      .set('imagesToDelete', List([]))
       .setIn(['loading', 'categories'], true)
       .setIn(['loading', 'images'], true)
       .setIn(['loading', 'post'], true);
@@ -61,6 +64,11 @@ function loginReducer(state = initialState, action) {
       oldList = List(state.get('images'));
       list = List(oldList.splice(index, 1));
       return state.set('images', list);
+    case ADD_IMAGE_TO_STASH:
+      oldList = List(state.get('imagesToDelete'));
+      result = oldList.push(action.id);
+      return state
+        .set('imagesToDelete', result);
     case OLD_IMAGE_DELETE:
       index = state.get('oldImages').findIndex((item) => item.public_id === action.id);
       oldList = List(state.get('oldImages'));

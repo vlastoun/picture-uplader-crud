@@ -10,7 +10,7 @@ import {
   EDIT_POST_REQUESTED,
   IMAGE_UPLOAD_FINISHED,
   IMAGE_DELETE,
-  OLD_IMAGE_DELETE,
+  OLD_IMAGE_DEL_REQ,
   CLEAR_VALUES_REQUESTED,
 } from './constants';
 import {
@@ -93,7 +93,7 @@ function mapDispatchToProps(dispatch) {
       dispatch({ type: EDIT_POST_REQUESTED, content: { data } }),
     imagesUploaded: (images) => dispatch({ type: IMAGE_UPLOAD_FINISHED, images }),
     imageDelete: (id) => dispatch({ type: IMAGE_DELETE, id }),
-    oldImagesDelete: (id) => dispatch({ type: OLD_IMAGE_DELETE, id }),
+    oldImagesDelete: (id) => dispatch({ type: OLD_IMAGE_DEL_REQ, id }),
     clearValues: () => dispatch({ type: CLEAR_VALUES_REQUESTED }),
   };
 }

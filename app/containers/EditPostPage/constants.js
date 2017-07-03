@@ -18,5 +18,9 @@ export const IMAGE_UPLOAD_FINISHED = 'EditPost/IMAGE_UPLOAD_FINISHED';
 export const IMAGE_DELETE = 'EditPost/IMAGE_DELETE';
 
 export const OLD_IMAGE_DELETE = 'EditPost/OLD_IMAGE_DELETE';
+export const OLD_IMAGE_DEL_REQ = 'EditPost/OLD_IMAGE_DEL_REQ';
 
 export const CLEAR_VALUES_REQUESTED = 'EditPost/CLEAR_VALUES_REQUESTED';
+
+export const ADD_IMAGE_TO_STASH = 'EditPost/ADD_IMAGE_TO_STASH';
+

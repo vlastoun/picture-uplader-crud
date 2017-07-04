@@ -17,6 +17,22 @@ export default function createRoutes(store) {
   // Create reusable async injectors using getAsyncInjectors factory
   const { injectReducer, injectSagas } = getAsyncInjectors(store); // eslint-disable-line no-unused-vars
 
+  const settings = {
+    path: '/admin/settings',
+    name: 'settings',
+    getComponent(nextState, cb) {
+      const importModules = Promise.all([
+        System.import('containers/SettingsPage'),
+      ]);
+
+      const renderRoute = loadModule(cb);
+
+      importModules.then(([component, reducer, sagas]) => {
+        renderRoute(component);
+      });
+      importModules.catch(errorLoading);
+    },
+  };
   const categories = {
     path: '/admin/categories',
     name: 'categories',
@@ -137,7 +153,7 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
       childRoutes: [
-        categories, posts, singlePost, editPost,
+        categories, posts, singlePost, editPost, settings,
       ],
     },
     {

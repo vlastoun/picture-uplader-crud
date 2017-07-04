@@ -7,8 +7,12 @@ const TOKEN = localStorage.getItem('token');
 
 export function* changePassword(action) {
   const URL = `${HOST}api/users/change-password?access_token=${TOKEN}`;
+  const toPost = {
+    oldPassword: action.data.oldPassword,
+    newPassword: action.data.newPassword,
+  };
   try {
-    yield call(axios.post, URL, action.data);
+    yield call(axios.post, URL, toPost);
   } catch (error) {
     console.log(error);
     yield call({ type: CHAGE_PASSWORD_FAILED, error });

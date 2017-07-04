@@ -11,7 +11,7 @@ import {
 const initialState = fromJS({
   loading: false,
   error: null,
-  textEditorState: null,
+  textEditorState: '',
   categories: [],
   images: List([]),
 });
@@ -44,9 +44,8 @@ function loginReducer(state = initialState, action) {
       return state
         .set('loading', false)
         .set('error', null)
-        .set('textEditorState', null)
         .set('images', List([]))
-        .set('textEditorState', null);
+        .set('textEditorState', '');
     default:
       return state;
   }

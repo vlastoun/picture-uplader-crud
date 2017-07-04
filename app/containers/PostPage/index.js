@@ -34,7 +34,7 @@ class PostPage extends React.Component {
           ? <h2>loading...</h2>
           : <PostForm
             editorChanged={this.props.editorChanged}
-            editorState={this.state.editorState}
+            editorState={this.props.editorState}
             sendData={this.sendData}
             categories={this.props.categories}
             imagesUploaded={this.props.imagesUploaded}

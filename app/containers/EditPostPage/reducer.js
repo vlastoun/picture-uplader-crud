@@ -21,7 +21,7 @@ const initialState = fromJS({
   error: { categories: null, images: null, post: null },
   postId: null,
   postData: null,
-  textEditorState: null,
+  textEditorState: '',
   categories: [],
   images: List([]),
   oldImages: List([]),

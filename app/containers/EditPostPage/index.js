@@ -28,7 +28,7 @@ class EditPostPage extends React.Component {
     super(props);
     this.sendData = this.sendData.bind(this);
     this.state = {
-      editorState: null,
+      editorState: '',
       postForm: undefined,
     };
   }
@@ -37,14 +37,14 @@ class EditPostPage extends React.Component {
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.postData !== this.props.postData) {
-      const data = JSON.parse(nextProps.postData.body);
+      const data = nextProps.postData.body;
       this.setState({ editorState: data });
       this.props.editorChanged(data);
       this.setState({ postForm: nextProps.postData });
     }
   }
   sendData(data) {
-    this.props.editPostRequest(data.toJS(), this.props.editorState, this.props.imagesToDelete, this.props.images);
+    this.props.editPostRequest(data.toJS(), this.props.editorState, this.props.imagesToDelete, this.props.images); //eslint-disable-line
   }
   render() {
     const { loading } = this.props;
@@ -55,9 +55,9 @@ class EditPostPage extends React.Component {
           !localLoading.images &&
           !localLoading.postData
           ? <PostForm
-            initialValues={this.state.postForm}
+            initialValues={this.props.postData}
             editorChanged={this.props.editorChanged}
-            editorState={this.state.editorState}
+            editorState={this.props.editorState}
             sendData={this.sendData}
             categories={this.props.categories}
             imagesUploaded={this.props.imagesUploaded}
@@ -85,13 +85,14 @@ EditPostPage.propTypes = {
   oldImagesDelete: PropTypes.func.isRequired,
   postData: PropTypes.object.isRequired,
   loading: PropTypes.object.isRequired,
+  editorState: PropTypes.string.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     fetchData: (postId) => dispatch({ type: FETCH_POST_REQUESTED, postId }),
     editorChanged: (data) => dispatch({ type: EDITOR_CHANGED, content: data }),
-    editPostRequest: (data, editorState, imagesToDelete, images) =>
+    editPostRequest: (data, editorState, imagesToDelete, images) => //eslint-disable-line
       dispatch({ type: EDIT_POST_REQUESTED, content: { data, editorState, imagesToDelete, images } }),
     imagesUploaded: (images) => dispatch({ type: IMAGE_UPLOAD_FINISHED, images }),
     imageDelete: (id) => dispatch({ type: IMAGE_DELETE, id }),

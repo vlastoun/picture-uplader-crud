@@ -75,7 +75,7 @@ export function* editPost(action) {
     title: content.data.title,
     description: content.data.description,
     categoryId: content.data.categoryId,
-    body: JSON.stringify(content.editorState),
+    body: content.data.body,
   };
   try {
     const postImageURL = `${HOST}api/cloudinaries?access_token=${TOKEN}`;
@@ -99,8 +99,7 @@ export function* editPost(action) {
 
 export function* deleteUnusedImages(action) {
   const toDelete = action.imagesToDelete.toJS();
-  const response = yield toDelete.map((image) => call(axios.post, `${HOST}api/cloudinaries/delete-image?imageId=${image}&access_token=${TOKEN}`));
-  console.log(response);
+  yield toDelete.map((image) => call(axios.post, `${HOST}api/cloudinaries/delete-image?imageId=${image}&access_token=${TOKEN}`));
 }
 
 export function* imageDeleteFromServer(action) {

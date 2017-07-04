@@ -27,7 +27,7 @@ export function* fetchCategories() {
 /* eslint-disable no-param-reassign*/
 
 export function* newPostRequest(action) {
-  const { currentEditorState, data, user, images } = action.content;
+  const { data, user, images } = action.content;
   const jsData = data.toJS();
   const jsImage = images.toJS();
   const postURL = `${HOST}api/posts?access_token=${TOKEN}`;
@@ -35,7 +35,7 @@ export function* newPostRequest(action) {
   const toPost = {
     title: jsData.title,
     description: jsData.description,
-    body: JSON.stringify(currentEditorState),
+    body: jsData.body,
     userId: user.id,
     categoryId: jsData.categoryId,
   };

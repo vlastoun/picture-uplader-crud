@@ -19,15 +19,15 @@ class ChangePasswordForm extends React.Component { // eslint-disable-line react/
           <Field name="oldPassword" type="password" component={InputField} label="Old password" />
         </div>
         <div>
-          <Field name="password" type="password" component={InputField} label="New password" />
+          <Field name="newPassword" type="password" component={InputField} label="New password" />
         </div>
         <div>
           <Field name="passwordConfirmation" type="password" component={InputField} label="Password confirmation" />
         </div>
         <div>
           {
-            this.props.loginError
-              ? <Span>{this.props.loginError}</Span>
+            this.props.passwordError
+              ? <Span>{this.props.passwordError}</Span>
               : null
           }
         </div>

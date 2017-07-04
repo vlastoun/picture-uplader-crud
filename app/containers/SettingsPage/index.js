@@ -5,16 +5,18 @@ import { createStructuredSelector } from 'reselect';
 import PageTemplate from 'components/PageTemplate';
 import { makeSelectUser } from './selectors';
 import ChangePasswordForm from './ChangePasswordForm';
+import { CHANGE_PASSWORD_REQUEST } from './constants';
 
 /* eslint-disable react/prefer-stateless-function */
 /* eslint-disable no-console */
 class SettingsPage extends React.Component {
-    constructor() {
-      super();
-      this.sendData = this.sendData.bind(this);
-    }
+  constructor() {
+    super();
+    this.sendData = this.sendData.bind(this);
+  }
   sendData(data) {
-    console.log(data)
+    const values = data.toJS();
+    this.props.changePasswordRequest(values);
   }
   render() {
     return (
@@ -29,9 +31,14 @@ class SettingsPage extends React.Component {
   }
 }
 
+SettingsPage.propTypes = {
+  changePasswordRequest: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+};
+
 function mapDispatchToProps(dispatch) {
   return {
-
+    changePasswordRequest: (data) => dispatch({ type: CHANGE_PASSWORD_REQUEST, data }),
   };
 }
 

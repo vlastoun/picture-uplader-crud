@@ -4,6 +4,7 @@ import {
   USER_LOGIN_FAILED,
   USER_LOGOUT,
 } from 'containers/LoginPage/constants';
+import { CHAGE_PASSWORD_FAILED } from 'containers/SettingsPage/constants';
 import {
   TOGGLE_DRAWER,
   STORE_USER,
@@ -15,6 +16,7 @@ const initialState = fromJS({
   isAuth: false, // eslint-disable-line no-unneeded-ternary
   drawerState: false,
   activeUrl: '/',
+  error: null,
 });
 
 function adminReducer(state = initialState, action) {
@@ -36,6 +38,9 @@ function adminReducer(state = initialState, action) {
     case TOGGLE_DRAWER:
       return state
         .set('drawerState', action.state);
+    case CHAGE_PASSWORD_FAILED:
+      return state
+        .set('error', action.error);
     default:
       return state;
   }

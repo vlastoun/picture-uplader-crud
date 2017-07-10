@@ -12,10 +12,12 @@ import {
   STORE_USER,
   AUTHENTIFICATION_FAILED,
  } from './constants';
-
 export function* logout() {
   try {
-    yield call(localStorage.clear());
+    const TOKEN = localStorage.getItem('token');
+    const URL = `${HOST}api/users/logout?access_token=${TOKEN}`;
+    yield call(axios.post, URL);
+    localStorage.clear();
   } catch (e) {
     winston.log('debug', e);
   }

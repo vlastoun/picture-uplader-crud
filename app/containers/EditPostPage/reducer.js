@@ -10,7 +10,6 @@ import {
   FETCH_IMAGES_SUCCESS,
   IMAGE_UPLOAD_FINISHED,
   IMAGE_DELETE,
-  OLD_IMAGE_DELETE,
   EDITOR_CHANGED,
   ADD_IMAGE_TO_STASH,
   POST_EDIT_SUCCESS,
@@ -29,24 +28,24 @@ const initialState = fromJS({
 });
 
 function loginReducer(state = initialState, action) {
-  let list;
-  let oldList;
-  let result;
-  let index;
   switch (action.type) {
     case EDITOR_CHANGED:
-      return state.set('textEditorState', action.content);
+      return state
+        .set('textEditorState', action.content);
     case FETCH_CATEGORIES_SUCCESS:
-      return state.set('categories', action.data).set('error', null).setIn(['loading', 'categories'], false);
+      return state
+        .set('categories', action.data)
+        .set('error', null)
+        .setIn(['loading', 'categories'], false);
     case FETCH_CATEGORIES_FAILED:
       return state.set('error', action.data).setIn(['error', 'categories'], action.message).setIn(['loading', 'categories'], false);
     case FETCH_POST_REQUESTED:
       return state
-      .set('postId', action.postId)
-      .set('imagesToDelete', List([]))
-      .setIn(['loading', 'categories'], true)
-      .setIn(['loading', 'images'], true)
-      .setIn(['loading', 'post'], true);
+        .set('postId', action.postId)
+        .set('imagesToDelete', List([]))
+        .setIn(['loading', 'categories'], true)
+        .setIn(['loading', 'images'], true)
+        .setIn(['loading', 'post'], true);
     case FETCH_POST_SUCCESS:
       return state.set('postData', action.data).setIn(['loading', 'post'], false);
     case FETCH_POST_FAILED:
@@ -58,20 +57,10 @@ function loginReducer(state = initialState, action) {
     case IMAGE_UPLOAD_FINISHED:
       return state.set('images', state.get('images').concat(fromJS(action.images)));
     case IMAGE_DELETE:
-      index = state.get('images').findIndex((item) => item.public_id === action.id);
-      oldList = List(state.get('images'));
-      list = List(oldList.splice(index, 1));
-      return state.set('images', list);
+      return state.set('images', state.get('images').filter((item) => item.get('public_id') !== action.id));
     case ADD_IMAGE_TO_STASH:
-      oldList = List(state.get('imagesToDelete'));
-      result = oldList.push(action.id);
       return state
-        .set('imagesToDelete', result);
-    case OLD_IMAGE_DELETE:
-      index = state.get('oldImages').findIndex((item) => item.public_id === action.id);
-      oldList = List(state.get('oldImages'));
-      list = List(oldList.splice(index, 1));
-      return state.set('oldImages', list);
+        .set('imagesToDelete', state.get('imagesToDelete').push(fromJS(action.id)));
     case POST_EDIT_SUCCESS:
       return state.set('postData', action.data);
     default:

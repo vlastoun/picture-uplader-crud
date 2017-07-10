@@ -56,10 +56,7 @@ function loginReducer(state = initialState, action) {
     case FETCH_IMAGES_FAILED:
       return state.setIn(['error', 'images'], action.message).setIn(['loading', 'images'], false);
     case IMAGE_UPLOAD_FINISHED:
-      list = List(action.images);
-      oldList = List(state.get('images'));
-      result = List(oldList.concat(list));
-      return state.set('images', result);
+      return state.set('images', state.get('images').concat(fromJS(action.images)));
     case IMAGE_DELETE:
       index = state.get('images').findIndex((item) => item.public_id === action.id);
       oldList = List(state.get('images'));

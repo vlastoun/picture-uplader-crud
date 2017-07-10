@@ -5,7 +5,8 @@ import Thumbnail from './Thumbnail';
 /* eslint-disable no-console */
 class ThumbnailBar extends React.Component {
   render() {
-    const listItems = this.props.images.map((image, i) =>
+    const images = this.props.images.toJS();
+    const listItems = images.map((image, i) =>
       <Thumbnail
         key={i}
         thumbnail_url={image.thumbnail_url}

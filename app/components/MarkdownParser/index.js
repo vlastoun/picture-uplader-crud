@@ -19,12 +19,6 @@ const compile = marksy({
 /* eslint-disable no-console */
 class MarkdownParser extends React.Component {
   render() {
-<<<<<<< master
-=======
-<<<<<<< master
-    const compiled = compile(this.props.data).tree;
-=======
->>>>>>> null data in parser changed to empty string
     let displayData;
     if (this.props.data === null) {
       displayData = '';
@@ -32,10 +26,6 @@ class MarkdownParser extends React.Component {
       displayData = this.props.data;
     }
     const compiled = compile(displayData).tree;
-<<<<<<< master
-=======
->>>>>>> null data in parser changed to empty string
->>>>>>> null data in parser changed to empty string
     return (
       <div>
         <h1>Content</h1>

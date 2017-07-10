@@ -13,7 +13,7 @@ const initialState = fromJS({
   error: null,
   textEditorState: '',
   categories: [],
-  images: List([]),
+  images: List(),
 });
 
 function loginReducer(state = initialState, action) {
@@ -23,9 +23,9 @@ function loginReducer(state = initialState, action) {
     case FETCH_CATEGORIES_SUCCESS:
       return state.set('categories', action.data).set('loading', false);
     case IMAGE_DELETE:
-      return state.updateIn('images', (list) => list.filterNot((item) => item.public_id === action.id));
+      return state.set('images', state.get('images').filter((item) => item.get('public_id') !== action.id));
     case IMAGE_UPLOAD_FINISHED:
-      return state.updateIn('images', (list) => list.concat(fromJS(action.images)));
+      return state.set('images', state.get('images').concat(fromJS(action.images)));
     case SEND_POST_REQUESTED:
       return state
         .set('loading', true)

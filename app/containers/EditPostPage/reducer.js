@@ -13,6 +13,7 @@ import {
   EDITOR_CHANGED,
   ADD_IMAGE_TO_STASH,
   POST_EDIT_SUCCESS,
+  OLD_IMAGE_DELETE,
 } from './constants';
 
 const initialState = fromJS({
@@ -61,6 +62,9 @@ function loginReducer(state = initialState, action) {
     case ADD_IMAGE_TO_STASH:
       return state
         .set('imagesToDelete', state.get('imagesToDelete').push(fromJS(action.id)));
+    case OLD_IMAGE_DELETE:
+      return state
+        .set('oldImages', state.get('oldImages').filter((item) => item.get('public_id') !== action.id));
     case POST_EDIT_SUCCESS:
       return state.set('postData', action.data);
     default:

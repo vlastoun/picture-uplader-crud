@@ -19,7 +19,13 @@ const compile = marksy({
 /* eslint-disable no-console */
 class MarkdownParser extends React.Component {
   render() {
-    const compiled = compile(this.props.data).tree;
+    let displayData;
+    if (this.props.data === null) {
+      displayData = '';
+    } else {
+      displayData = this.props.data;
+    }
+    const compiled = compile(displayData).tree;
     return (
       <div>
         <h1>Content</h1>

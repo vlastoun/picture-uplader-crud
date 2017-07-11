@@ -116,8 +116,8 @@ export default function createRoutes(store) {
     },
   };
   const post = {
-    path: '/post/:slug',
-    name: 'post',
+    path: '/posts/:slug',
+    name: 'posts',
     getComponent(nextState, cb) {
       const importModules = Promise.all([
         System.import('containers/Post'),
@@ -129,6 +129,26 @@ export default function createRoutes(store) {
 
       importModules.then(([component, reducer, sagas]) => {
         injectReducer('post', reducer.default);
+        injectSagas(sagas.default);
+        renderRoute(component);
+      });
+      importModules.catch(errorLoading);
+    },
+  };
+  const homePagePosts = {
+    path: '/posts',
+    name: 'posts',
+    getComponent(nextState, cb) {
+      const importModules = Promise.all([
+        System.import('containers/HomePostsPage'),
+        System.import('containers/HomePostsPage/reducer'),
+        System.import('containers/HomePostsPage/sagas'),
+      ]);
+
+      const renderRoute = loadModule(cb);
+
+      importModules.then(([component, reducer, sagas]) => {
+        injectReducer('postsPage', reducer.default);
         injectSagas(sagas.default);
         renderRoute(component);
       });
@@ -156,7 +176,7 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
       childRoutes: [
-        post,
+        post, homePagePosts,
       ],
     },
     {

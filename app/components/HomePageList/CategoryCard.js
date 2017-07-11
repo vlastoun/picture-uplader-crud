@@ -16,12 +16,15 @@ class CategoryCard extends React.Component {
   }
   render() {
     const listItems = this.state.posts.map((post, index) =>
-      <Link to={`/post/${post.id}`}><div key={index}>{post.date}</div></Link>
+      <Link to={`/posts/${post.id}`} key={index}><div >
+        <h2>{post.title}</h2>
+        <p>{post.description}</p>
+      </div></Link>
     );
     return (
       <div>
         <h2>
-          {this.props.category.name}
+          {this.props.category.name.toUpperCase()}
         </h2>
         {listItems}
       </div>

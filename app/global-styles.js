@@ -5,6 +5,7 @@ injectGlobal`
   html,
   a{
     text-decoration: none;
+    color: inherit;
   }
   p{ 
     line-height: 1.5em; 

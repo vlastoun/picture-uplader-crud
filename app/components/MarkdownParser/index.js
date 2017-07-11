@@ -20,15 +20,14 @@ const compile = marksy({
 class MarkdownParser extends React.Component {
   render() {
     let displayData;
-    if (this.props.data === null) {
-      displayData = '';
-    } else {
+    if (this.props.data) {
       displayData = this.props.data;
+    } else {
+      displayData = '';
     }
     const compiled = compile(displayData).tree;
     return (
       <div>
-        <h1>Content</h1>
         {compiled}
       </div>
     );

@@ -14,10 +14,14 @@ class HomePage extends React.PureComponent {
   }
   render() {
     return (
-      <HomePageList
-        categories={this.props.categories.toJS()}
-        posts={this.props.posts.toJS()}
-      />
+      <div>
+        {React.Children.toArray(this.props.children).length === 0
+        ? <HomePageList
+          categories={this.props.categories.toJS()}
+          posts={this.props.posts.toJS()}
+        />
+        : React.Children.toArray(this.props.children)}
+      </div>
     );
   }
 }
@@ -37,6 +41,7 @@ HomePage.propTypes = {
   fetchData: PropTypes.func.isRequired,
   categories: PropTypes.array.isRequired,
   posts: PropTypes.array.isRequired,
+  children: PropTypes.node,
 };
 
 // Wrap the component to inject dispatch and state into it

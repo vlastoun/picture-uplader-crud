@@ -115,6 +115,26 @@ export default function createRoutes(store) {
       importModules.catch(errorLoading);
     },
   };
+  const post = {
+    path: '/post/:slug',
+    name: 'post',
+    getComponent(nextState, cb) {
+      const importModules = Promise.all([
+        System.import('containers/Post'),
+        System.import('containers/Post/reducer'),
+        System.import('containers/Post/sagas'),
+      ]);
+
+      const renderRoute = loadModule(cb);
+
+      importModules.then(([component, reducer, sagas]) => {
+        injectReducer('post', reducer.default);
+        injectSagas(sagas.default);
+        renderRoute(component);
+      });
+      importModules.catch(errorLoading);
+    },
+  };
   return [
     {
       path: '/',
@@ -133,9 +153,11 @@ export default function createRoutes(store) {
           injectSagas(sagas.default);
           renderRoute(component);
         });
-
         importModules.catch(errorLoading);
       },
+      childRoutes: [
+        post,
+      ],
     },
     {
       path: '/admin',

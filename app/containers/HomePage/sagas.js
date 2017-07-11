@@ -9,7 +9,7 @@ import { HOST } from 'constants/host';
 import { LOAD_DATA, FETCH_CATEGORIES, FETCH_POSTS } from './constants';
 
 export function* fetchCategories() {
-  const URL = `${HOST}/api/ctagories`;
+  const URL = `${HOST}/api/categories`;
   const response = yield call(axios.get, URL);
   console.log(response);
 }

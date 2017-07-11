@@ -26,7 +26,7 @@ const TOKEN = localStorage.getItem('token');
 const selectState = (state) => state.toJS();
 
 export function* fetchCategories() {
-  const URL = `${HOST}api/ctagories?access_token=${TOKEN}`;
+  const URL = `${HOST}api/categories?access_token=${TOKEN}`;
   try {
     const response = yield call(axios.get, URL);
     yield put({ type: FETCH_CATEGORIES_SUCCESS, data: response.data });

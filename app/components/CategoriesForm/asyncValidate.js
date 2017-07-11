@@ -3,7 +3,7 @@ import { HOST } from 'constants/host';
 const TOKEN = localStorage.getItem('token');
 
 const getEmailAndUsername = (data) => new Promise((resolve) => {
-  const usernameURL = `${HOST}api/ctagories/count?where=%7B%22name%22%3A%22${data.name}%22%7D&access_token=${TOKEN}`;
+  const usernameURL = `${HOST}api/categories/count?where=%7B%22name%22%3A%22${data.name}%22%7D&access_token=${TOKEN}`;
   Promise.all([
     axios.get(usernameURL),
   ]).then((response) => {

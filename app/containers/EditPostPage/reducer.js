@@ -52,7 +52,7 @@ function loginReducer(state = initialState, action) {
     case FETCH_POST_FAILED:
       return state.set('postData', action.data).setIn(['loading', 'post'], false).setIn(['error', 'post'], action.message);
     case FETCH_IMAGES_SUCCESS:
-      return state.set('oldImages', List(action.data)).set('error', action.message).setIn(['loading', 'images'], false);
+      return state.set('oldImages', fromJS(action.data)).set('error', action.message).setIn(['loading', 'images'], false);
     case FETCH_IMAGES_FAILED:
       return state.setIn(['error', 'images'], action.message).setIn(['loading', 'images'], false);
     case IMAGE_UPLOAD_FINISHED:
@@ -66,7 +66,10 @@ function loginReducer(state = initialState, action) {
       return state
         .set('oldImages', state.get('oldImages').filter((item) => item.get('public_id') !== action.id));
     case POST_EDIT_SUCCESS:
-      return state.set('postData', action.data);
+      return state
+        .set('postData', action.data)
+        .set('images', fromJS([]))
+        .set('imagesToDelete', fromJS([]));
     default:
       return state;
   }

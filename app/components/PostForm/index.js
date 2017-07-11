@@ -79,7 +79,7 @@ class PostForm extends React.Component {
           <ThumbnailBar images={this.props.images} imageDelete={this.props.imageDelete} />
           {this.props.oldImages && <ThumbnailBar images={this.props.oldImages} imageDelete={this.props.oldImagesDelete} />}
           <RaisedButton type="submit" disabled={submitting} fullWidth primary style={buttonStyle}>
-            Submit
+            Save and exit
           </RaisedButton>
         </form>
       </div>

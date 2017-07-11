@@ -1,4 +1,4 @@
-import { take, call, cancel, takeLatest, put, takeEvery } from 'redux-saga/effects';
+import { take, call, cancel, takeLatest, put, takeEvery, select } from 'redux-saga/effects';
 import { LOCATION_CHANGE, push } from 'react-router-redux';
 import axios from 'axios';
 import { HOST } from 'constants/host';
@@ -23,6 +23,7 @@ import {
  } from './constants';
 
 const TOKEN = localStorage.getItem('token');
+const selectState = (state) => state.toJS();
 
 export function* fetchCategories() {
   const URL = `${HOST}api/ctagories?access_token=${TOKEN}`;
@@ -77,28 +78,30 @@ export function* editPost(action) {
     categoryId: content.data.categoryId,
     body: content.data.body,
   };
+  const state = yield select(selectState);
+  const images = state.editPost.images;
   try {
     const postImageURL = `${HOST}api/cloudinaries?access_token=${TOKEN}`;
     const URL = `${HOST}api/posts/${content.data.id}?access_token=${TOKEN}`;
     const response = yield call(axios.patch, URL, toPost);
-    yield put({ type: DELETE_UNUSED_IMAGES, imagesToDelete: content.imagesToDelete });
-    yield put({ type: POST_EDIT_SUCCESS, data: response.data });
-    const images = content.images.toJS();
+    yield put({ type: DELETE_UNUSED_IMAGES, imagesToDelete: state.editPost.imagesToDelete });
     if (images.length > 0) {
       images.forEach((image) => {
-        image.postId = content.data.userId;
-        image.userId = content.data.userId;
-        image.categoryId = images.categoryId;
+        image.postId = response.data.id;
+        image.userId = response.data.userId;
+        image.categoryId = response.categoryId;
       });
       yield images.map((image) => call(axios.post, postImageURL, image));
     }
+    yield put({ type: POST_EDIT_SUCCESS, data: response.data });
+    yield put(push('/admin/posts'));
   } catch (error) {
     yield put({ type: POST_EDIT_FAILED, message: error });
   }
 }
 
 export function* deleteUnusedImages(action) {
-  const toDelete = action.imagesToDelete.toJS();
+  const toDelete = action.imagesToDelete;
   yield toDelete.map((image) => call(axios.post, `${HOST}api/cloudinaries/delete-image?imageId=${image}&access_token=${TOKEN}`));
 }
 

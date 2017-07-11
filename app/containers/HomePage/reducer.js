@@ -3,7 +3,10 @@ import { fromJS } from 'immutable';
 
 // The initial state of the App
 const initialState = fromJS({
-  user: null,
+  categories: [],
+  posts: [],
+  loading: false,
+  error: null,
 });
 
 function homeReducer(state = initialState, action) {

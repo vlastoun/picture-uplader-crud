@@ -1,3 +1,3 @@
-export const CREATE_USER = 'HomePage/CREATE_USER';
-export const LOGIN_USER = 'HomePage/LOGIN_USER';
-export const STORE_USER = 'HomePage/STORE_USER';
+export const LOAD_DATA = 'HomePage/LOAD_DATA';
+export const FETCH_CATEGORIES = 'HomePage/FETCH_CATEGORIES';
+export const FETCH_POSTS = 'HomePage/FETCH_POSTS';

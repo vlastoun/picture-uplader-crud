@@ -5,8 +5,11 @@ import { push } from 'react-router-redux';
 import { createStructuredSelector } from 'reselect';
 import AdminAppBar from 'components/AdminAppBar';
 import AdminDashboard from 'components/AdminDashboard';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import { USER_LOGOUT, TOGGLE_DRAWER, DRAWER_LINK_CLICKED, AUTHENTIFICATION_CHECK } from './constants';
 import { makeSelectUser, getAuthState, getDrawerState, getActiveUrl } from './selectors';
+injectTapEventPlugin();
 /* eslint-disable react/prefer-stateless-function */
 class AdminPage extends React.Component {
   componentWillMount() {
@@ -14,7 +17,8 @@ class AdminPage extends React.Component {
   }
   render() {
     return (
-      <div>
+      <MuiThemeProvider>
+        <div>
         {
           !this.props.authorized
           ? <h2>Loading..</h2>
@@ -31,7 +35,8 @@ class AdminPage extends React.Component {
           ? <AdminDashboard />
           : React.Children.toArray(this.props.children)
         }
-      </div>
+        </div>
+      </MuiThemeProvider>
     );
   }
 }

@@ -37,7 +37,6 @@ HomePostsPage.propTypes = {
   fetchData: PropTypes.func.isRequired,
   categories: PropTypes.object.isRequired,
   posts: PropTypes.object.isRequired,
-  children: PropTypes.node,
 };
 
 // Wrap the component to inject dispatch and state into it

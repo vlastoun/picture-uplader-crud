@@ -6,7 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import AppBar from 'components/AppBar';
 import Form from 'components/Form';
 
-class HomePage extends React.PureComponent {
+class HomePage extends React.Component {
   render() {
     return (
       <div>

@@ -6,18 +6,28 @@ import styled from 'styled-components';
 const MainWrapper = styled.div`
   box-shadow: 2px 4px 8px 2px rgba(0,0,0,0.2);
   transition: 0.3s;
+  display: flex;
+  margin-top: 1em;
   &:hover{
     box-shadow: 4px 8px 16px 4px rgba(0,0,0,0.2); 
   }
 `;
 const Img = styled.img`
-  height: 100%;
   float: left;
+  position: relative;
+  max-height: 150px;
 `;
-const P = styled.p`
+const P = styled.div`
+  margin: 0em;
 `;
-const B = styled.p`
+const B = styled.div`
+  font-size: 125%;
   font-weight: bold;
+  margin: 0em;
+  padding: 0em;
+`;
+const SecondaryWrapper = styled.div`
+  padding: 10px;
 `;
 
 class CategoryCard extends React.Component {
@@ -37,10 +47,10 @@ class CategoryCard extends React.Component {
       <Link to={`/posts/${post.id}`} key={index}>
         <MainWrapper >
           <Img src={post.mainimg} />
-          <div>
+          <SecondaryWrapper>
             <B>{post.title}</B>
             <P>{post.description}</P>
-          </div>
+          </SecondaryWrapper>
         </MainWrapper>
       </Link>
     );

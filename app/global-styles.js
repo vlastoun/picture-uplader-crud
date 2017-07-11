@@ -2,7 +2,15 @@ import { injectGlobal } from 'styled-components';
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
-  html,
+  #app {
+    background-color: #fafafa;
+    min-height: 100%;
+    min-width: 100%;
+  }
+  html{
+    padding: 0;
+    margin: 0;
+  }
   a{
     text-decoration: none;
     color: inherit;
@@ -13,10 +21,11 @@ injectGlobal`
   code{
     background-color: grey;
   }
-
-  #app {
-    background-color: #fafafa;
-    min-height: 100%;
-    min-width: 100%;
+  body{
+    margin: 0;
+  }
+  ul{
+    margin: 0;
+    padding: 0;
   }
 `;

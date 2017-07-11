@@ -39,6 +39,7 @@ export function* newPostRequest(action) {
     userId: user.id,
     date: jsData.date,
     categoryId: jsData.categoryId,
+    mainimg: jsData.mainimg,
   };
   try {
     const response = yield call(axios.post, postURL, toPost);

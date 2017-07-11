@@ -4,17 +4,20 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import AppBar from 'components/AppBar';
+import Form from 'components/Form';
 
 class HomePage extends React.PureComponent {
   render() {
     return (
       <div>
         <AppBar />
-        {React.Children.toArray(this.props.children).length === 0
-        ? <div>
-          <p>vitejte</p>
-        </div>
-        : React.Children.toArray(this.props.children)}
+        <Form noTopMargin mainPage>
+          {React.Children.toArray(this.props.children).length === 0
+          ? <div>
+            <h1>Vítejte</h1>
+          </div>
+          : React.Children.toArray(this.props.children)}
+        </Form>
       </div>
     );
   }

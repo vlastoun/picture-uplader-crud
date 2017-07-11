@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import HomePageList from 'components/HomePageList';
-import AppBar from 'components/AppBar';
 import { LOAD_DATA } from './constants';
 import { selectCategories, selectPosts } from './selectors';
 

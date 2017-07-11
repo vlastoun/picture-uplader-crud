@@ -64,6 +64,17 @@ class PostForm extends React.Component {
         onChange={this.handleEditorChange}
       />
     );
+    const mainimg = (
+      <Field
+        name="mainimg"
+        type="text"
+        component={InputField}
+        label="Main image"
+        multiLine
+        fullWidth
+        onChange={this.handleEditorChange}
+      />
+    );
    const listItems = this.props.categories.map((item) => { //eslint-disable-line
      return (
        <MenuItem value={item.id} primaryText={item.name} key={item.id} />
@@ -82,6 +93,7 @@ class PostForm extends React.Component {
           {date}
           {description}
           {select}
+          {mainimg}
           <div>
             {body}
             <MarkdownParser data={this.props.editorState} />

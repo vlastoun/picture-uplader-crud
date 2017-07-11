@@ -43,6 +43,16 @@ class PostForm extends React.Component {
         fullWidth
       />
     );
+    const date = (
+      <Field
+        name="date"
+        type="text"
+        component={InputField}
+        label="Date"
+        multiLine
+        fullWidth
+      />
+    );
     const body = (
       <Field
         name="body"
@@ -69,6 +79,7 @@ class PostForm extends React.Component {
       <div>
         <form onSubmit={handleSubmit(sendData)}>
           {name}
+          {date}
           {description}
           {select}
           <div>

@@ -37,6 +37,7 @@ export function* newPostRequest(action) {
     description: jsData.description,
     body: jsData.body,
     userId: user.id,
+    date: jsData.date,
     categoryId: jsData.categoryId,
   };
   try {

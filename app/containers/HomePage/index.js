@@ -3,8 +3,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
-import { Link } from 'react-router';
+import HomePageList from 'components/HomePageList';
 import { LOAD_DATA } from './constants';
+import { selectCategories, selectPosts } from './selectors';
 
 
 class HomePage extends React.PureComponent {
@@ -13,7 +14,10 @@ class HomePage extends React.PureComponent {
   }
   render() {
     return (
-      <Link to="/admin">....Admin page</Link>
+      <HomePageList
+        categories={this.props.categories.toJS()}
+        posts={this.props.posts.toJS()}
+      />
     );
   }
 }
@@ -25,11 +29,14 @@ function mapDispatchToProps(dispatch) {
 }
 
 const mapStateToProps = createStructuredSelector({
-
+  categories: selectCategories(),
+  posts: selectPosts(),
 });
 
 HomePage.propTypes = {
   fetchData: PropTypes.func.isRequired,
+  categories: PropTypes.array.isRequired,
+  posts: PropTypes.array.isRequired,
 };
 
 // Wrap the component to inject dispatch and state into it

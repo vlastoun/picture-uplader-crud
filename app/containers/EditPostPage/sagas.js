@@ -77,6 +77,7 @@ export function* editPost(action) {
     description: content.data.description,
     categoryId: content.data.categoryId,
     body: content.data.body,
+    date: content.data.date,
   };
   const state = yield select(selectState);
   const images = state.editPost.images;

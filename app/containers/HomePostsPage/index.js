@@ -4,9 +4,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import HomePageList from 'components/HomePageList';
+import styled from 'styled-components';
 import { LOAD_DATA } from './constants';
 import { selectCategories, selectPosts } from './selectors';
 
+const Wrapper = styled.div`
+    top: 250px;
+`;
 
 class HomePostsPage extends React.PureComponent {
   componentWillMount() {
@@ -14,10 +18,12 @@ class HomePostsPage extends React.PureComponent {
   }
   render() {
     return (
-      <HomePageList
-        categories={this.props.categories.toJS()}
-        posts={this.props.posts.toJS()}
-      />
+      <Wrapper>
+        <HomePageList
+          categories={this.props.categories.toJS()}
+          posts={this.props.posts.toJS()}
+        />
+      </Wrapper>
     );
   }
 }

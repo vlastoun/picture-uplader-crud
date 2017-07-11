@@ -22,6 +22,7 @@ injectGlobal`
     background-color: grey;
   }
   body{
+    padding-top: 40px;
     margin: 0;
   }
   ul{

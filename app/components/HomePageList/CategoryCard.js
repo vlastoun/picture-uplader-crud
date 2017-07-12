@@ -8,6 +8,12 @@ const MainWrapper = styled.div`
   transition: 0.3s;
   display: flex;
   margin-top: 1em;
+  transition-property: "all";
+  transition-duration: 450ms;
+  transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+  -webkit-transition-property: "all";
+  -webkit-transition-duration: 450ms;
+  -webkit-transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
   &:hover{
     box-shadow: 4px 8px 16px 4px rgba(0,0,0,0.2); 
   }

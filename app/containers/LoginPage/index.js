@@ -9,7 +9,6 @@ import FlatButton from 'material-ui/FlatButton';
 import { Link } from 'react-router';
 import { makeSelectError } from './selectors';
 import { USER_LOGIN, RESET_FIELDS } from './constants';
-
 const style = {
   padding: 20,
   textAlign: 'center',

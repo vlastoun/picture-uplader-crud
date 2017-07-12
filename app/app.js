@@ -46,6 +46,9 @@ import './global-styles';
 // Theme
 import { redTheme } from './colors';
 import { ThemeProvider } from 'styled-components';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+injectTapEventPlugin();
 // Import root routes
 import createRoutes from './routes';
 
@@ -72,19 +75,21 @@ const rootRoute = {
 const render = (messages) => {
   ReactDOM.render(
     <Provider store={store}>
-      <ThemeProvider theme={redTheme} >
-        <LanguageProvider messages={messages}>
-          <Router
-            history={history}
-            routes={rootRoute}
-            render={
-              // Scroll to top when going to a new page, imitating default browser
-              // behaviour
-              applyRouterMiddleware(useScroll())
-            }
-          />
-        </LanguageProvider>
-      </ThemeProvider>
+      <MuiThemeProvider>
+        <ThemeProvider theme={redTheme} >
+          <LanguageProvider messages={messages}>
+            <Router
+              history={history}
+              routes={rootRoute}
+              render={
+                // Scroll to top when going to a new page, imitating default browser
+                // behaviour
+                applyRouterMiddleware(useScroll())
+              }
+            />
+          </LanguageProvider>
+        </ThemeProvider>
+      </MuiThemeProvider>
     </Provider>,
     document.getElementById('app')
   );

@@ -6,4 +6,4 @@ export const ADD_CATEGORIES = 'HomePage/ADD_CATEGORIES';
 export const PUT_ERROR = 'HomePage/PUT_ERROR';
 
 export const TAB_CLICKED = 'HomePage/TAB_CLICKED';
-
+export const ACTIVATE_TAB = 'HomePage/ACTIVATE_TAB';

@@ -20,6 +20,7 @@ const MainWrapper = styled.div`
 `;
 const Img = styled.img`
   float: left;
+  z-index: 10;
   position: relative;
   max-height: 150px;
 `;
@@ -63,7 +64,7 @@ class CategoryCard extends React.Component {
     return (
       <div>
         <h2>
-          {this.props.category.name.toUpperCase()}
+          {this.props.category.label.toUpperCase()}
         </h2>
         {listItems}
       </div>

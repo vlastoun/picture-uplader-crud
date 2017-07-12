@@ -11,6 +11,26 @@ injectGlobal`
     padding: 0;
     margin: 0;
   }
+  h1{
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-smooth: auto;
+  }
+  h2{
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-smooth: auto;
+  }
+  h3{
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-smooth: auto;
+  }
+  h4{
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-smooth: auto;
+  }
   a{
     text-decoration: none;
     color: inherit;
@@ -22,8 +42,11 @@ injectGlobal`
     background-color: grey;
   }
   body{
-    padding-top: 20px;
+    padding-top: 25px;
     margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-smooth: auto;
   }
   ul{
     margin: 0;

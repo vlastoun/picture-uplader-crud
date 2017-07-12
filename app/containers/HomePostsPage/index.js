@@ -6,7 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import HomePageList from 'components/HomePageList';
 import styled from 'styled-components';
 import { LOAD_DATA } from './constants';
-import { selectCategories, selectPosts } from './selectors';
+import { selectCategories, selectPosts, selectActiveTab } from './selectors';
 
 const Wrapper = styled.div`
     top: 250px;
@@ -22,6 +22,7 @@ class HomePostsPage extends React.PureComponent {
         <HomePageList
           categories={this.props.categories.toJS()}
           posts={this.props.posts.toJS()}
+          activeTab={this.props.activeTab.toJS()}
         />
       </Wrapper>
     );
@@ -37,12 +38,14 @@ function mapDispatchToProps(dispatch) {
 const mapStateToProps = createStructuredSelector({
   categories: selectCategories(),
   posts: selectPosts(),
+  activeTab: selectActiveTab(),
 });
 
 HomePostsPage.propTypes = {
   fetchData: PropTypes.func.isRequired,
   categories: PropTypes.object.isRequired,
   posts: PropTypes.object.isRequired,
+  activeTab: PropTypes.object.isRequired,
 };
 
 // Wrap the component to inject dispatch and state into it

@@ -13,7 +13,7 @@ function homeReducer(state = initialState, action) {
   switch (action.type) {
     case TAB_CLICKED:
       return state
-        .set('activeTab', action.id);
+        .set('activeTab', fromJS(action.id));
     case ADD_CATEGORIES:
       return state
         .set('categories', fromJS(action.categories));

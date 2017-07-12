@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import AppBar from 'components/AppBar';
 import Form from 'components/Form';
-import { LOAD_DATA, TAB_CLICKED } from './constants';
+import { LOAD_DATA, TAB_CLICKED, ACTIVATE_TAB } from './constants';
 import { selectCategories, selectActiveTab } from './selectors';
 
 class HomePage extends React.Component {
@@ -18,7 +18,7 @@ class HomePage extends React.Component {
         <AppBar
           tabs={this.props.categories.toJS()}
           onTabClick={this.props.tabClicked}
-          activeTab={this.props.activeTab}
+          activeTab={this.props.activeTab.toJS()}
         />
         <Form noTopMargin mainPage>
           {React.Children.toArray(this.props.children).length === 0
@@ -36,6 +36,7 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchData: () => dispatch({ type: LOAD_DATA }),
     tabClicked: (id) => dispatch({ type: TAB_CLICKED, id }),
+    activateTab: (route) => dispatch({ type: ACTIVATE_TAB, route }),
   };
 }
 

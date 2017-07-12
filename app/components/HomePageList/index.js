@@ -1,21 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CategoryCard from './CategoryCard'
+import CategoryCard from './CategoryCard';
 
+/* eslint-disable react/prefer-stateless-function */
 class HomePageList extends React.Component {
   render() {
-    const { categories, posts } = this.props;
-    const listItems = categories.map((category, index) =>
-      <CategoryCard
-        key={index}
-        category={category}
-        posts={posts.filter((post) => category.id === post.categoryId)}
-      />
-    );
+    const { posts, activeTab } = this.props;
     return (
       <div>
         <ul>
-          {listItems}
+          <CategoryCard
+            category={activeTab}
+            posts={posts.filter((post) => activeTab.categoryId === post.categoryId)}
+          />
         </ul>
       </div>
     );
@@ -24,6 +21,6 @@ class HomePageList extends React.Component {
 
 HomePageList.propTypes = {
   posts: PropTypes.array.isRequired,
-  categories: PropTypes.array.isRequired,
+  activeTab: PropTypes.object.isRequired,
 };
 export default HomePageList;

@@ -236,6 +236,7 @@
     "material-ui": "^0.18.3",
     "minimist": "1.2.0",
     "react": "15.4.1",
+    "react-awesome-modal": "^2.0.1",
     "react-bootstrap": "^0.31.0",
     "react-dom": "15.4.1",
     "react-helmet": "3.2.2",

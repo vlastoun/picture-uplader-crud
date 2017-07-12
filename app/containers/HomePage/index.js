@@ -5,8 +5,13 @@ import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import AppBar from 'components/AppBar';
 import Form from 'components/Form';
+import styled from 'styled-components';
 import { LOAD_DATA, TAB_CLICKED, ACTIVATE_TAB } from './constants';
 import { selectCategories, selectActiveTab } from './selectors';
+const Link = styled.a`
+  text-decoration: underline;
+  color: blue;
+`;
 
 class HomePage extends React.Component {
   componentWillMount() {
@@ -23,7 +28,9 @@ class HomePage extends React.Component {
         <Form noTopMargin mainPage>
           {React.Children.toArray(this.props.children).length === 0
             ? <div>
-              <h2>Vítejte</h2>
+              <h2>
+                Webové stránky jsou ve výstavbě, zdrojový kód k nalezení na <Link href="https://github.com/vlastoun">github.com/vlastoun</Link>
+              </h2>
             </div>
             : React.Children.toArray(this.props.children)}
         </Form>

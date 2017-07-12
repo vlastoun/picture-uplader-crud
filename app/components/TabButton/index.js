@@ -8,7 +8,12 @@ class TabButton extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
   handleClick() {
-    const dataToSend = { id: this.props.id, label: this.props.label };
+    const dataToSend = {
+      id: this.props.id,
+      label: this.props.label,
+      url: this.props.url,
+      categoryId: this.props.categoryId,
+    };
     this.props.onClick(dataToSend);
   }
   render() {
@@ -27,6 +32,8 @@ TabButton.propTypes = {
   active: PropTypes.bool,
   onClick: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
+  url: PropTypes.string,
+  categoryId: PropTypes.number,
 };
 
 export default TabButton;

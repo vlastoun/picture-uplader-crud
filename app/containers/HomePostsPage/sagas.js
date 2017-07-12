@@ -1,7 +1,3 @@
-/**
- * Gets the repositories of the user from Github
- */
-
 import { take, takeLatest, put, cancel, call } from 'redux-saga/effects';
 import axios from 'axios';
 import { LOCATION_CHANGE } from 'react-router-redux';

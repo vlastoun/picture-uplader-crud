@@ -5,7 +5,7 @@ const Button = styled.div`
   padding-left: 10px;
   padding-right: 10px;
   border-bottom: ${(props) => props.active ? `5px solid ${props.theme.darkColor}` : 'none'};
-  height: 3em
+  height: 40px;
   line-height: 3em;
   text-align: center;
   color: white;

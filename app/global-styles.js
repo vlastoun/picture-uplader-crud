@@ -22,7 +22,7 @@ injectGlobal`
     background-color: grey;
   }
   body{
-    padding-top: 40px;
+    padding-top: 20px;
     margin: 0;
   }
   ul{

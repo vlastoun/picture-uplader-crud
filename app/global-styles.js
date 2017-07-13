@@ -5,34 +5,35 @@ injectGlobal`
   #app {
     min-height: 100%;
     min-width: 100%;
+    font-smooth: auto;
   }
-  html{
-    padding: 0;
-    margin: 0;
+  @font-face {
+    font-family: 'Roboto', sans-serif;
+    src: url("https://fonts.googleapis.com/css?family=Roboto") format('opentype');
   }
   h1{
+    font-family: 'Roboto', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-smooth: auto;
   }
   h2{
+    font-family: 'Roboto', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-smooth: auto;
   }
   h3{
+    font-family: 'Roboto', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-smooth: auto;
   }
   h4{
+    font-family: 'Roboto', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-smooth: auto;
-  }
-  a{
-    text-decoration: none;
-    color: inherit;
   }
   p{ 
     line-height: 1.5em; 
@@ -45,7 +46,6 @@ injectGlobal`
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-smooth: auto;
   }
   ul{
     margin: 0;

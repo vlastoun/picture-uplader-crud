@@ -20,18 +20,23 @@ const MainWrapper = styled.div`
 `;
 const Img = styled.img`
   float: left;
-  z-index: 10;
+  z-index: -2;
   position: relative;
   max-height: 150px;
 `;
 const P = styled.div`
   margin: 0em;
+  text-decoration: none;
+  color: black;
+  text-decoration: underline white;
 `;
 const B = styled.div`
   font-size: 125%;
   font-weight: bold;
   margin: 0em;
   padding: 0em;
+  text-decoration: underline white;
+  color: black;
 `;
 const SecondaryWrapper = styled.div`
   padding: 10px;

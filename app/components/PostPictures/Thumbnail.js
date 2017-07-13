@@ -5,9 +5,15 @@ import styled from 'styled-components';
 /* eslint-disable no-console */
 
 const Img = styled.img`
-  margin: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   list-style-type: none;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+  &:hover{
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 12px, rgba(0, 0, 0, 0.12) 0px 4px 12px;
+    cursor: pointer;
+  }
 `;
 const Div = styled.div`
   float:left;

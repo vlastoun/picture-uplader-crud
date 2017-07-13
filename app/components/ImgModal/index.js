@@ -1,41 +1,58 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Modal from 'react-awesome-modal';
+import Modal from 'react-modal';
 import styled from 'styled-components';
 import Button from 'components/Button';
-
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden
-`;
-const Img = styled.img`
-  bject-fit: cover;
-  min-width: 100%;
-  min-height: 100%  
-`;
-const ButtonDiv = styled.div`
-  margin: 10px;
-`;
 /* eslint-disable react/prefer-stateless-function */
+const ButtonDiv = styled.div`
+  margin-bottom: 10px;
+`;
+const modalStyle = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
+};
 class ImgModal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { width: '0', height: '0' };
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+  }
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
+  }
   render() {
+    const Img = styled.img`
+      justify: center;
+      max-height: ${this.state.height * 0.9}px;
+      max-width: 100%;
+      object-fit: cover;
+    `;
     return (
       <Modal
-        visible={this.props.modalState}
-        effect="fadeInUp"
-        onClickAway={this.props.hideModal}
-        width="90%"
-        height="90%"
+        isOpen={this.props.modalState}
+        onRequestClose={this.props.hideModal}
+        style={modalStyle}
       >
         <div>
           <ButtonDiv>
             <Button onClick={this.props.hideModal}>Zavřít</Button>
           </ButtonDiv>
-          <Wrapper>
+          <div>
             <Img src={this.props.pictureURL} />
-          </Wrapper>
+          </div>
         </div>
       </Modal>
     );

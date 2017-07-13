@@ -29,8 +29,11 @@ class HomePage extends React.Component {
           {React.Children.toArray(this.props.children).length === 0
             ? <div>
               <h2>
-                Webové stránky jsou ve výstavbě, zdrojový kód k nalezení na <Link href="https://github.com/vlastoun">github.com/vlastoun</Link>
+                Vítejte. Stránky jsou zatím ve výstavbě
               </h2>
+              <p>
+               Zdrojový kód k nalezení na <Link href="https://github.com/vlastoun">github.com/vlastoun</Link>
+              </p>
             </div>
             : React.Children.toArray(this.props.children)}
         </Form>

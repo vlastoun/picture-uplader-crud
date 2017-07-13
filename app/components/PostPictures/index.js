@@ -12,7 +12,7 @@ class ThumbnailBar extends React.Component {
         thumbnail_url={image.thumbnail_url}
         public_id={image.public_id}
         original_filename={image.original_filename}
-        url={image.url}
+        url={image.secure_url}
         showPicture={this.props.showPicture}
       />
     );

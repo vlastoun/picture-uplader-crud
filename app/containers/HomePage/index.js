@@ -5,13 +5,8 @@ import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import AppBar from 'components/AppBar';
 import Form from 'components/Form';
-import styled from 'styled-components';
 import { LOAD_DATA, TAB_CLICKED, ACTIVATE_TAB } from './constants';
 import { selectCategories, selectActiveTab } from './selectors';
-const Link = styled.a`
-  text-decoration: underline;
-  color: blue;
-`;
 
 class HomePage extends React.Component {
   componentWillMount() {
@@ -33,9 +28,6 @@ class HomePage extends React.Component {
               </h2>
               <p>
                 Kategorie Projekty a IT projekty jsou aktivní.
-              </p>
-              <p>
-               Zdrojový kód k nalezení na <Link href="https://github.com/vlastoun">github.com/vlastoun</Link>
               </p>
             </div>
             : React.Children.toArray(this.props.children)}

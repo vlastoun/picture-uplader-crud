@@ -19,6 +19,7 @@ class ThumbnailBar extends React.Component {
 
     return (
       <div>
+        <h3>Galerie</h3>
         {listItems}
       </div>
     );

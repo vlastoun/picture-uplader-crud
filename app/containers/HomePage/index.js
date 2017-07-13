@@ -32,6 +32,9 @@ class HomePage extends React.Component {
                 Vítejte. Stránky jsou zatím ve výstavbě
               </h2>
               <p>
+                Kategorie Projekty a IT projekty jsou aktivní.
+              </p>
+              <p>
                Zdrojový kód k nalezení na <Link href="https://github.com/vlastoun">github.com/vlastoun</Link>
               </p>
             </div>

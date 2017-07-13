@@ -13,8 +13,6 @@ const Button = styled.button`
   position: relative;
   height: 36px;
   margin: auto;
-  margin-left: 3px;
-  margin-right: 3px;
   min-width: 64px;
   padding: 0 16px;
   display: inline-block;

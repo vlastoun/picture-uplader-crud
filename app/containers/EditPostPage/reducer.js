@@ -1,5 +1,5 @@
 import { fromJS, List } from 'immutable';
-import { EditorState } from 'draft-js'; //eslint-disable-line
+import { LOCATION_CHANGE } from 'react-router-redux';
 import {
   FETCH_POST_REQUESTED,
   FETCH_CATEGORIES_SUCCESS,
@@ -15,7 +15,6 @@ import {
   POST_EDIT_SUCCESS,
   OLD_IMAGE_DELETE,
 } from './constants';
-
 const initialState = fromJS({
   loading: { categories: true, images: true, post: true },
   error: { categories: null, images: null, post: null },
@@ -70,6 +69,8 @@ function loginReducer(state = initialState, action) {
         .set('postData', action.data)
         .set('images', fromJS([]))
         .set('imagesToDelete', fromJS([]));
+    case LOCATION_CHANGE:
+      return initialState;
     default:
       return state;
   }

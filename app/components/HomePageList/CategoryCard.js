@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import styled from 'styled-components';
+import Button from 'components/Button';
 
 const MainWrapper = styled.div`
   box-shadow: 2px 4px 8px 2px rgba(0,0,0,0.2);
@@ -14,9 +15,6 @@ const MainWrapper = styled.div`
   -webkit-transition-property: "all";
   -webkit-transition-duration: 450ms;
   -webkit-transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
-  &:hover{
-    box-shadow: 4px 8px 16px 4px rgba(0,0,0,0.2); 
-  }
 `;
 const Img = styled.img`
   float: left;
@@ -28,14 +26,13 @@ const P = styled.div`
   margin: 0em;
   text-decoration: none;
   color: black;
-  text-decoration: underline white;
+  margin-bottom: 1em;
 `;
 const B = styled.div`
   font-size: 125%;
   font-weight: bold;
   margin: 0em;
   padding: 0em;
-  text-decoration: underline white;
   color: black;
 `;
 const SecondaryWrapper = styled.div`
@@ -56,15 +53,14 @@ class CategoryCard extends React.Component {
   }
   render() {
     const listItems = this.state.posts.map((post, index) =>
-      <Link to={`/posts/${post.id}`} key={index}>
-        <MainWrapper >
-          <Img src={post.mainimg} />
-          <SecondaryWrapper>
-            <B>{post.title}</B>
-            <P>{post.description}</P>
-          </SecondaryWrapper>
-        </MainWrapper>
-      </Link>
+      <MainWrapper >
+        <Img src={post.mainimg} />
+        <SecondaryWrapper>
+          <B>{post.title}</B>
+          <P>{post.description}</P>
+          <Link to={`/posts/${post.id}`} key={index}><Button>Více</Button></Link>
+        </SecondaryWrapper>
+      </MainWrapper>
     );
     return (
       <div>

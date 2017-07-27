@@ -15,7 +15,7 @@ function loginReducer(state = initialState, action) {
       .set('error', initialState.get('error'));
     case RESET_FIELDS:
       return state
-        .set('error', action.payload);
+        .set('error', fromJS(action.payload));
     default:
       return state;
   }

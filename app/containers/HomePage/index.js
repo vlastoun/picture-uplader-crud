@@ -7,7 +7,6 @@ import AppBar from 'components/AppBar';
 import Form from 'components/Form';
 import { LOAD_DATA, TAB_CLICKED, ACTIVATE_TAB } from './constants';
 import { selectCategories, selectActiveTab } from './selectors';
-import Banner from './dog1.jpg';
 
 class HomePage extends React.Component {
   componentWillMount() {
@@ -30,7 +29,6 @@ class HomePage extends React.Component {
               <p>
                 Kategorie Projekty a IT projekty jsou aktivní.
               </p>
-              <img src={Banner} alt="banner" />
             </div>
             : React.Children.toArray(this.props.children)}
         </Form>
